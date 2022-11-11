@@ -10,7 +10,7 @@ function Feed() {
     <>
       <Stack style={{ display: 'flex', flexDirection: 'row' }}>
         <Sidebar />
-        <Stack style={{ overflowY: "auto", height: "100vh", flex: 2 }}>
+        <Stack>
           <Music />
         </Stack>
       </Stack>

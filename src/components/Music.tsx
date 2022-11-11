@@ -1,48 +1,59 @@
 import React, { useContext, useEffect, useState } from 'react';
 
 import Stack from 'react-bootstrap/Stack';
-import Container from 'react-bootstrap/esm/Container';
-import Col from 'react-bootstrap/Col';
+
 import { Context } from '../context';
 import { fetchFromAPI } from '../utils/fetchFromAPI';
+import Cards from './const/Cards';
 
 function Music() {
 
   const { token } = useContext(Context);
 
-  const [newReleases, setnewReleases] = useState<string[]>([]);
+  const [newReleases, setNewReleases] = useState<any>([]);
+  const [featuredPlaylists, setFeaturedPlaylists] = useState<any>([]);
+  const [categories, setCategories] = useState<any>([]);
+  const [recommendations, setRecommendations] = useState<any>([]);
 
-  // useEffect(() => {
-  //   fetchFromAPI('browse/new-releases?limit=20', token)
-  //     .then((data) => setnewReleases(data.albums.limit));
-  // }, [])
+
+  const fetchNewReleases = async () => {
+    const { albums } = await fetchFromAPI('browse/new-releases?country=US&limit=7', token);
+    setNewReleases(albums.items);
+  }
+
+  const fetchFeaturedPlaylists = async () => {
+    const { playlists } = await fetchFromAPI('browse/featured-playlists?country=US&limit=7', token);
+    setFeaturedPlaylists(playlists.items);
+  }
+
+  const fetchCategories = async () => {
+    const { playlists } = await fetchFromAPI('browse/categories/0JQ5DAqbMKFQ00XGBls6ym/playlists?country=US&limit=7', token);
+    setCategories(playlists.items);
+  }
+
+  const fetchRecommendations = async () => {
+    const { tracks } = await fetchFromAPI('recommendations?country=US&limit=7&seed_genres=hip-hop&max_popularity=100', token);
+    setRecommendations(tracks);
+  }
 
   useEffect(() => {
     if (token) {
-      fetchFromAPI('browse/new-releases?limit=8', token)
-        .then((res) => setnewReleases(res.albums.items))
+      fetchNewReleases();
+      fetchFeaturedPlaylists();
+      fetchCategories();
+      fetchRecommendations();
     }
   }, [token])
 
   return (
     <>
-      <Stack style={{ backgroundColor: '#2b0145', height: '100vh' }}>
-        <Container style={{ margin: 0, padding: '0 3.3rem' }}>
-          <Col style={{ padding: '2.7rem 0' }}>
-            <Col style={{
-              color: 'white', fontFamily: 'Be Vietnam Pro',
-              fontSize: '2rem'
-            }}>
-              New Releases
-            </Col>
-
-            <Col style={{ color: 'white', marginTop: '1.5rem' }}>
-              Albums Tabel
-            </Col>
-          </Col>
-        </Container>
+      <Stack style={{ backgroundColor: '#1a0229' }}>
+        <Cards state={newReleases} title='New Releases' artistsName={true} image={true} />
+        <Cards state={featuredPlaylists} title="Featured Playlists" artistsName={false} image={true} />
+        <Cards state={categories} title="Popular hip-hop playlists" artistsName={false} image={true} />
+        <Cards state={recommendations} title="The best rap songs" artistsName={true} image={false} />
       </Stack>
-      {console.log(newReleases)}
+      {console.log(recommendations)}
     </>
   )
 }

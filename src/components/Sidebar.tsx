@@ -1,7 +1,6 @@
-import React, { useEffect, useContext, useState } from 'react'
+import React, { useEffect, useContext } from 'react'
 
 import { ImSpotify } from 'react-icons/im';
-import { fetchFromAPI } from '../utils/fetchFromAPI';
 import { Context } from '../context';
 
 const {
@@ -10,14 +9,12 @@ const {
   CDBSidebarMenuItem,
   CDBSidebarContent,
   CDBSidebarMenu,
-  CDBBtn,
-  CDBIcon
+  CDBBtn
 } = require('cdbreact');
 
 function Sidebar() {
 
   const { token, setToken } = useContext(Context);
-  // const [name, setName] = useState("");
 
   const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
   const REDIRECT_URI = "http://localhost:3000";
@@ -43,16 +40,10 @@ function Sidebar() {
     setToken(token)
   }, [])
 
-  // useEffect(() => {
-  //   if (token) {
-  //     fetchFromAPI('browse/new-releases', token)
-  //       .then((res) => setName(res.albums.items))
-  //   }
-  // }, [token])
-
   return (
     <>
-      <CDBSidebar backgroundColor="#210333" maxWidth='350px' style={{ height: '100vh' }}>
+    <div>
+      <CDBSidebar backgroundColor="#170124" maxWidth='350px' fixed>
         <CDBSidebarHeader prefix={<i className="fa fa-bars" style={{
           paddingTop: '0.8rem', fontSize: '1.3rem'
         }} />} >
@@ -105,6 +96,7 @@ function Sidebar() {
           </CDBSidebarMenu>
         </CDBSidebarContent>
       </CDBSidebar>
+      </div>
     </>
   )
 }
