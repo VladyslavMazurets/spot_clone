@@ -37,6 +37,7 @@ function Music() {
   }
 
   useEffect(() => {
+    console.log(token)
     if (token) {
       fetchNewReleases();
       fetchFeaturedPlaylists();
@@ -53,7 +54,6 @@ function Music() {
         <Cards state={categories} title="Popular hip-hop playlists" artistsName={false} image={true} />
         <Cards state={recommendations} title="The best rap songs" artistsName={true} image={false} />
       </Stack>
-      {console.log(recommendations)}
     </>
   )
 }
