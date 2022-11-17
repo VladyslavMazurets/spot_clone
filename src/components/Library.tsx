@@ -1,8 +1,13 @@
 import React from 'react'
 
+import { Stack } from 'react-bootstrap'
+
 function Library() {
   return (
-    <div>Library</div>
+    <>
+      <Stack style={{ backgroundColor: '#1a0229', minHeight: '100vh' }}>
+      </Stack>
+    </>
   )
 }
 

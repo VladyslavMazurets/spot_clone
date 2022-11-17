@@ -47,7 +47,7 @@ function Sidebar() {
     <>
       <Stack style={{ display: 'flex', flexDirection: 'row' }}>
         <div>
-          <CDBSidebar backgroundColor="#170124" maxWidth='350px' fixed>
+          <CDBSidebar backgroundColor="#170124" maxWidth='300px' fixed>
             <CDBSidebarHeader prefix={<i className="fa fa-bars" style={{
               paddingTop: '0.8rem', fontSize: '1.3rem'
             }} />} >

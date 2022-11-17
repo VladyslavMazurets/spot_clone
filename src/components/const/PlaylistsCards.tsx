@@ -1,5 +1,5 @@
-import React from 'react'
-import { BrowserRouter, Link } from "react-router-dom";
+import React, { useState } from 'react'
+import { Link } from "react-router-dom";
 
 import { Card, Container } from 'react-bootstrap';
 import Col from 'react-bootstrap/Col';
@@ -13,44 +13,51 @@ interface ICards {
     title: string,
     artistsName: boolean,
     image: boolean,
+    slice?: number,
+    sectionID?: string,
+    linkURL?: string
 }
 
-function Cards({ state, title, artistsName, image }: ICards) {
+
+function PlaylistsCards({ state, title, artistsName, image, slice, sectionID, linkURL }: ICards) {
 
     return (
         <>
-            <Container style={{ margin: 0, padding: '2.7rem 3.3rem 1rem', maxWidth: '100%' }}>
+            <Container fluid className='pt-4 px-5'>
                 <Stack direction='horizontal' gap={1}>
                     <div style={{ color: 'white', fontSize: '2rem' }}>
                         {title}
                     </div>
                     <div className='ms-auto mt-2'>
-                        <Link to="/section" style={{
-                            textDecoration: 'none',
-                            textTransform: 'uppercase', color: '#c8c7c9',
-                            fontSize: '1.05rem'
-                        }}>
-                            See all
-                        </Link>
+                        {sectionID &&
+                            <Link to={`/section/${sectionID}`} style={{
+                                textDecoration: 'none',
+                                textTransform: 'uppercase', color: '#c8c7c9',
+                                fontSize: '1.05rem'
+                            }}>
+                                See all
+                            </Link>
+                        }
                     </div>
                 </Stack>
-                <Row style={{ display: 'flex', flexWrap: 'wrap', marginTop: '1.5rem' }}>
+                <Row className='mx-3 mt-4' >
                     {(Object.values(state).length) !== 0 ?
-                        state.map((data: any, idx: any) => {
+                        state.slice(0, slice).map((data: any, idx: any) => {
                             return (
-                                <Col key={idx}>
-                                    <Link to="/" style={{ textDecoration: 'none' }}>
+                                <Col xs='auto' key={idx} className='mb-3'>
+                                    <Link to={`/${linkURL}/${data.id}`} style={{ textDecoration: 'none' }}>
                                         <Card style={{
                                             width: '185px', height: '100%',
                                             background: '#2f0a45'
                                         }}>
                                             {image ?
-                                                <Card.Img variant="top" src={data.images[0].url} alt="Albums Img" style={{ padding: '0.6rem' }} />
-                                                : <Card.Img variant="top" src={data.album.images[0].url} alt="Albums Img" style={{ padding: '0.6rem' }} />
+                                                <Card.Img variant="top" src={data.images[0].url} alt="Albums Img" style={{ padding: '0.5rem' }} />
+                                                : <Card.Img variant="top" src={data.album.images[0].url} alt="Albums Img" style={{ padding: '0.5rem' }} />
                                             }
                                             <Card.Body style={{
                                                 display: 'flex',
-                                                flexDirection: 'column', justifyContent: 'space-between',
+                                                flexDirection: 'column',
+                                                justifyContent: 'space-between',
                                                 color: 'white'
                                             }}>
                                                 <Card.Title>
@@ -71,4 +78,4 @@ function Cards({ state, title, artistsName, image }: ICards) {
     )
 }
 
-export default Cards
+export default PlaylistsCards
