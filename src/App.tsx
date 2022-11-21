@@ -9,6 +9,7 @@ import Search from './components/Search';
 import Library from './components/Library';
 import PlaylistsDetail from './components/Playlists';
 import { fetchFromAPI } from './utils/fetchFromAPI';
+import AlbumDetail from './components/Albums';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -74,6 +75,7 @@ function App() {
           <Route path='library' element={<Library />} />
           <Route path='section/:id' element={<Section />} />
           <Route path='playlists/:id' element={<PlaylistsDetail />} />
+          <Route path='albums/:id' element={<AlbumDetail />} />
         </Route>
       </Routes>
     </Context.Provider>

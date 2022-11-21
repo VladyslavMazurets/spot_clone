@@ -12,8 +12,8 @@ function Playlists() {
 
     function randomBgColor () {
         var x = Math.floor(Math.random() * 256);
-        var y = Math.floor(Math.random() * 36);
-        var z = Math.floor(Math.random() * 40);
+        var y = Math.floor(Math.random() * 200);
+        var z = Math.floor(Math.random() * 155);
         var bgColor = "rgb(" + x + "," + y + "," + z + ")";
     
         setBgColor(bgColor);
@@ -24,18 +24,18 @@ function Playlists() {
     const [bgColor, setBgColor] = useState<string>();
 
     const [playlistsDetail, setPlaylistsDetail] = useState<any>({
-        name: '',
-        description: '', followers: { total: null }, images: { url: '' },
-        tracks: { items: [] }
+        name: '', description: '', followers: { total: null }, 
+        images: { url: '' }, tracks: { items: [] }, owner: {}
     });
 
     const fetchPlaylistsDetail = async () => {
         const { name, description, followers: { total }, images: [{ url }],
-            tracks: { items } } = await fetchFromAPI(`playlists/${id}`, token);
+            tracks: { items }, owner: {display_name} } = await fetchFromAPI(`playlists/${id}`, token);
         
             setPlaylistsDetail({
             name: name, description: description,
-            followers: { total: total }, images: { url: url }, tracks: { items }
+            followers: { total: total }, images: { url: url }, 
+            tracks: { items }, owner: {display_name}
         });
     }
 

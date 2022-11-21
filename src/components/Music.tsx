@@ -1,9 +1,8 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 
 import Stack from 'react-bootstrap/Stack';
 
 import { Context } from '../context';
-import { fetchFromAPI } from '../utils/fetchFromAPI';
 import PlaylistsCards from './const/PlaylistsCards';
 
 function Music() {
