@@ -10,12 +10,12 @@ import Loader from './Loader';
 
 function Albums() {
 
-    function randomBgColor () {
+    function randomBgColor() {
         var x = Math.floor(Math.random() * 256);
         var y = Math.floor(Math.random() * 200);
         var z = Math.floor(Math.random() * 155);
         var bgColor = "rgb(" + x + "," + y + "," + z + ")";
-    
+
         setBgColor(bgColor);
     }
 
@@ -23,12 +23,23 @@ function Albums() {
     const { token } = useContext(Context);
     const [bgColor, setBgColor] = useState<string>();
 
-    const [albumDetail, setAlbumDetail] = useState<any>();
+    const [albumDetail, setAlbumDetail] = useState<any>({
+        name: '', releaseDate: '', type: '', label: '', copyrights: '',
+        images: '', artists: {}, tracks: { }
+    });
 
     const fetchalbumDetail = async () => {
-         fetchFromAPI(`albums/${id}`, token)
-         .then((data) => setAlbumDetail(data))
-        };
+        const { name, release_date, type, label,
+            copyrights: [{ text }], images: [{ url }], artists,
+            tracks: { items } } = await
+                fetchFromAPI(`albums/${id}`, token)
+
+        setAlbumDetail({
+            name: name, releaseDate: release_date, type: type,
+            label: label, copyrights: text, images: url, artists: { artists },
+            tracks: {items}
+        })
+    };
 
     useEffect(() => {
         randomBgColor();
@@ -37,14 +48,13 @@ function Albums() {
         }
     }, [token, id])
 
-    // if(!albumDetail.name) return <Loader />
+    if (!albumDetail.name) return <Loader />
 
     return (
         <>
             <Stack style={{ backgroundColor: '#1a0229', minHeight: '100vh', color: 'white' }}>
-                <AlbumDetail state={albumDetail} bgColor={bgColor!}/>
+                <AlbumDetail state={albumDetail} bgColor={bgColor!} />
             </Stack>
-            {console.log(albumDetail) }
         </>
     )
 }

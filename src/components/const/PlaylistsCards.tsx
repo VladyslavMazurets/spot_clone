@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext } from 'react'
 import { Link } from "react-router-dom";
 
 import { Card, Container } from 'react-bootstrap';
@@ -7,6 +7,7 @@ import Row from 'react-bootstrap/Row';
 import Stack from 'react-bootstrap/Stack';
 
 import Loader from '../Loader';
+import { Context } from '../../context';
 
 interface ICards {
     state: any,
@@ -18,8 +19,9 @@ interface ICards {
     linkURL?: string
 }
 
-
 function PlaylistsCards({ state, title, artistsName, image, slice, sectionID, linkURL }: ICards) {
+
+    const { token } = useContext(Context);
 
     return (
         <>
@@ -29,7 +31,7 @@ function PlaylistsCards({ state, title, artistsName, image, slice, sectionID, li
                         {title}
                     </div>
                     <div className='ms-auto mt-2'>
-                        {sectionID &&
+                        {sectionID && token ?
                             <Link to={`/section/${sectionID}`} style={{
                                 textDecoration: 'none',
                                 textTransform: 'uppercase', color: '#c8c7c9',
@@ -37,6 +39,7 @@ function PlaylistsCards({ state, title, artistsName, image, slice, sectionID, li
                             }}>
                                 See all
                             </Link>
+                            : ''
                         }
                     </div>
                 </Stack>

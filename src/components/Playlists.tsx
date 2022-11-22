@@ -24,8 +24,8 @@ function Playlists() {
     const [bgColor, setBgColor] = useState<string>();
 
     const [playlistsDetail, setPlaylistsDetail] = useState<any>({
-        name: '', description: '', followers: { total: null }, 
-        images: { url: '' }, tracks: { items: [] }, owner: {}
+        name: '', description: '', followers: null , 
+        images: '', tracks: {  }, owner: ''
     });
 
     const fetchPlaylistsDetail = async () => {
@@ -34,8 +34,8 @@ function Playlists() {
         
             setPlaylistsDetail({
             name: name, description: description,
-            followers: { total: total }, images: { url: url }, 
-            tracks: { items }, owner: {display_name}
+            followers: total, images: url, 
+            tracks: { items }, owner: display_name
         });
     }
 
