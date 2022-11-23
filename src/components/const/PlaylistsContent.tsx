@@ -1,5 +1,7 @@
 import React from 'react'
 import { Col, Row } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
+import { millisToMinutesAndSeconds } from '../function/functionReus'
 
 interface IContent {
     idx?: number,
@@ -22,7 +24,10 @@ function PlaylistsContent({ idx, item }: IContent) {
                         alt='Track Img' width='60px'
                         height='60px' className='my-2' />
                     <div className="d-flex flex-column mx-3">
-                        <span className='fs-5'>{item.track.name}</span>
+                        <Link className='text-decoration-none'
+                            to={`/track/${item.track.id}`}>
+                            <span className='fs-5 text-white'>{item.track.name}</span>
+                        </Link>
                         <span className='text-muted'>
                             {(item.track.artists).length == 1 ?
                                 item.track.artists[0].name :
@@ -41,7 +46,7 @@ function PlaylistsContent({ idx, item }: IContent) {
                 </Col>
 
                 <Col xs='auto' className='text-muted fs-6'>
-                    0:29
+                    {millisToMinutesAndSeconds(item.track.duration_ms)}
                 </Col>
             </Row>
         </>

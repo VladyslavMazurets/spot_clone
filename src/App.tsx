@@ -10,6 +10,7 @@ import Library from './components/Library';
 import PlaylistsDetail from './components/Playlists';
 import { fetchFromAPI } from './utils/fetchFromAPI';
 import AlbumDetail from './components/Albums';
+import TrackDetail from './components/Track';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -46,7 +47,7 @@ function App() {
   }
 
   const fetchRecommendations = async () => {
-    const { tracks } = await fetchFromAPI('recommendations?country=US&limit=35&seed_genres=hip-hop&max_popularity=100', token);
+    const { tracks } = await fetchFromAPI('recommendations?country=US&limit=35&seed_genres=hip-hop&min_popularity=70&max_popularity=100', token);
     setRecommendations(tracks);
   }
 
@@ -76,6 +77,7 @@ function App() {
           <Route path='section/:id' element={<Section />} />
           <Route path='playlists/:id' element={<PlaylistsDetail />} />
           <Route path='albums/:id' element={<AlbumDetail />} />
+          <Route path='track/:id' element={<TrackDetail />} />
         </Route>
       </Routes>
     </Context.Provider>

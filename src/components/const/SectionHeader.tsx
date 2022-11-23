@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { MdPeople } from 'react-icons/md';
+import { ConvertMsToTime } from '../function/functionReus';
 
 interface IHeader {
     img: string,
@@ -10,17 +11,19 @@ interface IHeader {
     owner?: string,
     bgColor?: string,
     releaseDate?: string,
-    artists?: any
+    artists?: any,
+    allTime: number,
+    allTracks?: number
 }
 
 function SectionHeader({ img, description, followers, name,
-    owner, releaseDate, artists, bgColor }: IHeader) {
+    owner, releaseDate, artists, allTime, allTracks, bgColor }: IHeader) {
 
     return (
         <>
             <div>
                 <div className="d-flex align-items-end" style={{
-                    padding: '5rem 4rem', width: '100%',
+                    padding: '5rem 4rem 1.5rem 4rem', width: '100%',
                     backgroundColor: `${bgColor}`,
                     boxShadow: `1px 10px 10px 12px ${bgColor}`,
                 }}>
@@ -29,17 +32,28 @@ function SectionHeader({ img, description, followers, name,
                         boxShadow: '0 4px 60px rgb(0 0 0 / 80%)'
                     }} />
 
-                    <div className='px-5 d-flex flex-column'>
-                        <span style={{
-                            fontWeight: 'bold', fontSize: '1rem',
-                            textTransform: 'uppercase'
-                        }}>
-                            {owner}
-                        </span>
+
+                    <div className='ps-5 d-flex flex-column'>
+
+                        {owner ?
+                            <span style={{
+                                fontWeight: 'bold', fontSize: '1rem',
+                                textTransform: 'uppercase'
+                            }}>
+                                {owner}
+                            </span>
+                            :
+                            <span style={{
+                                fontWeight: 'bold', fontSize: '1rem',
+                                textTransform: 'uppercase'
+                            }}>
+                                song
+                            </span>
+                        }
 
                         <span style={{
-                            fontSize: '4rem', width: '100%', fontWeight: 'bold',
-                            textTransform: 'uppercase', margin: '0.08em 0px 0.12em'
+                            fontSize: name!.length < 28 ? '6rem' : '4rem', width: '100%', fontWeight: 'bold',
+                            textTransform: 'capitalize', margin: '0.08em 0px 0.12em'
                         }}>
                             {name}
                         </span>
@@ -57,18 +71,28 @@ function SectionHeader({ img, description, followers, name,
                                 fontSize: '1rem', fontWeight: 'bold',
                                 marginTop: '0.4rem',
                             }}>
-                                Spotify · Followers: {followers!.toLocaleString('en-US')} <MdPeople /> · 100 songs
+                                Spotify · Followers: {followers!.toLocaleString('en-US')} <MdPeople /> · {allTracks} songs · {ConvertMsToTime(allTime)}
                             </span>
-                            :
-                            <span style={{
-                                fontSize: '1rem', fontWeight: 'bold',
-                                marginTop: '0.4rem',
-                            }}>
-                                {Object.values(artists).length == 1 ?
-                                    `${artists[0].name}`
-                                    : `Spotify · ${artists[0].name} · ${artists[1].name} · ${releaseDate?.slice(0,4)} `
-                                }
-                            </span>
+                            : allTracks ?
+                                <span style={{
+                                    fontSize: '1rem', fontWeight: 'bold',
+                                    marginTop: '0.4rem',
+                                }}>
+                                    {Object.values(artists).length == 1 ?
+                                        `Spotify · ${artists[0].name} · ${releaseDate?.slice(0, 4)} · ${allTracks} songs · ${ConvertMsToTime(allTime)}`
+                                        : `Spotify · ${artists[0].name} · ${artists[1].name} · ${releaseDate?.slice(0, 4)} · ${allTracks} songs · ${ConvertMsToTime(allTime)}`
+                                    }
+                                </span>
+                                :
+                                <span style={{
+                                    fontSize: '1rem', fontWeight: 'bold',
+                                    marginTop: '0.4rem',
+                                }}>
+                                    {Object.values(artists).length == 1 ?
+                                        `Spotify · ${artists[0].name} · ${releaseDate?.slice(0, 4)} · ${ConvertMsToTime(allTime)}`
+                                        : `Spotify · ${artists[0].name} · ${artists[1].name} · ${releaseDate?.slice(0, 4)} · ${ConvertMsToTime(allTime)}`
+                                    }
+                                </span>
                         }
                     </div>
                 </div>

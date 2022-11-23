@@ -6,22 +6,15 @@ import { useParams } from 'react-router-dom'
 import { Context } from '../context';
 import { fetchFromAPI } from '../utils/fetchFromAPI';
 import AlbumDetail from './const/AlbumDetail';
+import { randomBgColor } from './function/functionReus';
 import Loader from './Loader';
 
 function Albums() {
 
-    function randomBgColor() {
-        var x = Math.floor(Math.random() * 256);
-        var y = Math.floor(Math.random() * 200);
-        var z = Math.floor(Math.random() * 155);
-        var bgColor = "rgb(" + x + "," + y + "," + z + ")";
-
-        setBgColor(bgColor);
-    }
-
     const { id } = useParams();
     const { token } = useContext(Context);
-    const [bgColor, setBgColor] = useState<string>();
+
+    const bgColor =   randomBgColor();
 
     const [albumDetail, setAlbumDetail] = useState<any>({
         name: '', releaseDate: '', type: '', label: '', copyrights: '',
@@ -42,7 +35,6 @@ function Albums() {
     };
 
     useEffect(() => {
-        randomBgColor();
         if (token) {
             fetchalbumDetail();
         }

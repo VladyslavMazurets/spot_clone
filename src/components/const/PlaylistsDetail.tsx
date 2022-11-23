@@ -12,7 +12,15 @@ interface IPlaylists {
 
 function PlaylistsDetail({ state, bgColor }: IPlaylists) {
 
-    const { name, description, followers, images, tracks: { items }, owner } = state;
+    const { name, description, followers, images, tracks: { items }, owner }
+        = state;
+
+    let allTime = 0;
+    let allTracks = Object.keys(items).length;
+
+    items.slice(0, 100).forEach((value: any) => {
+        allTime += value.track.duration_ms;
+    })
 
     return (
         <>
@@ -20,7 +28,7 @@ function PlaylistsDetail({ state, bgColor }: IPlaylists) {
 
                 <SectionHeader img={images} description={description}
                     followers={followers} name={name} owner={owner}
-                    bgColor={bgColor} />
+                    bgColor={bgColor} allTime={allTime} allTracks={allTracks} />
 
                 <Container fluid className='mt-5 border-bottom border-secondary
                  pb-5 mb-5'>

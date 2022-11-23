@@ -24,7 +24,7 @@ function Section() {
           <PlaylistsCards state={categories} title="Popular hip-hop playlists" artistsName={false} image={true} linkURL={'playlists'} />
         }
         {'recommendations' == id &&
-          <PlaylistsCards state={recommendations} title="The best rap songs" artistsName={true} image={false} linkURL={'playlists'} />
+          <PlaylistsCards state={recommendations} title="The best rap songs" artistsName={true} image={false} linkURL={'track'} />
         }
       </Stack>
     </>
