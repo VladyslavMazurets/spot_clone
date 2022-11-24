@@ -8,13 +8,13 @@ interface IHeader {
     img: string,
     description?: string,
     followers?: number,
-    name?: string,
+    name: string,
     owner?: string,
     bgColor?: string,
     releaseDate?: string,
-    artists?: any,
-    allTime: number,
-    allTracks?: number
+    artists?: [],
+    allTime?: number,
+    allTracks?: number,
 }
 
 function SectionHeader({ img, description, followers, name,
@@ -67,7 +67,7 @@ function SectionHeader({ img, description, followers, name,
                             </span>
                         }
 
-                        {followers ?
+                        {followers && allTime ?
 
                             <span style={{
                                 fontSize: '1rem', fontWeight: 'bold',
@@ -83,7 +83,7 @@ function SectionHeader({ img, description, followers, name,
                                     marginTop: '0.4rem'
                                 }}>
                                     Spotify
-                                    {artists.map((item: any, idx: number) => {
+                                    {artists!.map((item: any, idx: number) => {
                                         return (
                                             <Link key={idx} className='mx-1 
                                         text-decoration-none text-white'
@@ -91,14 +91,14 @@ function SectionHeader({ img, description, followers, name,
                                                 · {item.name}
                                             </Link>
                                         )
-                                    })} · {releaseDate?.slice(0, 4)} · {allTracks} songs · {ConvertMsToTime(allTime)}
+                                    })} · {releaseDate?.slice(0, 4)} · {allTracks} songs · {ConvertMsToTime(allTime!)}
                                 </span>
                                 :
                                 <span style={{
                                     fontSize: '1rem', fontWeight: 'bold',
                                     marginTop: '0.4rem'
                                 }}>
-                                    {artists.map((item: any, idx: number) => {
+                                    {artists!.map((item: any, idx: number) => {
                                         return (
                                             <Link key={idx} className='mx-1 
                                         text-decoration-none text-white'
@@ -106,7 +106,7 @@ function SectionHeader({ img, description, followers, name,
                                                 {item.name} ·
                                             </Link>
                                         )
-                                    })} {releaseDate?.slice(0, 4)} · {ConvertMsToTime(allTime)}
+                                    })} {releaseDate?.slice(0, 4)} · {ConvertMsToTime(allTime!)}
                                 </span>
                         }
                     </div>
