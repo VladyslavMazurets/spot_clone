@@ -51,9 +51,8 @@ function AlbumDetail({ state, bgColor }: IAlbum) {
                     <span> Label: {label} </span>
                     <span> {copyrights} </span>
                 </div>
-
+                
             </Container>
-            {console.log(items)}
         </>
     )
 

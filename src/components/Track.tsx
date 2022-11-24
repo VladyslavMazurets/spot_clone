@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { useParams } from 'react-router-dom';
+import axios from 'axios';
 
 import { Stack } from 'react-bootstrap'
 import TrackDetail from './const/TrackDetail'
 import { randomBgColor } from './function/functionReus';
 import { Context } from '../context';
-import { fetchFromAPI } from '../utils/fetchFromAPI';
+import { fetchFromAPI, fetchFromLyrics } from '../utils/fetchFromAPI';
 import Loader from './Loader';
 
 function Track() {
@@ -19,7 +20,7 @@ function Track() {
         name: '', duration: '', releaseDate: '', image: '', artists: {}
     });
 
-    const fetchtrackDetail = async () => {
+    const fetchTrackDetail = async () => {
         const { name, duration_ms, album: { release_date, images: [{ url }] },
             artists }
             = await fetchFromAPI(`tracks/${id}`, token);
@@ -32,7 +33,7 @@ function Track() {
 
     useEffect(() => {
         if (token) {
-            fetchtrackDetail();
+            fetchTrackDetail();
         }
     }, [token, id])
 
@@ -43,7 +44,6 @@ function Track() {
             <Stack style={{ backgroundColor: '#1a0229', minHeight: '100vh', color: 'white' }}>
                 <TrackDetail state={trackDetail} bgColor={bgColor!} />
             </Stack>
-            {console.log(trackDetail)}
         </>
     )
 }

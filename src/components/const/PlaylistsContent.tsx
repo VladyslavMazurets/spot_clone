@@ -29,10 +29,14 @@ function PlaylistsContent({ idx, item }: IContent) {
                             <span className='fs-5 text-white'>{item.track.name}</span>
                         </Link>
                         <span className='text-muted'>
-                            {(item.track.artists).length == 1 ?
-                                item.track.artists[0].name :
-                                `${item.track.artists[0].name}, 
-                                                    ${item.track.artists[1].name}`}
+                            {item.track.artists.map((item: any, idx: number) => {
+                                return (
+                                    <Link key={idx} to={`/artist/${item.id}`}
+                                    className='text-decoration-none text-muted me-2'>
+                                        {item.name}
+                                    </Link>
+                                )
+                            })}
                         </span>
                     </div>
                 </Col>

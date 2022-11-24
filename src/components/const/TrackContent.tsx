@@ -1,38 +1,31 @@
 import React from 'react'
 import { Col, Row } from 'react-bootstrap'
-
-import { MdExplicit } from 'react-icons/md'
 import { Link } from 'react-router-dom'
+
 import { millisToMinutesAndSeconds } from '../function/functionReus'
 
-interface IContent {
-    idx?: number,
-    item?: any
+interface ITrack {
+    name: string,
+    artists: any,
+    duration: number
 }
-function AlbumContent({ idx, item }: IContent) {
 
+function TrackContent({ name, artists, duration }: ITrack) {
     return (
         <>
             <Row className='d-flex align-items-center mx-1 mb-3'>
-
                 <Col xs='auto' className='text-muted fs-6 fw-bold'>
-                    {idx! + 1}
+                    1
                 </Col>
-
                 <Col xs={5} className='d-flex w-50 
                                     align-items-center'>
                     <div className="d-flex flex-column mx-3">
-                        <Link className='text-decoration-none'
-                            to={`/track/${item.id}`}>
-                            <span className='fs-5 text-white'>{item.name}</span>
-                        </Link>
+                        <span className='fs-5 text-white'>{name}</span>
                         <span className='text-muted align-items-center'>
-                            <MdExplicit style={{ marginRight: '.2rem', fontSize: '1.4rem' }} />
-                            {item.artists.map((item: any, idx: number) => {
+                            {artists.map((item: any, idx: number) => {
                                 return (
                                     <Link key={idx} to={`/artist/${item.id}`}
-                                        className='text-decoration-none 
-                                        text-muted me-1'>
+                                        className='text-decoration-none text-muted me-2'>
                                         {item.name}
                                     </Link>
                                 )
@@ -42,11 +35,11 @@ function AlbumContent({ idx, item }: IContent) {
                 </Col>
 
                 <Col className='text-muted fs-6 d-flex justify-content-end'>
-                    {millisToMinutesAndSeconds(item.duration_ms)}
+                    {millisToMinutesAndSeconds(duration)}
                 </Col>
             </Row>
         </>
     )
 }
 
-export default AlbumContent
+export default TrackContent

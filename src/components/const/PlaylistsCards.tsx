@@ -68,7 +68,22 @@ function PlaylistsCards({ state, title, artistsName, image, slice, sectionID, li
                                                         `${data.name.substring(0, 25)}...` :
                                                         data.name}
                                                 </Card.Title>
-                                                <Card.Text>{artistsName ? data.artists[0].name : data.name}</Card.Text>
+                                                <Card.Text>
+
+                                                    {artistsName ? data.artists.map((item: any, idx: number) => {
+                                                        return (
+                                                            <Link key={idx} to={`/artist/${item.id}`}
+                                                                className="text-decoration-none text-muted me-1">
+                                                                {item.name}
+                                                            </Link>
+                                                        )
+                                                    })
+                                                        :
+                                                        <span className='text-muted'>
+                                                            {data.name}
+                                                        </span>
+                                                    }
+                                                </Card.Text>
                                             </Card.Body>
                                         </Card>
                                     </Link>
@@ -82,3 +97,4 @@ function PlaylistsCards({ state, title, artistsName, image, slice, sectionID, li
 }
 
 export default PlaylistsCards
+

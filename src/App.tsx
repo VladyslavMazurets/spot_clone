@@ -11,6 +11,7 @@ import PlaylistsDetail from './components/Playlists';
 import { fetchFromAPI } from './utils/fetchFromAPI';
 import AlbumDetail from './components/Albums';
 import TrackDetail from './components/Track';
+import Artist from './components/Artist';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -78,6 +79,7 @@ function App() {
           <Route path='playlists/:id' element={<PlaylistsDetail />} />
           <Route path='albums/:id' element={<AlbumDetail />} />
           <Route path='track/:id' element={<TrackDetail />} />
+          <Route path='artist/:id' element={<Artist />} />
         </Route>
       </Routes>
     </Context.Provider>

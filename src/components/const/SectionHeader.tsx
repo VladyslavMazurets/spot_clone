@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { MdPeople } from 'react-icons/md';
+import { Link } from 'react-router-dom';
 import { ConvertMsToTime } from '../function/functionReus';
 
 interface IHeader {
@@ -67,31 +68,45 @@ function SectionHeader({ img, description, followers, name,
                         }
 
                         {followers ?
+
                             <span style={{
                                 fontSize: '1rem', fontWeight: 'bold',
                                 marginTop: '0.4rem',
                             }}>
                                 Spotify · Followers: {followers!.toLocaleString('en-US')} <MdPeople /> · {allTracks} songs · {ConvertMsToTime(allTime)}
                             </span>
+
                             : allTracks ?
+
                                 <span style={{
                                     fontSize: '1rem', fontWeight: 'bold',
-                                    marginTop: '0.4rem',
+                                    marginTop: '0.4rem'
                                 }}>
-                                    {Object.values(artists).length == 1 ?
-                                        `Spotify · ${artists[0].name} · ${releaseDate?.slice(0, 4)} · ${allTracks} songs · ${ConvertMsToTime(allTime)}`
-                                        : `Spotify · ${artists[0].name} · ${artists[1].name} · ${releaseDate?.slice(0, 4)} · ${allTracks} songs · ${ConvertMsToTime(allTime)}`
-                                    }
+                                    Spotify
+                                    {artists.map((item: any, idx: number) => {
+                                        return (
+                                            <Link key={idx} className='mx-1 
+                                        text-decoration-none text-white'
+                                                to={`/artist/${item.id}`}>
+                                                · {item.name}
+                                            </Link>
+                                        )
+                                    })} · {releaseDate?.slice(0, 4)} · {allTracks} songs · {ConvertMsToTime(allTime)}
                                 </span>
                                 :
                                 <span style={{
                                     fontSize: '1rem', fontWeight: 'bold',
-                                    marginTop: '0.4rem',
+                                    marginTop: '0.4rem'
                                 }}>
-                                    {Object.values(artists).length == 1 ?
-                                        `Spotify · ${artists[0].name} · ${releaseDate?.slice(0, 4)} · ${ConvertMsToTime(allTime)}`
-                                        : `Spotify · ${artists[0].name} · ${artists[1].name} · ${releaseDate?.slice(0, 4)} · ${ConvertMsToTime(allTime)}`
-                                    }
+                                    {artists.map((item: any, idx: number) => {
+                                        return (
+                                            <Link key={idx} className='mx-1 
+                                        text-decoration-none text-white'
+                                                to={`/artist/${item.id}`}>
+                                                {item.name} ·
+                                            </Link>
+                                        )
+                                    })} {releaseDate?.slice(0, 4)} · {ConvertMsToTime(allTime)}
                                 </span>
                         }
                     </div>
