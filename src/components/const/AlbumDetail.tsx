@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
-import AlbumContent from './AlbumContent';
+import TrackList from './TrackList';
 import SectionHeader from './SectionHeader'
 
 import { BiTime } from 'react-icons/bi'
@@ -40,7 +40,7 @@ function AlbumDetail({ state, bgColor }: IAlbum) {
 
                     {items.map((item: any, idx: number) => {
                         return (
-                            <AlbumContent key={idx} idx={idx} item={item} />
+                            <TrackList key={idx} idx={idx} item={item} />
                         )
                     })
                     }

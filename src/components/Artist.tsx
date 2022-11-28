@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
-import { Stack } from 'react-bootstrap'
+import { Link, useParams } from 'react-router-dom';
+import { Card, Col, Container, Row, Stack } from 'react-bootstrap'
 import { MdPeople, MdVerified } from 'react-icons/md'
 
 import { Context } from '../context';
 import { fetchFromAPI } from '../utils/fetchFromAPI';
+import TrackList from './const/TrackList';
+import PlaylistsCards from './const/PlaylistsCards';
 
 interface IArtDet {
     [genres: string]: any,
@@ -20,7 +22,9 @@ function Artist() {
     const [artistDetail, setArtistDetail] = useState<IArtDet>({
         genres: {}, image: '', name: '', followers: 0
     });
-
+    const [artistTopTrack, setArtistTopTrack] = useState([]);
+    const [artistAlbums, setArtistAlbums] = useState({});
+    const [relatedArtists, setRelatedArtists] = useState([]);
 
     const fetchArtist = async () => {
         const { followers: { total }, genres, images: [{ url }], name
@@ -31,9 +35,27 @@ function Artist() {
         });
     }
 
+    const fetchArtistTopTrack = async () => {
+        const { tracks } = await fetchFromAPI(`artists/${id}/top-tracks?market=UA`, token);
+        setArtistTopTrack(tracks)
+    }
+
+    const fetchArtistAlbums = async () => {
+        const { items } = await fetchFromAPI(`artists/${id}/albums?limit=7`, token);
+        setArtistAlbums(items)
+    }
+
+    const fetchRelatedArtists = async () => {
+        const { artists } = await fetchFromAPI(`artists/${id}/related-artists`, token)
+        setRelatedArtists(artists)
+    }
+
     useEffect(() => {
         if (token) {
             fetchArtist();
+            fetchArtistTopTrack();
+            fetchArtistAlbums();
+            fetchRelatedArtists();
         }
     }, [token, id])
 
@@ -41,15 +63,19 @@ function Artist() {
 
     return (
         <>
-            <Stack style={{ backgroundColor: '#1a0229', minHeight: '100vh', color: 'white' }}>
+            <Stack style={{
+                backgroundColor: '#1a0229', minHeight: '100vh',
+                color: 'white'
+            }}>
                 <div style={{
                     backgroundImage: `url(${image})`,
-                    height: '40vh', backgroundPosition: 'top',
+                    height: '40vh', backgroundPosition: '25% 15%',
                     backgroundRepeat: 'no-repeat',
                     backgroundSize: 'cover', display: 'flex',
-                    alignItems: 'end', padding: '2rem'
+                    alignItems: 'end', boxShadow: `1px 3px 15px 12px #4d355c`
                 }}>
-                    <div className='d-flex flex-column'>
+                    <div className='d-flex flex-column w-100 h-100 p-5 
+                        justify-content-end bg-opacity-25 shadow-sm bg-black'>
                         <span className="fs-5 fw-bolder d-flex align-items-center">
                             <MdVerified style={{ color: '#0c67d3' }}
                                 className="fs-4 me-1" />
@@ -75,7 +101,56 @@ function Artist() {
                         </span>
                     </div>
                 </div>
+
+                <Container fluid className='mt-5 border-bottom border-secondary
+                 pb-5 mb-2'>
+                    <Row className='mx-3 mb-4 fs-2 fw-bold'> Popular </Row>
+
+                    {artistTopTrack?.map((item: any, idx: number) => {
+                        return (
+                            <TrackList idx={idx} item={item}/>
+                        )
+                    })
+                    }
+
+                    <Row className='mx-3 pt-4'>
+                        <PlaylistsCards state={artistAlbums} title='Discography' artistsName={true} image={true} linkURL={'albums'} artist={true} />
+                    </Row>
+
+                    <Container fluid className='pt-4 mx-3'>
+                        <Row className='fs-2 fw-bold'> Fans also like </Row>
+                        <Row className='my-4 mx-3'>
+                            {relatedArtists.slice(0, 7)?.map((item: any, idx: number) => {
+                                return (
+                                    <Col xs="auto" key={idx} className='mb-3'>
+                                        <Link to={`/artist/${item.id}`}
+                                            className="text-decoration-none text-white">
+                                            <Card style={{
+                                                width: '185px', height: '100%',
+                                                background: '#2f0a45', boxShadow: `1px 1px 8px 1px #535054`
+                                            }}>
+                                                <Card.Img variant="top"
+                                                    src={item.images[0].url}
+                                                    alt="Artist Img"
+                                                    className="rounded-circle p-2"
+                                                    height="185px" />
+                                                <Card.Body>
+                                                    <Card.Title>{item.name}</Card.Title>
+                                                    <Card.Text className="text-capitalize">
+                                                        {item.type}
+                                                    </Card.Text>
+                                                </Card.Body>
+                                            </Card>
+                                        </Link>
+                                    </Col>
+                                )
+                            })
+                            }
+                        </Row>
+                    </Container>
+                </Container>
             </Stack>
+            {console.log()}
         </>
     )
 }

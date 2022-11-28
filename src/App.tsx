@@ -7,10 +7,10 @@ import Sidebar from './components/Sidebar';
 import Music from './components/Music';
 import Search from './components/Search';
 import Library from './components/Library';
-import PlaylistsDetail from './components/Playlists';
+import PlaylistsDetail from './components/const/PlaylistsDetail';
 import { fetchFromAPI } from './utils/fetchFromAPI';
 import AlbumDetail from './components/Albums';
-import TrackDetail from './components/Track';
+import TrackDetail from './components/const/TrackDetail';
 import Artist from './components/Artist';
 
 function ScrollToTop() {

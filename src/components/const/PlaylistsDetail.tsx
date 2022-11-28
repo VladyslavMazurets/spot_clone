@@ -1,19 +1,41 @@
-import React from 'react'
-import { Stack, Container, Col, Row } from 'react-bootstrap';
-
+import React, { useState, useEffect, useContext } from 'react'
+import { Container, Col, Row } from 'react-bootstrap';
 import { BiTime } from "react-icons/bi";
+import { useParams } from 'react-router-dom';
+
+import { Context } from '../../context';
+import { fetchFromAPI } from '../../utils/fetchFromAPI';
+import { randomBgColor } from '../function/functionReus';
+import Loader from '../Loader';
 import PlaylistsContent from './PlaylistsContent';
 import SectionHeader from './SectionHeader';
 
-interface IPlaylists {
-    state?: any,
-    bgColor?: string
-}
+function PlaylistsDetail() {
 
-function PlaylistsDetail({ state, bgColor }: IPlaylists) {
+    const { id } = useParams();
+    const { token } = useContext(Context);
 
-    const { name, description, followers, images, tracks: { items }, owner }
-        = state;
+    const bgColor = randomBgColor();
+
+    const [playlistsDetail, setPlaylistsDetail] = useState<any>({});
+
+    const fetchPlaylistsDetail = async () => {
+        const { name, description, followers: { total }, images: [{ url }],
+            tracks: { items }, owner: { display_name } } = await fetchFromAPI(`playlists/${id}`, token);
+
+        setPlaylistsDetail({ name, description, total, url, items, display_name });
+    }
+
+    useEffect(() => {
+        if (token) {
+            fetchPlaylistsDetail();
+        }
+    }, [token, id])
+
+    if (!playlistsDetail.name) return <Loader />
+
+    const { name, description, total, url, items, display_name }
+        = playlistsDetail;
 
     let allTime = 0;
     let allTracks = Object.keys(items).length;
@@ -24,10 +46,13 @@ function PlaylistsDetail({ state, bgColor }: IPlaylists) {
 
     return (
         <>
-            <Container fluid>
+            <Container fluid style={{
+                backgroundColor: '#1a0229', minHeight: '100vh',
+                color: 'white'
+            }}>
 
-                <SectionHeader img={images} description={description}
-                    followers={followers} name={name} owner={owner}
+                <SectionHeader img={url} description={description}
+                    followers={total} name={name} owner={display_name}
                     bgColor={bgColor} allTime={allTime} allTracks={allTracks} />
 
                 <Container fluid className='mt-5 border-bottom border-secondary

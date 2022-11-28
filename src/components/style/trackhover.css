@@ -1,0 +1,17 @@
+.hover_track:hover {
+    background-color: #510182;
+}
+
+.hover_track_name:hover {
+    text-decoration: underline;
+}
+
+.hover_artists_name:hover {
+    text-decoration: underline;
+    color: white;
+}
+
+.hover_album:hover {
+    text-decoration: underline;
+    color: white;
+}

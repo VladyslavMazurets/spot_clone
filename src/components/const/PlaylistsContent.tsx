@@ -1,7 +1,9 @@
 import React from 'react'
 import { Col, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
+
 import { millisToMinutesAndSeconds } from '../function/functionReus'
+import '../style/trackhover.css'
 
 interface IContent {
     idx?: number,
@@ -11,8 +13,7 @@ interface IContent {
 function PlaylistsContent({ idx, item }: IContent) {
     return (
         <>
-            <Row className='d-flex 
-                                align-items-center mx-1 mb-3'>
+            <Row className='d-flex align-items-center mx-1 mb-3 hover_track'>
 
                 <Col xs='auto' className='text-muted fs-6 fw-bold'>
                     {idx! + 1}
@@ -26,14 +27,18 @@ function PlaylistsContent({ idx, item }: IContent) {
                     <div className="d-flex flex-column mx-3">
                         <Link className='text-decoration-none'
                             to={`/track/${item.track.id}`}>
-                            <span className='fs-5 text-white'>{item.track.name}</span>
+                            <span className='fs-5 text-white hover_track_name'>
+                                {item.track.name}
+                            </span>
                         </Link>
                         <span className='text-muted'>
                             {item.track.artists.map((item: any, idx: number) => {
                                 return (
                                     <Link key={idx} to={`/artist/${item.id}`}
-                                    className='text-decoration-none text-muted me-2'>
-                                        {item.name}
+                                        className='text-decoration-none text-muted me-2'>
+                                        <span className='hover_artists_name'>
+                                            {item.name}
+                                        </span>
                                     </Link>
                                 )
                             })}
@@ -41,8 +46,13 @@ function PlaylistsContent({ idx, item }: IContent) {
                     </div>
                 </Col>
 
-                <Col className='text-muted fs-6'>
-                    {item.track.album.name}
+                <Col className='text-muted fs-6 hover_track'>
+                    <Link to={`/albums/${item.track.album.id}`}
+                        className='text-decoration-none text-muted'>
+                        <span className='hover_album'>
+                            {item.track.album.name}
+                        </span>
+                    </Link>
                 </Col>
 
                 <Col xs={2} className='text-muted fs-6'>
