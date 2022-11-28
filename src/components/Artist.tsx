@@ -55,7 +55,10 @@ function Artist() {
                                 className="fs-4 me-1" />
                             Verified Artist
                         </span>
-                        <span style={{ fontSize: '6rem', fontWeight: 'bold' }}>
+                        <span style={{
+                            fontSize: '6rem', fontWeight: 'bold',
+                            lineHeight: '5rem', margin: '0.08em 0 0.35em'
+                        }}>
                             {name}
                         </span>
                         <span style={{
@@ -64,9 +67,9 @@ function Artist() {
                         }}>
                             Total followers: {followers!.toLocaleString('en-US')}
                             {""} <MdPeople /> {""} ·
-                            Genres: {genres?.map((item: string) => {
+                            Genres: {genres?.map((item?: string, idx?: number) => {
                                 return (
-                                    <span className="me-2">{item}</span>
+                                    <span key={idx} className="me-2">{item} |</span>
                                 )
                             })}
                         </span>

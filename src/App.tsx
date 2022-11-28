@@ -33,22 +33,22 @@ function App() {
   const [recommendations, setRecommendations] = useState<any[]>([]);
 
   const fetchNewReleases = async () => {
-    const { albums } = await fetchFromAPI('browse/new-releases?country=US&limit=35', token);
+    const { albums } = await fetchFromAPI('browse/new-releases?country=US&limit=34', token);
     setNewReleases(albums.items);
   }
 
   const fetchFeaturedPlaylists = async () => {
-    const { playlists } = await fetchFromAPI('browse/featured-playlists?country=US&limit=35', token);
+    const { playlists } = await fetchFromAPI('browse/featured-playlists?country=US&limit=34', token);
     setFeaturedPlaylists(playlists.items);
   }
 
   const fetchCategories = async () => {
-    const { playlists } = await fetchFromAPI('browse/categories/0JQ5DAqbMKFQ00XGBls6ym/playlists?country=US&limit=35', token);
+    const { playlists } = await fetchFromAPI('browse/categories/0JQ5DAqbMKFQ00XGBls6ym/playlists?country=US&limit=34', token);
     setCategories(playlists.items);
   }
 
   const fetchRecommendations = async () => {
-    const { tracks } = await fetchFromAPI('recommendations?country=US&limit=35&seed_genres=hip-hop&min_popularity=70&max_popularity=100', token);
+    const { tracks } = await fetchFromAPI('recommendations?country=US&limit=34&seed_genres=hip-hop&min_popularity=70&max_popularity=100', token);
     setRecommendations(tracks);
   }
 
