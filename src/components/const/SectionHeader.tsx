@@ -88,7 +88,9 @@ function SectionHeader({ img, description, followers, name,
                                             <Link key={idx} className='mx-1 
                                         text-decoration-none text-white'
                                                 to={`/artist/${item.id}`}>
-                                                · {item.name}
+                                                · <span className='hover_artists_name'>
+                                                    {item.name}
+                                                </span>
                                             </Link>
                                         )
                                     })} · {releaseDate?.slice(0, 4)} · {allTracks} songs · {ConvertMsToTime(allTime!)}
@@ -103,7 +105,9 @@ function SectionHeader({ img, description, followers, name,
                                             <Link key={idx} className='mx-1 
                                         text-decoration-none text-white'
                                                 to={`/artist/${item.id}`}>
-                                                {item.name} ·
+                                                <span className='hover_artists_name'>
+                                                    {item.name}
+                                                </span> ·
                                             </Link>
                                         )
                                     })} {releaseDate?.slice(0, 4)} · {ConvertMsToTime(allTime!)}

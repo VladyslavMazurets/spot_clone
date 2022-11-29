@@ -8,6 +8,7 @@ import Stack from 'react-bootstrap/Stack';
 
 import Loader from '../Loader';
 import { Context } from '../../context';
+import '../style/trackhover.css'
 
 interface ICards {
     state: any,
@@ -45,16 +46,16 @@ function PlaylistsCards({ state, title, artistsName, image, slice, sectionID,
                         }
                     </div>
                 </Stack>
-                <Row className='mx-3 mt-4' >
+                <Row className='mx-3 mt-4'>
                     {(Object.values(state).length) !== 0 ?
                         state.slice(0, slice).map((data: any, idx: number) => {
                             return (
                                 <Col xs="auto" key={idx} className='mb-4'>
                                     <Link to={`/${linkURL}/${data.id}`}
                                         className="text-decoration-none">
-                                        <Card style={{
+                                        <Card className='hover_carts' style={{
                                             width: '185px', height: '100%',
-                                            background: '#2f0a45', boxShadow: `1px 1px 8px 1px #535054`
+                                            background: '#2f0a45', boxShadow: `1px 1px 8px 1px black`
                                         }}>
                                             {image ?
                                                 <Card.Img variant="top" src={data.images[0].url} alt="Albums Img" style={{ padding: '0.5rem' }} />
@@ -74,7 +75,7 @@ function PlaylistsCards({ state, title, artistsName, image, slice, sectionID,
                                                         return (
                                                             <Link key={idx} to={`/artist/${item.id}`}
                                                                 className="text-decoration-none text-muted me-1">
-                                                                {item.name}
+                                                               <span className='hover_artists_name'> {item.name} </span>
                                                             </Link>
                                                         )
                                                     })

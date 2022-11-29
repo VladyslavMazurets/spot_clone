@@ -1,17 +1,37 @@
 .hover_track:hover {
-    background-color: #510182;
+    background-color: #521478;
+    transition: .2s;
 }
 
 .hover_track_name:hover {
     text-decoration: underline;
+    transition: 0.2s;
 }
 
 .hover_artists_name:hover {
     text-decoration: underline;
     color: white;
+    transition: 0.2s;
 }
 
 .hover_album:hover {
     text-decoration: underline;
     color: white;
+}
+
+.hover_carts:hover {
+    background-color: #521478 !important;
+    transition: .3s !important;
+    box-shadow: 1px 1px 8px 1px white !important;
+}
+
+.hover_sidebar_button:hover {
+    color: white;
+    transition: 0.3s;
+}
+
+.hover_like:hover {
+    display: block !important;
+    color: #1ed760 !important;
+    cursor: pointer !important;
 }

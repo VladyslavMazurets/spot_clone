@@ -9,7 +9,7 @@ import Search from './components/Search';
 import Library from './components/Library';
 import PlaylistsDetail from './components/const/PlaylistsDetail';
 import { fetchFromAPI } from './utils/fetchFromAPI';
-import AlbumDetail from './components/Albums';
+import AlbumDetail from './components/const/AlbumDetail';
 import TrackDetail from './components/const/TrackDetail';
 import Artist from './components/Artist';
 

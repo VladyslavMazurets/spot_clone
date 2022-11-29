@@ -1,19 +1,45 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
+import { BiTime } from 'react-icons/bi'
+import { useParams } from 'react-router-dom';
+
 import TrackList from './TrackList';
 import SectionHeader from './SectionHeader'
+import { Context } from '../../context';
+import { randomBgColor } from '../function/functionReus';
+import { fetchFromAPI } from '../../utils/fetchFromAPI';
+import Loader from '../Loader';
 
-import { BiTime } from 'react-icons/bi'
+function AlbumDetail() {
 
-interface IAlbum {
-    state?: any,
-    bgColor?: string
-}
+    const { id } = useParams();
+    const { token } = useContext(Context);
 
-function AlbumDetail({ state, bgColor }: IAlbum) {
+    const bgColor = randomBgColor();
 
-    const { name, releaseDate, type, label,
-        copyrights, images, artists: { artists }, tracks: { items } } = state;
+    const [albumDetail, setAlbumDetail] = useState<any>({});
+
+    const fetchalbumDetail = async () => {
+        const { name, release_date, type, label,
+            copyrights: [{ text }], images: [{ url }], artists,
+            tracks: { items } } = await
+                fetchFromAPI(`albums/${id}`, token)
+
+        setAlbumDetail({
+            name, release_date, type, label, text, url, artists, items
+        })
+    };
+
+    useEffect(() => {
+        if (token) {
+            fetchalbumDetail();
+        }
+    }, [token, id])
+
+    if (!albumDetail.name) return <Loader />
+
+    const { name, release_date, type, label,
+        text, url, artists, items } = albumDetail;
 
     let allTime = 0;
     let allTracks = Object.keys(items).length;
@@ -24,8 +50,11 @@ function AlbumDetail({ state, bgColor }: IAlbum) {
 
     return (
         <>
-            <Container fluid>
-                <SectionHeader img={images} name={name} releaseDate={releaseDate}
+            <Container fluid style={{
+                backgroundColor: '#1a0229', minHeight: '100vh',
+                color: 'white'
+            }}>
+                <SectionHeader img={url} name={name} releaseDate={release_date}
                     owner={type} bgColor={bgColor} artists={artists}
                     allTime={allTime} allTracks={allTracks} />
                 <Container fluid className='mt-5 border-bottom border-secondary
@@ -47,11 +76,11 @@ function AlbumDetail({ state, bgColor }: IAlbum) {
                 </Container>
 
                 <div className='d-flex flex-column text-muted mx-4 mb-4 fw-bolder'>
-                    <span> {releaseDate} </span>
+                    <span> {release_date} </span>
                     <span> Label: {label} </span>
-                    <span> {copyrights} </span>
+                    <span> {text} </span>
                 </div>
-                
+
             </Container>
         </>
     )

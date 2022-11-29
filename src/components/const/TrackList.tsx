@@ -1,10 +1,11 @@
 import React from 'react'
-import { Col, Row } from 'react-bootstrap'
-import '../style/trackhover.css'
-
+import { Col, Row, Stack } from 'react-bootstrap'
 import { MdExplicit } from 'react-icons/md'
+import { BsHeartFill } from 'react-icons/bs'
 import { Link } from 'react-router-dom'
+
 import { millisToMinutesAndSeconds } from '../function/functionReus'
+import '../style/trackhover.css'
 
 interface IContent {
     idx?: number,
@@ -43,7 +44,10 @@ function TrackList({ idx, item }: IContent) {
                     </Col>
 
                     <Col className='text-muted fs-6 d-flex justify-content-end'>
-                        {millisToMinutesAndSeconds(item.duration_ms)}
+                        <Stack direction="horizontal" gap={4}>
+                                <BsHeartFill className='fs-6 d-flex align-items-center hover_like'/>
+                            <div>{millisToMinutesAndSeconds(item.duration_ms)}</div>
+                        </Stack>
                     </Col>
                 </Row>
             </div>

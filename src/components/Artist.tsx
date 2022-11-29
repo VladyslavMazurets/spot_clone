@@ -7,6 +7,7 @@ import { Context } from '../context';
 import { fetchFromAPI } from '../utils/fetchFromAPI';
 import TrackList from './const/TrackList';
 import PlaylistsCards from './const/PlaylistsCards';
+import './style/trackhover.css'
 
 interface IArtDet {
     [genres: string]: any,
@@ -41,7 +42,7 @@ function Artist() {
     }
 
     const fetchArtistAlbums = async () => {
-        const { items } = await fetchFromAPI(`artists/${id}/albums?limit=7`, token);
+        const { items } = await fetchFromAPI(`artists/${id}/albums?limit=6`, token);
         setArtistAlbums(items)
     }
 
@@ -120,14 +121,14 @@ function Artist() {
                     <Container fluid className='pt-4 mx-3'>
                         <Row className='fs-2 fw-bold'> Fans also like </Row>
                         <Row className='my-4 mx-3'>
-                            {relatedArtists.slice(0, 7)?.map((item: any, idx: number) => {
+                            {relatedArtists.slice(0, 6)?.map((item: any, idx: number) => {
                                 return (
                                     <Col xs="auto" key={idx} className='mb-3'>
                                         <Link to={`/artist/${item.id}`}
                                             className="text-decoration-none text-white">
-                                            <Card style={{
+                                            <Card className='hover_carts' style={{
                                                 width: '185px', height: '100%',
-                                                background: '#2f0a45', boxShadow: `1px 1px 8px 1px #535054`
+                                                background: '#2f0a45', boxShadow: `1px 1px 8px 1px black`
                                             }}>
                                                 <Card.Img variant="top"
                                                     src={item.images[0].url}

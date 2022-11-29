@@ -45,16 +45,12 @@ function Sidebar() {
 
   return (
     <>
-      <Stack style={{ display: 'flex', flexDirection: 'row' }}>
+      <Stack className='d-flex flex-row'>
         <div>
-          <CDBSidebar backgroundColor="#170124" maxWidth='300px' fixed>
+          <CDBSidebar backgroundColor="#170124" maxWidth='300px'>
             <CDBSidebarHeader prefix={<i className="fa fa-bars" style={{
               paddingTop: '0.8rem', fontSize: '1.3rem'
             }} />} >
-              <div style={{
-                display: 'flex', alignItems: 'center', margin: 0,
-                padding: 0
-              }}>
                 <Link to='/' style={{
                   textDecoration: 'none', color: 'white',
                   display: 'flex', alignItems: 'center'
@@ -62,22 +58,21 @@ function Sidebar() {
                   <ImSpotify style={{ fontSize: '2.8rem', marginRight: '1rem' }} />
                   <span style={{ fontSize: '1.5rem' }}> Spot Clone </span>
                 </Link>
-              </div>
             </CDBSidebarHeader>
             <CDBSidebarContent>
               <CDBSidebarMenu style={{ fontSize: '1.2rem' }}>
                 <NavLink to="/" style={Active}>
-                  <CDBSidebarMenuItem icon='home'>
+                  <CDBSidebarMenuItem icon='home' className='hover_sidebar_button'>
                     Home
                   </CDBSidebarMenuItem>
                 </NavLink>
                 <NavLink to='/search' style={Active}>
-                  <CDBSidebarMenuItem icon='search'>
+                  <CDBSidebarMenuItem icon='search' className='hover_sidebar_button'>
                     Search
                   </CDBSidebarMenuItem>
                 </NavLink>
                 <NavLink to='/library' style={Active}>
-                  <CDBSidebarMenuItem icon='music library'>
+                  <CDBSidebarMenuItem icon='music library' className='hover_sidebar_button'>
                     Your Library
                   </CDBSidebarMenuItem>
                 </NavLink>
