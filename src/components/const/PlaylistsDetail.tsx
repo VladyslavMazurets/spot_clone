@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { Container, Col, Row } from 'react-bootstrap';
-import { BiTime } from "react-icons/bi";
+import { Container } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 
 import { Context } from '../../context';
@@ -9,6 +8,7 @@ import { randomBgColor } from '../function/functionReus';
 import Loader from '../Loader';
 import PlaylistsContent from './PlaylistsContent';
 import SectionHeader from './SectionHeader';
+import TrackHeader from './TrackHeader';
 
 function PlaylistsDetail() {
 
@@ -48,7 +48,7 @@ function PlaylistsDetail() {
         <>
             <Container fluid style={{
                 backgroundColor: '#1a0229', minHeight: '100vh',
-                color: 'white'
+                color: 'white', padding: 0
             }}>
 
                 <SectionHeader img={url} description={description}
@@ -58,15 +58,7 @@ function PlaylistsDetail() {
                 <Container fluid className='mt-5 border-bottom border-secondary
                  pb-5 mb-5'>
 
-                    <Row className='d-flex text-uppercase fw-bold fs-5
-                                align-items-center border-bottom text-muted
-                                border-secondary mx-1 pb-2 mb-4'>
-                        <Col xs='auto'>#</Col>
-                        <Col xs={5} className='w-50'>title</Col>
-                        <Col >album</Col>
-                        <Col xs={2} className="mx-4">date added</Col>
-                        <Col xs='auto'> <BiTime /> </Col>
-                    </Row>
+                    <TrackHeader album={'album'} date={'date added'}/>
 
                     {items.slice(0, 100).map((item: any, idx: number) => {
                         return (

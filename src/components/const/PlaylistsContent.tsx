@@ -3,7 +3,7 @@ import { Col, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
 import { millisToMinutesAndSeconds } from '../function/functionReus'
-import '../style/trackhover.css'
+import '../style/hover.css'
 
 interface IContent {
     idx?: number,
@@ -13,7 +13,7 @@ interface IContent {
 function PlaylistsContent({ idx, item }: IContent) {
     return (
         <>
-            <Row className='d-flex align-items-center mx-1 mb-3 hover_track'>
+            <Row className='d-flex align-items-center mx-3 mb-3 hover_track'>
 
                 <Col xs='auto' className='text-muted fs-6 fw-bold'>
                     {idx! + 1}
@@ -26,7 +26,7 @@ function PlaylistsContent({ idx, item }: IContent) {
                         height='60px' className='my-2' />
                     <div className="d-flex flex-column mx-3">
                         <Link className='text-decoration-none'
-                            to={`/track/${item.track.id}`}>
+                            to={`/track/${item.track.id}/${item.track.artists[0]?.id}/${item.track.album?.id}`}>
                             <span className='fs-5 text-white hover_track_name'>
                                 {item.track.name}
                             </span>

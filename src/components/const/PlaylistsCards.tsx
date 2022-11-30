@@ -8,7 +8,7 @@ import Stack from 'react-bootstrap/Stack';
 
 import Loader from '../Loader';
 import { Context } from '../../context';
-import '../style/trackhover.css'
+import '../style/hover.css'
 
 interface ICards {
     state: any,
@@ -47,11 +47,11 @@ function PlaylistsCards({ state, title, artistsName, image, slice, sectionID,
                     </div>
                 </Stack>
                 <Row className='mx-3 mt-4'>
-                    {(Object.values(state).length) !== 0 ?
+                    {(Object.values(state)?.length) !== 0 ?
                         state.slice(0, slice).map((data: any, idx: number) => {
                             return (
                                 <Col xs="auto" key={idx} className='mb-4'>
-                                    <Link to={`/${linkURL}/${data.id}`}
+                                    <Link to={`/${linkURL}/${data.id}${data.album ? `/${data.artists[0]?.id}/${data.album?.id}`:''}`}
                                         className="text-decoration-none">
                                         <Card className='hover_carts' style={{
                                             width: '185px', height: '100%',

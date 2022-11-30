@@ -35,3 +35,8 @@
     color: #1ed760 !important;
     cursor: pointer !important;
 }
+
+.hover_button:hover {
+    color: white;
+    transition: 0.2s;
+}

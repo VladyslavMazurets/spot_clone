@@ -7,7 +7,8 @@ import { Context } from '../context';
 import { fetchFromAPI } from '../utils/fetchFromAPI';
 import TrackList from './const/TrackList';
 import PlaylistsCards from './const/PlaylistsCards';
-import './style/trackhover.css'
+import './style/hover.css'
+import Loader from './Loader';
 
 interface IArtDet {
     [genres: string]: any,
@@ -21,7 +22,7 @@ function Artist() {
     const { token } = useContext(Context);
     const { id } = useParams();
     const [artistDetail, setArtistDetail] = useState<IArtDet>({
-        genres: {}, image: '', name: '', followers: 0
+        genres: '', image: '', name: '', followers: 0
     });
     const [artistTopTrack, setArtistTopTrack] = useState([]);
     const [artistAlbums, setArtistAlbums] = useState({});
@@ -32,7 +33,7 @@ function Artist() {
         } = await fetchFromAPI(`artists/${id}`, token);
 
         setArtistDetail({
-            genres: { genres }, image: url, name: name, followers: total
+            genres: genres, image: url, name: name, followers: total
         });
     }
 
@@ -61,6 +62,8 @@ function Artist() {
     }, [token, id])
 
     const { name, image, followers, genres: { genres } } = artistDetail;
+
+    if (!artistTopTrack) return <Loader />
 
     return (
         <>
@@ -109,7 +112,7 @@ function Artist() {
 
                     {artistTopTrack?.map((item: any, idx: number) => {
                         return (
-                            <TrackList idx={idx} item={item}/>
+                            <TrackList idx={idx} item={item} track={true}/>
                         )
                     })
                     }
@@ -151,7 +154,6 @@ function Artist() {
                     </Container>
                 </Container>
             </Stack>
-            {console.log()}
         </>
     )
 }

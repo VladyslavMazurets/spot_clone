@@ -28,10 +28,10 @@ export function millisToMinutesAndSeconds(millis: number) {
 }
 
 export function randomBgColor() {
-    var x = Math.floor(Math.random() * 140);
-    var y = Math.floor(Math.random() * 140);
+    var x = Math.floor(Math.random() * 255);
+    var y = Math.floor(Math.random() * 255);
     var z = Math.floor(Math.random() * 255);
-    var bgColor = "rgb(" + x + "," + y + "," + z + ",0.3)";
+    var bgColor = "rgb(" + x + "," + y + "," + z + ",0.4)";
 
     return bgColor
 }

@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { Col, Container, Row } from 'react-bootstrap'
-import { BiTime } from 'react-icons/bi'
+import { Container } from 'react-bootstrap'
 import { useParams } from 'react-router-dom';
 
 import TrackList from './TrackList';
@@ -9,6 +8,7 @@ import { Context } from '../../context';
 import { randomBgColor } from '../function/functionReus';
 import { fetchFromAPI } from '../../utils/fetchFromAPI';
 import Loader from '../Loader';
+import TrackHeader from './TrackHeader';
 
 function AlbumDetail() {
 
@@ -59,17 +59,12 @@ function AlbumDetail() {
                     allTime={allTime} allTracks={allTracks} />
                 <Container fluid className='mt-5 border-bottom border-secondary
                  pb-5 mb-5'>
-                    <Row className='d-flex text-uppercase fw-bold fs-5
-                                align-items-center border-bottom text-muted
-                                border-secondary mx-1 pb-2 mb-4'>
-                        <Col xs='auto'>#</Col>
-                        <Col xs={5} className='w-50'>title</Col>
-                        <Col className='d-flex justify-content-end'> <BiTime /> </Col>
-                    </Row>
+
+                    <TrackHeader />
 
                     {items.map((item: any, idx: number) => {
                         return (
-                            <TrackList key={idx} idx={idx} item={item} />
+                            <TrackList key={idx} idx={idx} item={item} track={true} albumID={id} />
                         )
                     })
                     }
