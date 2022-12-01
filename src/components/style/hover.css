@@ -40,3 +40,8 @@
     color: white;
     transition: 0.2s;
 }
+
+.hover_artist_box:hover {
+    background-color: #521478;
+    transition: 0.7s;
+}

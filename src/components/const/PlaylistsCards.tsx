@@ -51,7 +51,7 @@ function PlaylistsCards({ state, title, artistsName, image, slice, sectionID,
                         state.slice(0, slice).map((data: any, idx: number) => {
                             return (
                                 <Col xs="auto" key={idx} className='mb-4'>
-                                    <Link to={`/${linkURL}/${data.id}${data.album ? `/${data.artists[0]?.id}/${data.album?.id}`:''}`}
+                                    <Link to={`/${linkURL}/${data.id}${data.album ? `/artist/${data.artists[0]?.id}/album/${data.album?.id}/${data.artists[0]?.name}/${data.name}` : ''}`}
                                         className="text-decoration-none">
                                         <Card className='hover_carts' style={{
                                             width: '185px', height: '100%',

@@ -17,7 +17,7 @@ export const fetchFromAPI = async (url: string, token: string | null) => {
     return data;
 }
 
-export const fetchFromLyrics = async (url:string) => {
+export const fetchFromLyrics = async (url: string) => {
     const { data } = await axios.get((`${BASE_URL_LYRICS}/${url}&apikey=${process.env.REACT_APP_MUSIX_ID}`));
 
     return data;

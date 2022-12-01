@@ -26,7 +26,7 @@ function PlaylistsContent({ idx, item }: IContent) {
                         height='60px' className='my-2' />
                     <div className="d-flex flex-column mx-3">
                         <Link className='text-decoration-none'
-                            to={`/track/${item.track.id}/${item.track.artists[0]?.id}/${item.track.album?.id}`}>
+                            to={`/track/${item.track.id}/artist/${item.track.artists[0]?.id}/album/${item.track.album?.id}/${item.track.artists[0]?.name}/${item.track.name}`}>
                             <span className='fs-5 text-white hover_track_name'>
                                 {item.track.name}
                             </span>

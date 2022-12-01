@@ -4,16 +4,23 @@ import { Stack } from 'react-bootstrap';
 import { Triangle } from 'react-loader-spinner';
 import { Context } from '../context';
 
-function Loader() {
+interface ILoader {
+    bgColor?: string
+    height?: string
+}
+
+function Loader({ bgColor, height }: ILoader) {
 
     const { token } = useContext(Context);
 
     return (
         <>
-            <Stack style={{ backgroundColor: '#1a0229', minHeight: '100vh', color: 'white' }}>
+            <Stack style={{
+                backgroundColor: `${bgColor ? `${bgColor}` : ''}`, color: 'white'
+            }}>
                 <div style={{
                     display: 'flex', justifyContent: 'center',
-                    alignItems: 'center', height: '100vh'
+                    alignItems: 'center', height: `${height ? `${height}` : '100vh'}`
                 }}>
                     {token ?
                         <Triangle color='white' width='140px' height='140px' />

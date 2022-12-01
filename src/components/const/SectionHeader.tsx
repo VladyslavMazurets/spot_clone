@@ -26,7 +26,7 @@ function SectionHeader({ img, description, followers, name,
                 <div className="d-flex align-items-end" style={{
                     padding: '5rem 4rem 1.5rem 4rem', width: '100%',
                     backgroundColor: `${bgColor}`,
-                    boxShadow: `1px 50px 300px 65px ${bgColor}`,
+                    boxShadow: `1px 80px 300px 80px ${bgColor}`,
                 }}>
 
                     <img src={img} alt="Playlists Img" width="232px" height="232px" style={{

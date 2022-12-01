@@ -28,7 +28,8 @@ function TrackList({ idx, item, track, albumID }: IContent) {
                     <Col xs={5} className='d-flex w-50 align-items-center'>
                         <div className="d-flex flex-column mx-3">
                             {track ? <Link className='text-decoration-none fs-5 text-white'
-                                to={`/track/${item.id}/${item.artists[0]?.id}/${item.album ? `${item.album?.id}` : `${albumID}`}`}>
+                                to={`/track/${item.id}/artist/${item.artists[0]?.id}/album/${item.album ? `${item.album?.id}/${item.artists[0]?.name}/${item.name}`
+                                        : `${albumID}/${item.artists[0]?.name}/${item.name}`}`}>
                                 <span className='hover_track_name'>
                                     {(item.name).length > 40
                                         ? `${item.name.substring(0, 76)}...`

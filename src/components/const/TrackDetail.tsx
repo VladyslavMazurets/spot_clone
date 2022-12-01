@@ -1,9 +1,10 @@
 import React, { useContext, useState, useEffect } from 'react'
-import { Button, Container } from 'react-bootstrap'
-import { useParams } from 'react-router-dom'
+import { Button, Container, Row, Col } from 'react-bootstrap'
+import { BsChevronDoubleLeft } from 'react-icons/bs'
+import { Link, useParams } from 'react-router-dom'
 
 import { Context } from '../../context'
-import { fetchFromAPI } from '../../utils/fetchFromAPI'
+import { fetchFromAPI, fetchFromLyrics } from '../../utils/fetchFromAPI'
 import { randomBgColor } from '../function/functionReus'
 import Loader from '../Loader'
 import PlaylistsCards from './PlaylistsCards'
@@ -26,7 +27,7 @@ type Album = {
 
 function TrackDetail() {
 
-    const { id, artistID, albumID } = useParams();
+    const { id, artistID, albumID, artistName, trackName } = useParams();
     const { token } = useContext(Context);
 
     const bgColor = randomBgColor();
@@ -37,6 +38,8 @@ function TrackDetail() {
     const [artistTopTrack, setArtistTopTrack] = useState([]);
     const [albumTrack, setAlbumTrack] = useState<Album>({});
     const [artistAlbums, setArtistAlbums] = useState([]);
+    const [artistAvatar, setArtistAvatar] = useState({});
+    const [lyrics, setLyrics] = useState({});
 
     const fetchTrackDetail = async () => {
         const { name, duration_ms, album: { release_date, images: [{ url }] },
@@ -45,13 +48,17 @@ function TrackDetail() {
         setTrackDetail({ name, duration_ms, release_date, url, artists, album })
     };
 
+    const fetchArtist = async () => {
+        const { images: [{ url }] } = await fetchFromAPI(`artists/${artistID}`, token);
+        setArtistAvatar(url);
+    }
+
     const fetchArtistTopTrack = async () => {
         const { tracks } = await fetchFromAPI(`artists/${artistID}/top-tracks?market=UA`, token);
         setArtistTopTrack(tracks)
     }
 
     const fetchAlbum = async () => {
-
         const { label, copyrights: [{ text }], tracks: { items } } = await fetchFromAPI(`albums/${albumID}`, token);
         setAlbumTrack({ label, text, items })
     }
@@ -61,20 +68,30 @@ function TrackDetail() {
         setArtistAlbums(items)
     }
 
+    const fetchLyrics = async () => {
+        const { message: { body: { lyrics: { lyrics_body } } } } = await fetchFromLyrics(`matcher.lyrics.get?q_track=${trackName}&q_artist=${artistName}`)
+        setLyrics(lyrics_body)
+
+    }
+
     const { name, duration_ms, release_date, url, artists, album }: ITrackDetail
         = trackDetail
     const { items, label, text } = albumTrack;
 
     useEffect(() => {
-        if (token) {
+        let ignore = false;
+        if (token && !ignore) {
             fetchTrackDetail();
             fetchArtistTopTrack();
             fetchAlbum();
             fetchArtistAlbums();
+            fetchArtist();
+            fetchLyrics();
         }
-    }, [token, id])
+        return () => { ignore = true }
+    }, [token, id, artistID, albumID, artistName, trackName])
 
-    if (!trackDetail.name) return <Loader />
+    if (!trackDetail.name) return <Loader bgColor={`#1a0229`} />
 
     return (
         <>
@@ -92,9 +109,37 @@ function TrackDetail() {
 
                     <TrackList idx={0} item={trackDetail} track={false} />
 
-                    <div className='mt-5 mx-4'>
-                        LYRICK
-                    </div>
+                    <Container fluid>
+                        <Row className='mx-1 d-flex align-items-start'>
+                            <Col className='d-flex flex-column me-5'>
+                                <span className='mt-3 mb-4 fs-4 fw-bold'>Lyrics</span>
+                                <span className='fs-5 text-muted'>
+                                    {(Object.keys(lyrics)?.length == 0) && lyrics !== '' ?
+                                        <Loader height={'15vh'} /> : lyrics == "" ?
+                                            <span className='fs-4'>Sorry, No Lyrics found!</span>
+                                            : lyrics?.toString().split('\n').map((p: string) => {
+                                                return <p className='my-2'>{p}</p>
+                                            })
+                                    }
+                                </span>
+                            </Col>
+                            <Col xs='5'>
+                                <Link to={`/artist/${artistID}`}
+                                    className='d-flex align-items-center rounded 
+                                    mt-5 p-2 text-decoration-none text-white 
+                                    hover_artist_box '>
+                                    <img src={`${artistAvatar}`} alt="Artist Avatar"
+                                        className='rounded-circle me-4' width="120px"
+                                        height="120px" />
+                                    <span className='fw-bolder'>ARTIST
+                                        <p className='fw-bold fs-5 hover_artists_name'>
+                                            {trackDetail.artists[0].name}
+                                        </p>
+                                    </span>
+                                </Link>
+                            </Col>
+                        </Row>
+                    </Container>
 
                     <div className='mt-5'>
                         <span className='text-muted mx-3'>

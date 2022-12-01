@@ -22,7 +22,7 @@ function Artist() {
     const { token } = useContext(Context);
     const { id } = useParams();
     const [artistDetail, setArtistDetail] = useState<IArtDet>({
-        genres: '', image: '', name: '', followers: 0
+        genres: {}, image: '', name: '', followers: 0
     });
     const [artistTopTrack, setArtistTopTrack] = useState([]);
     const [artistAlbums, setArtistAlbums] = useState({});
@@ -33,7 +33,7 @@ function Artist() {
         } = await fetchFromAPI(`artists/${id}`, token);
 
         setArtistDetail({
-            genres: genres, image: url, name: name, followers: total
+            genres: {genres}, image: url, name: name, followers: total
         });
     }
 
@@ -61,9 +61,9 @@ function Artist() {
         }
     }, [token, id])
 
-    const { name, image, followers, genres: { genres } } = artistDetail;
+    const { name, image, followers, genres: {genres} } = artistDetail;
 
-    if (!artistTopTrack) return <Loader />
+    if (!artistTopTrack) return <Loader bgColor={`#1a0229`}/>
 
     return (
         <>
@@ -79,7 +79,7 @@ function Artist() {
                     alignItems: 'end', boxShadow: `1px 3px 15px 12px #4d355c`
                 }}>
                     <div className='d-flex flex-column w-100 h-100 p-5 
-                        justify-content-end bg-opacity-25 shadow-sm bg-black'>
+                        justify-content-end bg-opacity-50 shadow-sm bg-black'>
                         <span className="fs-5 fw-bolder d-flex align-items-center">
                             <MdVerified style={{ color: '#0c67d3' }}
                                 className="fs-4 me-1" />
