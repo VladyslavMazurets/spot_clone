@@ -36,7 +36,7 @@ function AlbumDetail() {
         }
     }, [token, id])
 
-    if (!albumDetail.name) return <Loader bgColor={`#1a0229`}/>
+    if (!albumDetail.name) return <Loader bgColor={`#1a0229`} />
 
     const { name, release_date, type, label,
         text, url, artists, items } = albumDetail;

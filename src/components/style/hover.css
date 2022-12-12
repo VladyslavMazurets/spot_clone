@@ -45,3 +45,15 @@
     background-color: #521478;
     transition: 0.7s;
 }
+
+#main_container:hover #number {
+    display: none;
+}
+
+#main_container:hover #player {
+    display: block !important;
+}
+
+#main_container:hover #like {
+    display: block !important;
+}

@@ -24,12 +24,12 @@ function SectionHeader({ img, description, followers, name,
         <>
             <div>
                 <div className="d-flex align-items-end" style={{
-                    padding: '5rem 4rem 1.5rem 4rem', width: '100%',
+                    padding: '5rem 4rem 1.5rem 4rem', 
                     backgroundColor: `${bgColor}`,
                     boxShadow: `1px 80px 300px 80px ${bgColor}`,
                 }}>
 
-                    <img src={img} alt="Playlists Img" width="232px" height="232px" style={{
+                    <img src={img} alt="Playlists_Img" width="232px" height="232px" style={{
                         boxShadow: '0 4px 60px rgb(0 0 0 / 80%)'
                     }} />
 
@@ -53,8 +53,9 @@ function SectionHeader({ img, description, followers, name,
                         }
 
                         <span style={{
-                            fontSize: name!.length < 25 ? '6rem' : '4rem', width: '100%', fontWeight: 'bold',
-                            textTransform: 'capitalize', margin: '0.08em 0px 0.2em', lineHeight: '5rem'
+                            fontSize: name!.length < 25 ? '6rem' : '4rem',
+                            fontWeight: 'bold', textTransform: 'capitalize',
+                            margin: '0.08em 0px 0.2em', lineHeight: '5rem'
                         }}>
                             {(name).length > 33 ? `${name.substring(0, 33)}...`
                                 : name}

@@ -86,7 +86,7 @@ function TrackDetail() {
             fetchAlbum();
             fetchArtistAlbums();
             fetchArtist();
-            fetchLyrics();
+            // fetchLyrics();
         }
         return () => { ignore = true }
     }, [token, id, artistID, albumID, artistName, trackName])
@@ -117,8 +117,8 @@ function TrackDetail() {
                                     {(Object.keys(lyrics)?.length == 0) && lyrics !== '' ?
                                         <Loader height={'15vh'} /> : lyrics == "" ?
                                             <span className='fs-4'>Sorry, No Lyrics found!</span>
-                                            : lyrics?.toString().split('\n').map((p: string) => {
-                                                return <p className='my-2'>{p}</p>
+                                            : lyrics?.toString().split('\n').map((p: string, idx: number) => {
+                                                return <p key={idx} className='my-2'>{p}</p>
                                             })
                                     }
                                 </span>
@@ -213,6 +213,7 @@ function TrackDetail() {
                     </div>
                 </Container>
             </Container>
+            {console.log(lyrics)}
         </>
     )
 }
