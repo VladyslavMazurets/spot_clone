@@ -43,9 +43,9 @@ function TrackDetail() {
 
     const fetchTrackDetail = async () => {
         const { name, duration_ms, album: { release_date, images: [{ url }] },
-            artists, album } = await fetchFromAPI(`tracks/${id}`, token);
+            artists, album, preview_url } = await fetchFromAPI(`tracks/${id}`, token);
 
-        setTrackDetail({ name, duration_ms, release_date, url, artists, album })
+        setTrackDetail({ name, duration_ms, release_date, url, artists, album, preview_url })
     };
 
     const fetchArtist = async () => {
@@ -86,7 +86,7 @@ function TrackDetail() {
             fetchAlbum();
             fetchArtistAlbums();
             fetchArtist();
-            // fetchLyrics();
+            fetchLyrics();
         }
         return () => { ignore = true }
     }, [token, id, artistID, albumID, artistName, trackName])
@@ -213,7 +213,6 @@ function TrackDetail() {
                     </div>
                 </Container>
             </Container>
-            {console.log(lyrics)}
         </>
     )
 }

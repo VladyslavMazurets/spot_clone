@@ -64,7 +64,8 @@ function AlbumDetail() {
 
                     {items.map((item: any, idx: number) => {
                         return (
-                            <TrackList key={idx} idx={idx} item={item} track={true} albumID={id} />
+                            <TrackList key={idx} idx={idx} item={item}
+                                track={true} albumID={id} />
                         )
                     })
                     }

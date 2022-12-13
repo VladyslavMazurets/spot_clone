@@ -154,6 +154,7 @@ function Artist() {
                     </Container>
                 </Container>
             </Stack>
+            {console.log(artistTopTrack)}
         </>
     )
 }

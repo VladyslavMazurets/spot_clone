@@ -16,7 +16,7 @@ const {
 
 const Active = ({ isActive }: any) => ({ color: isActive ? 'white' : '#656566' })
 const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
-const REDIRECT_URI = "http://localhost:3000";
+const REDIRECT_URI = "https://spot-clone-xi.vercel.app/";
 const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
 
 const loginURL = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=token`;
@@ -51,13 +51,13 @@ function Sidebar() {
             <CDBSidebarHeader prefix={<i className="fa fa-bars" style={{
               paddingTop: '0.8rem', fontSize: '1.3rem'
             }} />} >
-                <Link to='/' style={{
-                  textDecoration: 'none', color: 'white',
-                  display: 'flex', alignItems: 'center'
-                }}>
-                  <ImSpotify style={{ fontSize: '2.8rem', marginRight: '1rem' }} />
-                  <span style={{ fontSize: '1.5rem' }}> Spot Clone </span>
-                </Link>
+              <Link to='/' style={{
+                textDecoration: 'none', color: 'white',
+                display: 'flex', alignItems: 'center'
+              }}>
+                <ImSpotify style={{ fontSize: '2.8rem', marginRight: '1rem' }} />
+                <span style={{ fontSize: '1.5rem' }}> Spot Clone </span>
+              </Link>
             </CDBSidebarHeader>
             <CDBSidebarContent>
               <CDBSidebarMenu style={{ fontSize: '1.2rem' }}>
@@ -73,7 +73,7 @@ function Sidebar() {
                 </NavLink>
                 <NavLink to='/library' style={Active}>
                   <CDBSidebarMenuItem icon='music library' className='hover_sidebar_button'>
-                    Your Library
+                    Liked Songs
                   </CDBSidebarMenuItem>
                 </NavLink>
               </CDBSidebarMenu>

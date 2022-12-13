@@ -41,6 +41,11 @@
     transition: 0.2s;
 }
 
+.hover_buttonPlayer:hover {
+    color: #1ed760;
+    transition: 0.2s;
+}
+
 .hover_artist_box:hover {
     background-color: #521478;
     transition: 0.7s;
