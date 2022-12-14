@@ -36,4 +36,13 @@ export function randomBgColor() {
     return bgColor
 }
 
+export function randomBrightBgColor() {
+    var x = Math.floor(Math.random() * 255);
+    var y = Math.floor(Math.random() * 255);
+    var z = Math.floor(Math.random() * 255);
+    var bgColor = "rgb(" + x + "," + y + "," + z + ")";
+
+    return bgColor
+}
+
 

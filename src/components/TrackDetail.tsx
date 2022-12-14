@@ -3,14 +3,14 @@ import { Button, Container, Row, Col } from 'react-bootstrap'
 import { BsChevronDoubleLeft } from 'react-icons/bs'
 import { Link, useParams } from 'react-router-dom'
 
-import { Context } from '../../context'
-import { fetchFromAPI, fetchFromLyrics } from '../../utils/fetchFromAPI'
-import { randomBgColor } from '../function/functionReus'
-import Loader from '../Loader'
-import PlaylistsCards from './PlaylistsCards'
-import SectionHeader from './SectionHeader'
-import TrackHeader from './TrackHeader'
-import TrackList from './TrackList'
+import { Context } from '../context'
+import { fetchFromAPI, fetchFromLyrics } from '../utils/fetchFromAPI'
+import { randomBgColor } from './function/functionReus'
+import Loader from './Loader'
+import PlaylistsCards from './const/PlaylistsCards'
+import SectionHeader from './const/SectionHeader'
+import TrackHeader from './const/TrackHeader'
+import TrackList from './const/TrackList'
 
 interface ITrackDetail {
     [key: string]: any

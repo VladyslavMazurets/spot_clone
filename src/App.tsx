@@ -5,13 +5,15 @@ import { Context } from './context';
 import Section from './components/Section';
 import Sidebar from './components/Sidebar';
 import Music from './components/Music';
-import Search from './components/Search';
 import Library from './components/Library';
 import PlaylistsDetail from './components/const/PlaylistsDetail';
 import { fetchFromAPI } from './utils/fetchFromAPI';
 import AlbumDetail from './components/const/AlbumDetail';
-import TrackDetail from './components/const/TrackDetail';
+import TrackDetail from './components/TrackDetail';
 import Artist from './components/Artist';
+import SearchBar from './components/SearchBar';
+import SearchIntro from './components/SearchIntro';
+import Genre from './components/Genre';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -73,7 +75,9 @@ function App() {
       <Routes>
         <Route path='/' element={<Sidebar />}>
           <Route index element={<Music />} />
-          <Route path='search' element={<Search />} />
+          <Route path='search' element={<SearchBar />}>
+            <Route index element={<SearchIntro />} />
+          </Route>
           <Route path='library' element={<Library />} />
           <Route path='section/:id' element={<Section />} />
           <Route path='playlists/:id' element={<PlaylistsDetail />} />
@@ -81,6 +85,7 @@ function App() {
           <Route path='track/:id' element={<TrackDetail />} />
           <Route path='track/:id/artist/:artistID/album/:albumID/:artistName/:trackName' element={<TrackDetail />} />
           <Route path='artist/:id' element={<Artist />} />
+          <Route path='genre/:id' element={<Genre />} />
         </Route>
       </Routes>
     </Context.Provider>
