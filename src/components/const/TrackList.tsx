@@ -100,14 +100,13 @@ function TrackList({ idx, item, track, albumID }: IContent) {
 
                     <Col className='text-muted fs-6 d-flex justify-content-end'>
                         <Stack direction="horizontal" gap={4}>
-                            <BsHeartFill id="like" className={`1fs-6 d-flex align-items-center 
+                            <BsHeartFill id="like" className={`fs-6 d-flex align-items-center 
                             hover_like ${!soundPlay && 'd-none'}`} />
-                            <div>{millisToMinutesAndSeconds(item.duration_ms)}</div>
+                            {millisToMinutesAndSeconds(item.duration_ms)}
                         </Stack>
                     </Col>
                 </Row>
             </div>
-            {console.log()}
         </>
     )
 }

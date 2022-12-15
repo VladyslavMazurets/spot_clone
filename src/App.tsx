@@ -80,12 +80,13 @@ function App() {
           </Route>
           <Route path='library' element={<Library />} />
           <Route path='section/:id' element={<Section />} />
+          <Route path='section/:id/:categoriesName/:navURL' element={<Section />} />
           <Route path='playlists/:id' element={<PlaylistsDetail />} />
           <Route path='albums/:id' element={<AlbumDetail />} />
           <Route path='track/:id' element={<TrackDetail />} />
           <Route path='track/:id/artist/:artistID/album/:albumID/:artistName/:trackName' element={<TrackDetail />} />
           <Route path='artist/:id' element={<Artist />} />
-          <Route path='genre/:id' element={<Genre />} />
+          <Route path='genre/:categoriesName/:id' element={<Genre />} />
         </Route>
       </Routes>
     </Context.Provider>

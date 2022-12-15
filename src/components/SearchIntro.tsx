@@ -19,17 +19,15 @@ function SearchIntro() {
     if (token) {
       fetchGenre();
     }
-
   }, [token])
 
 
   return (
     <>
-      <Container fluid className='ms-5 pt-3 pb-2'>
+      <Container fluid className='ps-4 pt-3 pb-5 border-bottom border-secondary mb-5'>
         <span className='text-white fs-3 fw-bold'> Browse all </span>
         <IntroCards />
       </Container>
-      {console.log(genre)}
     </>
   )
 }

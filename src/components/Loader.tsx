@@ -7,9 +7,10 @@ import { Context } from '../context';
 interface ILoader {
     bgColor?: string
     height?: string
+    title?: string
 }
 
-function Loader({ bgColor, height }: ILoader) {
+function Loader({ bgColor, height, title }: ILoader) {
 
     const { token } = useContext(Context);
 
@@ -23,7 +24,12 @@ function Loader({ bgColor, height }: ILoader) {
                     alignItems: 'center', height: `${height ? `${height}` : '100vh'}`
                 }}>
                     {token ?
-                        <Triangle color='white' width='140px' height='140px' />
+                        <div className='d-flex flex-column align-items-center'>
+                            <Triangle color='white' width='140px' height='140px' />
+                            <span className="mt-5 fs-4 text-capitalize fw-bolder">
+                                {title}
+                            </span>
+                        </div>
                         :
                         <div className='d-flex flex-column align-items-center'>
                             <Triangle color='white' width='140px' height='140px' />
