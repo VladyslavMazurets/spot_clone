@@ -11,6 +11,8 @@ interface IContext {
     setCategories: (val: any) => void,
     recommendations: any[],
     setRecommendations: (val: any) => void,
+    search: string,
+    setSearch: (val: string) => void,
 }
 
 export const Context = React.createContext<IContext>({
@@ -18,5 +20,5 @@ export const Context = React.createContext<IContext>({
     setToken() { }, newReleases: [], setNewReleases() { },
     featuredPlaylists: [], setFeaturedPlaylists() { },
     categories: [], setCategories() { },
-    recommendations: [], setRecommendations() { }
+    recommendations: [], setRecommendations() { }, search: '', setSearch() { }
 })

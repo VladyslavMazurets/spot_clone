@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom';
-import { Card, Col, Container, Row, Stack } from 'react-bootstrap'
+import { Button, Card, Col, Container, Row, Stack } from 'react-bootstrap'
 import { MdPeople, MdVerified } from 'react-icons/md'
 
 import { Context } from '../context';
@@ -9,6 +9,7 @@ import TrackList from './const/TrackList';
 import PlaylistsCards from './const/PlaylistsCards';
 import './style/hover.css'
 import Loader from './Loader';
+import ArtistCards from './const/ArtistCards';
 
 interface IArtDet {
     [genres: string]: any,
@@ -21,6 +22,8 @@ function Artist() {
 
     const { token } = useContext(Context);
     const { id } = useParams();
+
+    const [showAll, setShowAll] = useState(false);
     const [artistDetail, setArtistDetail] = useState<IArtDet>({
         genres: {}, image: '', name: '', followers: 0
     });
@@ -33,7 +36,7 @@ function Artist() {
         } = await fetchFromAPI(`artists/${id}`, token);
 
         setArtistDetail({
-            genres: {genres}, image: url, name: name, followers: total
+            genres: { genres }, image: url, name: name, followers: total
         });
     }
 
@@ -43,7 +46,7 @@ function Artist() {
     }
 
     const fetchArtistAlbums = async () => {
-        const { items } = await fetchFromAPI(`artists/${id}/albums?limit=6`, token);
+        const { items } = await fetchFromAPI(`artists/${id}/albums?limit=7`, token);
         setArtistAlbums(items)
     }
 
@@ -61,9 +64,9 @@ function Artist() {
         }
     }, [token, id])
 
-    const { name, image, followers, genres: {genres} } = artistDetail;
+    const { name, image, followers, genres: { genres } } = artistDetail;
 
-    if (!artistTopTrack) return <Loader bgColor={`#1a0229`}/>
+    if (!artistTopTrack) return <Loader bgColor={`#1a0229`} />
 
     return (
         <>
@@ -110,12 +113,24 @@ function Artist() {
                  pb-5 mb-2'>
                     <Row className='mx-3 mb-4 fs-2 fw-bold'> Popular </Row>
 
-                    {artistTopTrack?.map((item: any, idx: number) => {
+                    {showAll ? artistTopTrack?.map((item: any, idx: number) => {
                         return (
-                            <TrackList idx={idx} item={item} track={true}/>
+                            <TrackList idx={idx} item={item} track={true} />
                         )
-                    })
+                    }) :
+                        artistTopTrack?.slice(0, 5).map((item: any, idx: number) => {
+                            return (
+                                <TrackList idx={idx} item={item} track={true} />
+                            )
+                        })
                     }
+
+                    <Button variant="link" className='text-muted 
+                        text-decoration-none text-uppercase fw-bold mx-3 hover_button'
+                        onClick={e => setShowAll(!showAll)}>
+                        {showAll ? <p className='hover_button'>show less</p>
+                            : <p className='hover_button'>see more</p>}
+                    </Button>
 
                     <Row className='mx-3 pt-4'>
                         <PlaylistsCards state={artistAlbums} title='Discography' artistsName={true} image={true} linkURL={'albums'} artist={true} />
@@ -123,34 +138,7 @@ function Artist() {
 
                     <Container fluid className='pt-4 mx-3'>
                         <Row className='fs-2 fw-bold'> Fans also like </Row>
-                        <Row className='my-4 mx-3'>
-                            {relatedArtists.slice(0, 6)?.map((item: any, idx: number) => {
-                                return (
-                                    <Col xs="auto" key={idx} className='mb-3'>
-                                        <Link to={`/artist/${item.id}`}
-                                            className="text-decoration-none text-white">
-                                            <Card className='hover_carts' style={{
-                                                width: '185px', height: '100%',
-                                                background: '#2f0a45', boxShadow: `1px 1px 8px 1px black`
-                                            }}>
-                                                <Card.Img variant="top"
-                                                    src={item.images[0].url}
-                                                    alt="Artist Img"
-                                                    className="rounded-circle p-2"
-                                                    height="185px" />
-                                                <Card.Body>
-                                                    <Card.Title>{item.name}</Card.Title>
-                                                    <Card.Text className="text-capitalize">
-                                                        {item.type}
-                                                    </Card.Text>
-                                                </Card.Body>
-                                            </Card>
-                                        </Link>
-                                    </Col>
-                                )
-                            })
-                            }
-                        </Row>
+                        <ArtistCards relatedArtists={relatedArtists} />
                     </Container>
                 </Container>
             </Stack>

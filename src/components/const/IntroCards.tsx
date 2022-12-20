@@ -5,6 +5,7 @@ import { Context } from '../../context'
 import { randomBrightBgColor } from '../function/functionReus'
 import { fetchFromAPI } from '../../utils/fetchFromAPI'
 import { Link } from 'react-router-dom'
+import Loader from '../Loader'
 
 
 function IntroCards() {
@@ -24,7 +25,7 @@ function IntroCards() {
         }
     }, [token])
 
-
+    if(genre.length === 0) return <Loader />
 
     return (
         <>

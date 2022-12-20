@@ -1,6 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { Button, Container, Row, Col } from 'react-bootstrap'
-import { BsChevronDoubleLeft } from 'react-icons/bs'
 import { Link, useParams } from 'react-router-dom'
 
 import { Context } from '../context'
@@ -64,7 +63,7 @@ function TrackDetail() {
     }
 
     const fetchArtistAlbums = async () => {
-        const { items } = await fetchFromAPI(`artists/${artistID}/albums?limit=6`, token);
+        const { items } = await fetchFromAPI(`artists/${artistID}/albums?limit=7`, token);
         setArtistAlbums(items)
     }
 
@@ -86,7 +85,7 @@ function TrackDetail() {
             fetchAlbum();
             fetchArtistAlbums();
             fetchArtist();
-            fetchLyrics();
+            // fetchLyrics();
         }
         return () => { ignore = true }
     }, [token, id, artistID, albumID, artistName, trackName])

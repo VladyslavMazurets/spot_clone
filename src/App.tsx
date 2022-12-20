@@ -14,6 +14,7 @@ import Artist from './components/Artist';
 import SearchBar from './components/SearchBar';
 import SearchIntro from './components/SearchIntro';
 import Genre from './components/Genre';
+import SearchAll from './components/SearchAll';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -28,6 +29,8 @@ function ScrollToTop() {
 function App() {
 
   const [token, setToken] = useState<string>("");
+  const [search, setSearch] = useState('')
+
 
   const [newReleases, setNewReleases] = useState<any[]>([]);
   const [featuredPlaylists, setFeaturedPlaylists] = useState<any[]>([]);
@@ -66,30 +69,34 @@ function App() {
   const providerValue = useMemo(() => ({
     token, setToken, newReleases,
     setNewReleases, featuredPlaylists, setFeaturedPlaylists, categories,
-    setCategories, recommendations, setRecommendations
-  }), [token, newReleases, featuredPlaylists, categories, recommendations])
+    setCategories, recommendations, setRecommendations, search, setSearch
+  }), [token, newReleases, featuredPlaylists, categories, recommendations, search,
+    setSearch])
 
   return (
-    <Context.Provider value={providerValue}>
-      <ScrollToTop />
-      <Routes>
-        <Route path='/' element={<Sidebar />}>
-          <Route index element={<Music />} />
-          <Route path='search' element={<SearchBar />}>
-            <Route index element={<SearchIntro />} />
+    <>
+      <Context.Provider value={providerValue}>
+        <ScrollToTop />
+        <Routes>
+          <Route path='/' element={<Sidebar />}>
+            <Route index element={<Music />} />
+            <Route path='search' element={<SearchBar />}>
+              <Route index element={<SearchIntro />} />
+              <Route path={`search/all`} element={<SearchAll />} />
+            </Route>
+            <Route path='library' element={<Library />} />
+            <Route path='section/:id' element={<Section />} />
+            <Route path='section/:id/:categoriesName/:navURL' element={<Section />} />
+            <Route path='playlists/:id' element={<PlaylistsDetail />} />
+            <Route path='albums/:id' element={<AlbumDetail />} />
+            <Route path='track/:id' element={<TrackDetail />} />
+            <Route path='track/:id/artist/:artistID/album/:albumID/:artistName/:trackName' element={<TrackDetail />} />
+            <Route path='artist/:id' element={<Artist />} />
+            <Route path='genre/:categoriesName/:id' element={<Genre />} />
           </Route>
-          <Route path='library' element={<Library />} />
-          <Route path='section/:id' element={<Section />} />
-          <Route path='section/:id/:categoriesName/:navURL' element={<Section />} />
-          <Route path='playlists/:id' element={<PlaylistsDetail />} />
-          <Route path='albums/:id' element={<AlbumDetail />} />
-          <Route path='track/:id' element={<TrackDetail />} />
-          <Route path='track/:id/artist/:artistID/album/:albumID/:artistName/:trackName' element={<TrackDetail />} />
-          <Route path='artist/:id' element={<Artist />} />
-          <Route path='genre/:categoriesName/:id' element={<Genre />} />
-        </Route>
-      </Routes>
-    </Context.Provider>
+        </Routes>
+      </Context.Provider>
+    </>
   )
 }
 

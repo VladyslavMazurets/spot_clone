@@ -4,22 +4,12 @@ import { fetchFromAPI } from '../utils/fetchFromAPI'
 
 import { Container } from 'react-bootstrap'
 import IntroCards from './const/IntroCards'
+import { useNavigate } from 'react-router-dom'
 
 function SearchIntro() {
 
-  const { token } = useContext(Context)
-
-  const [genre, setGenre] = useState({})
-
-  const fetchGenre = async () => {
-    fetchFromAPI('browse/categories/latin/playlists', token).then((data) => setGenre(data))
-  }
-
-  useEffect(() => {
-    if (token) {
-      fetchGenre();
-    }
-  }, [token])
+  const { search } = useContext(Context)
+  const navigate = useNavigate()
 
 
   return (
@@ -28,6 +18,8 @@ function SearchIntro() {
         <span className='text-white fs-3 fw-bold'> Browse all </span>
         <IntroCards />
       </Container>
+      {search.length > 0 && navigate('search/all', { replace: true })}
+      {console.log(search.length)}
     </>
   )
 }
