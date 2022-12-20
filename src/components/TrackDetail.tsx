@@ -85,7 +85,7 @@ function TrackDetail() {
             fetchAlbum();
             fetchArtistAlbums();
             fetchArtist();
-            // fetchLyrics();
+            fetchLyrics();
         }
         return () => { ignore = true }
     }, [token, id, artistID, albumID, artistName, trackName])
