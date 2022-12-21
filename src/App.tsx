@@ -15,6 +15,7 @@ import SearchBar from './components/SearchBar';
 import SearchIntro from './components/SearchIntro';
 import Genre from './components/Genre';
 import SearchAll from './components/SearchAll';
+import Episode from './components/Episode';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -82,7 +83,7 @@ function App() {
             <Route index element={<Music />} />
             <Route path='search' element={<SearchBar />}>
               <Route index element={<SearchIntro />} />
-              <Route path={`search/all`} element={<SearchAll />} />
+              <Route path={`all`} element={<SearchAll />} />
             </Route>
             <Route path='library' element={<Library />} />
             <Route path='section/:id' element={<Section />} />
@@ -93,6 +94,7 @@ function App() {
             <Route path='track/:id/artist/:artistID/album/:albumID/:artistName/:trackName' element={<TrackDetail />} />
             <Route path='artist/:id' element={<Artist />} />
             <Route path='genre/:categoriesName/:id' element={<Genre />} />
+            <Route path='episode/:id' element={<Episode />} />
           </Route>
         </Routes>
       </Context.Provider>

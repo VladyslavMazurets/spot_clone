@@ -72,7 +72,6 @@ function Genre() {
                     artistsName={true} image={false} navURL={'oldSchoolTracks'} linkURL={'track'}
                     sectionID={id} categoriesName={categoriesName} />
             </Stack>
-            {console.log(oldSchoolTracks)}
         </>
     )
 }

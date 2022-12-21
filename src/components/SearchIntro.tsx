@@ -18,8 +18,7 @@ function SearchIntro() {
         <span className='text-white fs-3 fw-bold'> Browse all </span>
         <IntroCards />
       </Container>
-      {search.length > 0 && navigate('search/all', { replace: true })}
-      {console.log(search.length)}
+      {search.length > 0 && navigate('all', { replace: true })}
     </>
   )
 }

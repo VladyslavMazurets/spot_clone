@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { Stack } from 'react-bootstrap'
+import { Container } from 'react-bootstrap'
 import { useParams } from 'react-router-dom';
 import { Context } from '../context';
 import { fetchFromAPI } from '../utils/fetchFromAPI';
@@ -58,7 +58,7 @@ function Section() {
 
   return (
     <>
-      <Stack style={{ backgroundColor: '#1a0229', minHeight: '100vh' }}>
+      <Container fluid style={{ padding: "2rem 2rem 0 2rem", backgroundColor: '#1a0229', minHeight: '100vh' }}>
         {'newReleases' == id &&
           <PlaylistsCards state={newReleases} title='New Releases' artistsName={true} image={true} linkURL={'albums'} />
         }
@@ -83,7 +83,7 @@ function Section() {
         {parseInt(id!) === 0 && navURL == 'oldSchoolTracks' &&
           <PlaylistsCards state={oldSchoolTracks} title={`Old School ${categoriesName} tracks`} artistsName={true} image={false} linkURL={'track'} />
         }
-      </Stack>
+      </Container>
     </>
   )
 }

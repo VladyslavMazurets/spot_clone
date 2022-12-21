@@ -11,24 +11,7 @@ import { TfiClose } from 'react-icons/tfi'
 
 function SearchBar() {
 
-    const { token, search, setSearch } = useContext(Context)
-
-    const [searchData, setSearchData] = useState({})
-
-    const fetchSearch = async () => {
-        fetchFromAPI(`search?q=${search}&type=artist,album`, token)
-            .then((data) => setSearchData(data))
-    }
-
-    useEffect(() => {
-        if (token && search !== '') {
-            fetchSearch();
-        }
-    }, [token, search])
-
-    function Go() {
-        <Link to='search/all' />
-    }
+    const { search, setSearch } = useContext(Context)
 
     return (
         <>

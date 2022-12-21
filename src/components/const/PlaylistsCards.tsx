@@ -30,7 +30,6 @@ function PlaylistsCards({ state, title, artistsName, image, slice, sectionID,
 
     return (
         <>
-            <Container fluid style={artist ? { padding: 0 } : { padding: "2.5rem 2rem 0 1.7rem" }}>
                 <Stack direction='horizontal' gap={1}>
                     <div className='text-white fs-2 fw-bold text-capitalize'>
                         {title}
@@ -48,7 +47,7 @@ function PlaylistsCards({ state, title, artistsName, image, slice, sectionID,
                         }
                     </div>
                 </Stack>
-                <Row className='mx-3 mt-4'>
+                <Row className='px-1 mt-4'>
                     {(Object.values(state)?.length) !== 0 ?
                         state.slice(0, slice).map((data: any, idx: number) => {
                             return (
@@ -96,7 +95,6 @@ function PlaylistsCards({ state, title, artistsName, image, slice, sectionID,
                             )
                         }) : <Loader height='400px' />}
                 </Row>
-            </Container>
         </>
     )
 }

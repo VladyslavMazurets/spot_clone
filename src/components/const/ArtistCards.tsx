@@ -9,7 +9,7 @@ interface IArtist {
 function ArtistCards({ relatedArtists }: IArtist) {
     return (
         <>
-            <Row className='my-4 mx-3'>
+            <Row className='my-4 px-3'>
                 {relatedArtists.slice(0, 7)?.map((item: any, idx: number) => {
                     return (
                         <Col xs="auto" key={idx} className='mb-3'>
@@ -20,7 +20,7 @@ function ArtistCards({ relatedArtists }: IArtist) {
                                     background: '#2f0a45', boxShadow: `1px 1px 8px 1px black`
                                 }}>
                                     <Card.Img variant="top"
-                                        src={item.images[0].url}
+                                        src={item.images[0]?.url}
                                         alt="Artist Img"
                                         className="rounded-circle p-2"
                                         height="185px" />

@@ -47,8 +47,8 @@
 }
 
 .hover_artist_box:hover {
-    background-color: #521478;
-    transition: 0.7s;
+    background-color: #521478 !important;
+    transition: 0.7s !important;
 }
 
 #main_container:hover #number {
