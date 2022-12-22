@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useContext } from 'react'
 
 import Form from 'react-bootstrap/Form'
 import { InputGroup, Button, Stack } from 'react-bootstrap'
-import { fetchFromAPI } from '../utils/fetchFromAPI'
 import { Context } from '../context'
-import { Link, Outlet } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
 
 import { BsSearch } from 'react-icons/bs'
 import { TfiClose } from 'react-icons/tfi'

@@ -1,10 +1,7 @@
 import React, { useContext } from 'react'
 import { Link } from "react-router-dom";
 
-import { Card, Container } from 'react-bootstrap';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
-import Stack from 'react-bootstrap/Stack';
+import { Card, Col, Row, Stack } from 'react-bootstrap';
 
 import Loader from '../Loader';
 import { Context } from '../../context';
@@ -59,8 +56,8 @@ function PlaylistsCards({ state, title, artistsName, image, slice, sectionID,
                                             background: '#2f0a45', boxShadow: `1px 1px 8px 1px black`
                                         }}>
                                             {image ?
-                                                <Card.Img variant="top" src={data.images[0].url} alt="Albums Img" style={{ padding: '0.5rem', height: '183px' }} />
-                                                : <Card.Img variant="top" src={data.album.images[0].url} alt="Albums Img" style={{ padding: '0.5rem', height: '183px' }} />
+                                                <Card.Img variant="top" src={data.images[0]?.url} alt="Albums Img" style={{ padding: '0.5rem', height: '183px' }} />
+                                                : <Card.Img variant="top" src={data.album.images[0]?.url} alt="Albums Img" style={{ padding: '0.5rem', height: '183px' }} />
                                             }
                                             <Card.Body className='d-flex 
                                             flex-column justify-content-between 

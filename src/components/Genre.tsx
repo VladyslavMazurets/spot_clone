@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 
-import { Stack } from 'react-bootstrap'
+import { Container, Stack } from 'react-bootstrap'
 import { useParams } from 'react-router-dom';
 import { Context } from '../context';
 import { fetchFromAPI } from '../utils/fetchFromAPI';
@@ -50,7 +50,7 @@ function Genre() {
 
     return (
         <>
-            <Stack style={{ backgroundColor: '#1a0229', minHeight: '100vh' }}>
+            <Stack>
                 <span className=" text-white fw-bold ps-4"
                     style={{
                         fontSize: '6rem', padding: '4rem 0 3rem',
@@ -58,19 +58,20 @@ function Genre() {
                     }}>
                     {categoriesName}
                 </span>
-
-                <PlaylistsCards state={genrePlaylists} title={`Popular ${categoriesName} playlists`}
-                    artistsName={false} image={true} navURL={'popular'} linkURL={'playlists'}
-                    sectionID={id} categoriesName={categoriesName} />
-                {genreTracks.length != 0 && <PlaylistsCards state={genreTracks} title={`The best ${categoriesName} songs`}
-                    artistsName={true} image={false} navURL={'track'} linkURL={'track'}
-                    sectionID={id} categoriesName={categoriesName} />}
-                <PlaylistsCards state={searchCategories} title={` Featured ${categoriesName} Playlists`}
-                    artistsName={false} image={true} navURL={'featured'} linkURL={'playlists'}
-                    sectionID={id} categoriesName={categoriesName} />
-                <PlaylistsCards state={oldSchoolTracks} title={`Old School ${categoriesName} tracks`}
-                    artistsName={true} image={false} navURL={'oldSchoolTracks'} linkURL={'track'}
-                    sectionID={id} categoriesName={categoriesName} />
+                <Container fluid style={{ padding: "2rem 2rem 0 2rem", backgroundColor: '#1a0229', minHeight: '100vh' }}>
+                    <PlaylistsCards state={genrePlaylists} title={`Popular ${categoriesName} playlists`}
+                        artistsName={false} image={true} navURL={'popular'} linkURL={'playlists'}
+                        sectionID={id} categoriesName={categoriesName} />
+                    {genreTracks.length != 0 && <PlaylistsCards state={genreTracks} title={`The best ${categoriesName} songs`}
+                        artistsName={true} image={false} navURL={'track'} linkURL={'track'}
+                        sectionID={id} categoriesName={categoriesName} />}
+                    <PlaylistsCards state={searchCategories} title={` Featured ${categoriesName} Playlists`}
+                        artistsName={false} image={true} navURL={'featured'} linkURL={'playlists'}
+                        sectionID={id} categoriesName={categoriesName} />
+                    <PlaylistsCards state={oldSchoolTracks} title={`Old School ${categoriesName} tracks`}
+                        artistsName={true} image={false} navURL={'oldSchoolTracks'} linkURL={'track'}
+                        sectionID={id} categoriesName={categoriesName} />
+                </Container>
             </Stack>
         </>
     )

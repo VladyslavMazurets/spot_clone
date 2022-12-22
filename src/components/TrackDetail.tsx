@@ -105,7 +105,6 @@ function TrackDetail() {
                  p-4 mb-5'>
 
                     <TrackHeader />
-
                     <TrackList idx={0} item={trackDetail} track={false} />
 
                     <Container fluid>
@@ -152,18 +151,19 @@ function TrackDetail() {
                                 <TrackList key={idx} idx={idx} item={item} track={true} />
                             )
                         })
-                            : artistTopTrack!.slice(0, 5).map((item: any, idx: number) => {
+                            : artistTopTrack?.slice(0, 5).map((item: any, idx: number) => {
                                 return (
                                     <TrackList key={idx} idx={idx} item={item} track={true} />
                                 )
                             })
                         }
-                        <Button variant="link" className='text-muted 
+                        {artistTopTrack?.length > 5 && <Button variant="link" className='text-muted 
                         text-decoration-none text-uppercase fw-bold mx-3 hover_button'
                             onClick={e => setShowMorePopular(!showMorePopular)}>
                             {showMorePopular ? <p className='hover_button'>show less</p>
                                 : <p className='hover_button'>see more</p>}
                         </Button>
+                        }
                     </div>
 
                     <div className='mt-4 mx-3'>
@@ -196,14 +196,14 @@ function TrackDetail() {
                             })
                         }
 
-                        <Button variant="link" className='text-muted 
+                        {items?.length > 5 && <Button variant="link" className='text-muted 
                         text-decoration-none text-uppercase fw-bold'
                             onClick={e => setShowMoreAlbum(!showMoreAlbum)}>
                             {showMoreAlbum ? <p className='hover_button'>show less</p>
                                 : <p className='hover_button'>see more</p>}
-                        </Button>
+                        </Button>}
 
-                        <div className='d-flex flex-column text-muted mx-4 mb-4 
+                        <div className='d-flex flex-column text-muted mx-4 py-4 
                         fw-bolder mt-3'>
                             <span> {release_date} </span>
                             <span> Label: {label} </span>

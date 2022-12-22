@@ -56,7 +56,7 @@ function Sidebar() {
                 display: 'flex', alignItems: 'center'
               }}>
                 <ImSpotify style={{ fontSize: '2.8rem', marginRight: '1rem' }} />
-                <span style={{ fontSize: '1.5rem', letterSpacing: '0.01rem' }}> Spot Clone </span>
+                <span style={{ fontSize: '1.5rem', letterSpacing: '0.01rem' }}> SpotClone </span>
               </Link>
             </CDBSidebarHeader>
             <CDBSidebarContent>

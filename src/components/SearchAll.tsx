@@ -30,6 +30,18 @@ function SearchAll() {
   }, [token, search])
 
   if (Object.values(searchAll).length === 0 || undefined) return <Loader />
+  if (searchAll.albums.items.length === 0) return (
+    <>
+      <div className='text-white d-flex flex-column justify-content-end 
+    align-items-center h-50'>
+        <span className='fs-3 fw-bold'>No results found for "{search}"</span>
+        <span className='fs-5 mt-2'>
+          Please make sure your words are spelled correctly or use less or different keywords.
+        </span>
+      </div>
+      {console.log(searchAll.tracks.items.length)}
+    </>
+  )
 
   return (
     <>
@@ -43,7 +55,7 @@ function SearchAll() {
               <Col className='d-flex flex-column p-4 text-white rounded 
                 mt-4 hover_artist_box'
                 style={{ background: '#2e014a' }}>
-                <img src={searchAll.artists.items[0]?.images[0].url}
+                <img src={searchAll.artists.items[0]?.images[0]?.url}
                   alt='Artist Avatar' width="110px" height="110px"
                   className='rounded-circle' />
                 <span className='fs-3 fw-bold mt-2 mb-2'>
@@ -61,12 +73,12 @@ function SearchAll() {
           <Col>
             <span className='text-white fw-bold fs-3'>Songs</span>
             <Col className='mt-3'>
-            {searchAll.tracks.items?.slice(0, 4).map((item: any, idx: number) => {
-              return (
-                <TrackList idx={idx} item={item} track={true} />
-              )
-            })
-            }
+              {searchAll.tracks.items?.slice(0, 4).map((item: any, idx: number) => {
+                return (
+                  <TrackList idx={idx} item={item} track={true} />
+                )
+              })
+              }
             </Col>
           </Col>
         </Row>
@@ -91,7 +103,6 @@ function SearchAll() {
             artistsName={false} image={true} linkURL={'episode'} slice={7} />
         </Row>
       </Container>
-      {console.log(searchAll.episodes.items)}
     </>
   )
 }

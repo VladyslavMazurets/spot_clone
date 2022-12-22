@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useContext } from 'react'
 import { Context } from '../context'
-import { fetchFromAPI } from '../utils/fetchFromAPI'
 
 import { Container } from 'react-bootstrap'
 import IntroCards from './const/IntroCards'

@@ -24,7 +24,7 @@ function SectionHeader({ img, description, followers, name,
         <>
             <div>
                 <div className="d-flex align-items-end" style={{
-                    padding: '5rem 4rem 1.5rem 4rem', 
+                    padding: '5rem 4rem 1.5rem 4rem',
                     backgroundColor: `${bgColor}`,
                     boxShadow: `1px 80px 300px 80px ${bgColor}`,
                 }}>
@@ -53,12 +53,13 @@ function SectionHeader({ img, description, followers, name,
                         }
 
                         <span style={{
-                            fontSize: name?.length < 25 ? '6rem' : '4rem',
+                            fontSize: name?.length < 25 ? '6rem' :
+                                name?.length >= 100 ? '1.2rem' :
+                                    name?.length >= 40 ? '1.8rem' : '4rem',
                             fontWeight: 'bold', textTransform: 'capitalize',
                             margin: '0.08em 0px 0.2em', lineHeight: '5rem'
                         }}>
-                            {(name)?.length > 33 ? `${name.substring(0, 33)}...`
-                                : name}
+                            {name}
                         </span>
 
                         {description &&
@@ -85,7 +86,7 @@ function SectionHeader({ img, description, followers, name,
                                     marginTop: '0.4rem'
                                 }}>
                                     Spotify
-                                    {artists!.map((item: any, idx: number) => {
+                                    {artists?.map((item: any, idx: number) => {
                                         return (
                                             <Link key={idx} className='mx-1 
                                         text-decoration-none text-white'
