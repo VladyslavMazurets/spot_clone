@@ -1,15 +1,16 @@
 import React, { useState, useEffect, useContext } from 'react'
 
 import { Col, Container, Row } from 'react-bootstrap'
-import { Context } from '../context'
-import { fetchFromAPI } from '../utils/fetchFromAPI'
-import SearchCatgBt from './const/SearchCatgBt'
-import Loader from './Loader'
-import '../components/style/hover.css'
+import { Context } from '../../context'
+import { fetchFromAPI } from '../../utils/fetchFromAPI'
+import SearchCatgBt from '../const/SearchCatgBt'
+import Loader from '../Loader'
+import '../style/hover.css'
 import { Link } from 'react-router-dom'
-import TrackList from './const/TrackList'
-import ArtistCards from './const/ArtistCards'
-import PlaylistsCards from './const/PlaylistsCards'
+import TrackList from '../const/TrackList'
+import ArtistCards from '../const/ArtistCards'
+import PlaylistsCards from '../const/PlaylistsCards'
+import NotFoundPage from '../const/NotFoundPage'
 
 function SearchAll() {
 
@@ -30,23 +31,12 @@ function SearchAll() {
   }, [token, search])
 
   if (Object.values(searchAll).length === 0 || undefined) return <Loader />
-  if (searchAll.albums.items.length === 0) return (
-    <>
-      <div className='text-white d-flex flex-column justify-content-end 
-    align-items-center h-50'>
-        <span className='fs-3 fw-bold'>No results found for "{search}"</span>
-        <span className='fs-5 mt-2'>
-          Please make sure your words are spelled correctly or use less or different keywords.
-        </span>
-      </div>
-      {console.log(searchAll.tracks.items.length)}
-    </>
-  )
+  if (searchAll.albums.items.length === 0) return <NotFoundPage state={search} />
 
   return (
     <>
       <SearchCatgBt />
-      <Container fluid>
+      <Container fluid className="border-bottom border-secondary pb-5 mb-5">
         <Row className='mt-4 ms-4'>
           <Col sm={3} fixed>
             <span className='text-white fw-bold fs-3'>Top result</span>
@@ -85,7 +75,7 @@ function SearchAll() {
 
         <Row className='mt-5 ms-4'>
           <span className='text-white fw-bold fs-3'>Artists</span>
-          <ArtistCards relatedArtists={searchAll.artists?.items} />
+          <ArtistCards relatedArtists={searchAll.artists?.items} slice={7}/>
         </Row>
 
         <Row className='mt-3 ms-4'>

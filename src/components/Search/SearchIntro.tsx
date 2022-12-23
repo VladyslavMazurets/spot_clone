@@ -1,8 +1,8 @@
 import React, { useContext } from 'react'
-import { Context } from '../context'
+import { Context } from '../../context'
 
 import { Container } from 'react-bootstrap'
-import IntroCards from './const/IntroCards'
+import IntroCards from '../const/IntroCards'
 import { useNavigate } from 'react-router-dom'
 
 function SearchIntro() {

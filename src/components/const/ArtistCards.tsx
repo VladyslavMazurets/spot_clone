@@ -3,14 +3,15 @@ import { Card, Col, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
 interface IArtist {
-    relatedArtists: any
+    relatedArtists: any,
+    slice?: number
 }
 
-function ArtistCards({ relatedArtists }: IArtist) {
+function ArtistCards({ relatedArtists, slice }: IArtist) {
     return (
         <>
             <Row className='my-4 px-3'>
-                {relatedArtists.slice(0, 7)?.map((item: any, idx: number) => {
+                {relatedArtists.slice(0, slice)?.map((item: any, idx: number) => {
                     return (
                         <Col xs="auto" key={idx} className='mb-3'>
                             <Link to={`/artist/${item.id}`}

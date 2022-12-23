@@ -52,14 +52,15 @@ function Episode() {
                         }
                     </span>
                 </Stack>
+
                 <Button variant='link' onClick={() => setShowMore(!showMore)}
                     className='text-decoration-none text-white fs-5 fw-bold m-0
                     px-3 mb-5'>
                     {showMore ? <span>... see more </span> :
                         <span> show less </span>}
                 </Button>
+
             </Container>
-            {console.log(episode.name?.length)}
         </>
     )
 }

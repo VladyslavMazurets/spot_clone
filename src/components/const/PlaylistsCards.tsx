@@ -46,7 +46,7 @@ function PlaylistsCards({ state, title, artistsName, image, slice, sectionID,
                 </Stack>
                 <Row className='px-1 mt-4'>
                     {(Object.values(state)?.length) !== 0 ?
-                        state.slice(0, slice).map((data: any, idx: number) => {
+                        state?.slice(0, slice).map((data: any, idx: number) => {
                             return (
                                 <Col xs="auto" key={idx} className='mb-4'>
                                     <Link to={`/${linkURL}/${data.id}${data.album ? `/artist/${data.artists[0]?.id}/album/${data.album?.id}/${data.artists[0]?.name}/${data.name}` : ''}`}

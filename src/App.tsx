@@ -11,11 +11,15 @@ import { fetchFromAPI } from './utils/fetchFromAPI';
 import AlbumDetail from './components/const/AlbumDetail';
 import TrackDetail from './components/TrackDetail';
 import Artist from './components/Artist';
-import SearchBar from './components/SearchBar';
-import SearchIntro from './components/SearchIntro';
+import SearchBar from './components/Search/SearchBar';
+import SearchIntro from './components/Search/SearchIntro';
 import Genre from './components/Genre';
-import SearchAll from './components/SearchAll';
+import SearchAll from './components/Search/SearchAll';
 import Episode from './components/Episode';
+import SearchSongs from './components/Search/SearchSongs';
+import SearchArtists from './components/Search/SearchArtists';
+import SearchAlbums from './components/Search/SearchAlbums';
+import SearchShows from './components/Search/SearchShows';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -83,7 +87,11 @@ function App() {
             <Route index element={<Music />} />
             <Route path='search' element={<SearchBar />}>
               <Route index element={<SearchIntro />} />
-              <Route path={`all`} element={<SearchAll />} />
+              <Route path='all' element={<SearchAll />} />
+              <Route path='songs' element={<SearchSongs />} />
+              <Route path='artists' element={<SearchArtists />} />
+              <Route path='albums' element={<SearchAlbums />} />
+              <Route path='shows' element={<SearchShows />} />
             </Route>
             <Route path='library' element={<Library />} />
             <Route path='section/:id' element={<Section />} />

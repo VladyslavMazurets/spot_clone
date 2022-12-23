@@ -138,7 +138,7 @@ function Artist() {
 
                     <Container fluid className='pt-4 mx-3'>
                         <Row className='fs-2 fw-bold'> Fans also like </Row>
-                        <ArtistCards relatedArtists={relatedArtists} />
+                        <ArtistCards relatedArtists={relatedArtists} slice={7}/>
                     </Container>
                 </Container>
             </Stack>

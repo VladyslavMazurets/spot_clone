@@ -21,23 +21,19 @@ function SearchCatgBt() {
                     style={({ isActive }) => !isActive ? styleButton : styleActiveButton}>
                     All
                 </NavLink>
-                <NavLink to='/' className={buttonClass}
+                <NavLink to='/search/songs' className={buttonClass}
                     style={({ isActive }) => !isActive ? styleButton : styleActiveButton}>
                     Songs
                 </NavLink>
-                <NavLink to='/' className={buttonClass}
+                <NavLink to='/search/artists' className={buttonClass}
                     style={({ isActive }) => !isActive ? styleButton : styleActiveButton}>
                     Artists
                 </NavLink>
-                <NavLink to='/' className={buttonClass}
+                <NavLink to='/search/albums' className={buttonClass}
                     style={({ isActive }) => !isActive ? styleButton : styleActiveButton}>
                     Albums
                 </NavLink>
-                <NavLink to='/' className={buttonClass}
-                    style={({ isActive }) => !isActive ? styleButton : styleActiveButton}>
-                    Profiles
-                </NavLink>
-                <NavLink to='/' className={buttonClass}
+                <NavLink to='/search/shows' className={buttonClass}
                     style={({ isActive }) => !isActive ? styleButton : styleActiveButton}>
                     Podcasts & Shows
                 </NavLink>

@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 
 import Form from 'react-bootstrap/Form'
 import { InputGroup, Button, Stack } from 'react-bootstrap'
-import { Context } from '../context'
+import { Context } from '../../context'
 import { Outlet } from 'react-router-dom'
 
 import { BsSearch } from 'react-icons/bs'
