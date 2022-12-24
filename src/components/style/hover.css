@@ -22,7 +22,7 @@
 .hover_carts:hover {
     background-color: #521478 !important;
     transition: .3s !important;
-    box-shadow: 1px 1px 8px 1px white !important;
+    border: inherit !important;
 }
 
 .hover_sidebar_button:hover {

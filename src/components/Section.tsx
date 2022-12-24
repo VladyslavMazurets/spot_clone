@@ -14,13 +14,13 @@ function Section() {
 
   const { id, categoriesName, navURL } = useParams();
 
-  const { token } = useContext(Context)
+  const { token, search } = useContext(Context)
 
   const [genrePlaylists, setGenrePlaylists] = useState([])
   const [genreTracks, setGenreTracks] = useState([])
   const [searchCategories, setSearchCategories] = useState([])
   const [oldSchoolTracks, setOldSchoolTracks] = useState([])
-
+  const [searchShows, setSearchShows] = useState([])
 
   const CategoriesName = categoriesName!.toLowerCase()
 
@@ -43,6 +43,17 @@ function Section() {
     const { tracks: { items } } = await fetchFromAPI(`search?q=${CategoriesName}1990&type=track&limit=7`, token)
     setOldSchoolTracks(items)
   }
+
+  const fetchSearchShows = async () => {
+    const { shows: { items } } = await fetchFromAPI(`search?q=${categoriesName}&type=show&limit=49`, token)
+    setSearchShows(items)
+  }
+
+  useEffect(() => {
+    if (token) {
+      fetchSearchShows();
+    }
+  }, [categoriesName])
 
   useEffect(() => {
     if (token && parseInt(id!) === 0) {
@@ -71,8 +82,11 @@ function Section() {
         {'recommendations' == id &&
           <PlaylistsCards state={recommendations} title="The best rap songs" artistsName={true} image={false} linkURL={'track'} />
         }
+        {'show' == id &&
+          <PlaylistsCards state={searchShows} title={'Podcasts'} artistsName={false} image={true} linkURL={'episode'} />
+        }
         {parseInt(id!) === 0 && navURL == 'popular' &&
-          <PlaylistsCards state={genrePlaylists} title={`Popular ${categoriesName} playlists`} artistsName={false} image={true} linkURL={'playlists'} />
+          <PlaylistsCards state={genrePlaylists} title={`Popular ${categoriesName} playlists`} artistsName={false} image={true} linkURL={'show'} />
         }
         {parseInt(id!) === 0 && navURL == 'track' &&
           <PlaylistsCards state={genreTracks} title={`The best ${categoriesName} songs`} artistsName={true} image={false} linkURL={'track'} />
@@ -84,6 +98,7 @@ function Section() {
           <PlaylistsCards state={oldSchoolTracks} title={`Old School ${categoriesName} tracks`} artistsName={true} image={false} linkURL={'track'} />
         }
       </Container>
+      {console.log(searchShows)}
     </>
   )
 }

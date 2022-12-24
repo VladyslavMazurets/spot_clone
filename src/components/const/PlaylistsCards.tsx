@@ -52,7 +52,7 @@ function PlaylistsCards({ state, title, artistsName, image, slice, sectionID,
                                     <Link to={`/${linkURL}/${data.id}${data.album ? `/artist/${data.artists[0]?.id}/album/${data.album?.id}/${data.artists[0]?.name}/${data.name}` : ''}`}
                                         className="text-decoration-none">
                                         <Card className='hover_carts' style={{
-                                            width: '185px', height: '100%', marginLeft: '0.2rem',
+                                            width: '185px', height: '100%', marginLeft: '0.5rem',
                                             background: '#2f0a45', boxShadow: `1px 1px 8px 1px black`
                                         }}>
                                             {image ?

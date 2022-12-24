@@ -22,7 +22,7 @@ function SectionHeader({ img, description, followers, name,
 
     return (
         <>
-            <div>
+            <div className='text-white'>
                 <div className="d-flex align-items-end" style={{
                     padding: '5rem 4rem 1.5rem 4rem',
                     backgroundColor: `${bgColor}`,
@@ -79,7 +79,7 @@ function SectionHeader({ img, description, followers, name,
                                 Spotify · Followers: {followers!.toLocaleString('en-US')} <MdPeople /> · {allTracks} songs · {ConvertMsToTime(allTime)}
                             </span>
 
-                            : allTracks ?
+                            : allTracks  ?
 
                                 <span style={{
                                     fontSize: '1rem', fontWeight: 'bold',
@@ -113,7 +113,8 @@ function SectionHeader({ img, description, followers, name,
                                                 </span> ·
                                             </Link>
                                         )
-                                    })} {releaseDate?.slice(0, 4)} · {ConvertMsToTime(allTime!)}
+                                    })}
+                                    {releaseDate?.slice(0, 4)} · {ConvertMsToTime(allTime!)}
                                 </span>
                         }
                     </div>

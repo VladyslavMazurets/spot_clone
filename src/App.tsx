@@ -20,6 +20,7 @@ import SearchSongs from './components/Search/SearchSongs';
 import SearchArtists from './components/Search/SearchArtists';
 import SearchAlbums from './components/Search/SearchAlbums';
 import SearchShows from './components/Search/SearchShows';
+import Show from './components/Show';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -103,6 +104,7 @@ function App() {
             <Route path='artist/:id' element={<Artist />} />
             <Route path='genre/:categoriesName/:id' element={<Genre />} />
             <Route path='episode/:id' element={<Episode />} />
+            <Route path='show/:id' element={<Show />} />
           </Route>
         </Routes>
       </Context.Provider>
