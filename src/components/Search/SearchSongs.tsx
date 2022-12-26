@@ -24,8 +24,7 @@ function SearchSongs() {
             fetchSearchSongs();
     }, [token, search])
 
-    if (!searchSongs) return <Loader />
-    if (searchSongs?.length === 0 && searchSongs) return <NotFoundPage state={search} />
+     if (searchSongs?.length == 0) return <NotFoundPage state={search} />
 
     return (
         <>
@@ -40,6 +39,7 @@ function SearchSongs() {
                 })
                 }
             </Container>
+            {console.log((search.length > 0 && searchSongs?.length == 0))}
         </>
     )
 }

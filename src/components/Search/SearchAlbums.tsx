@@ -3,13 +3,14 @@ import React, { useState, useEffect, useContext } from 'react'
 import { Container } from 'react-bootstrap'
 import { Context } from '../../context'
 import { fetchFromAPI } from '../../utils/fetchFromAPI'
+import NotFoundPage from '../const/NotFoundPage'
 import PlaylistsCards from '../const/PlaylistsCards'
 import SearchCatgBt from '../const/SearchCatgBt'
 
 function SearchAlbums() {
 
     const { token, search } = useContext(Context)
-    const [searchAlbums, setSearchAlbums] = useState({})
+    const [searchAlbums, setSearchAlbums] = useState([])
 
     const fetchSearchAlbums = async () => {
         const { albums: { items } } = await fetchFromAPI(`search?q=${search}&type=album&limit=49`, token)
@@ -20,6 +21,8 @@ function SearchAlbums() {
         if (token && search.length !== 0 || undefined)
             fetchSearchAlbums();
     }, [token, search])
+
+    if (searchAlbums.length == 0) return <NotFoundPage state={search} />
 
     return (
         <>

@@ -1,4 +1,5 @@
 import React from 'react'
+import SearchCatgBt from './SearchCatgBt'
 
 interface INotFound {
     state: any
@@ -7,6 +8,7 @@ interface INotFound {
 function NotFoundPage({ state }: INotFound) {
     return (
         <>
+            <SearchCatgBt />
             <div className='text-white d-flex flex-column justify-content-end 
     align-items-center h-50'>
                 <span className='fs-3 fw-bold'>

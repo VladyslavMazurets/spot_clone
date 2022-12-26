@@ -2,9 +2,11 @@ import React, { useState } from 'react'
 
 import { Button, Stack } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import { ConvertMsToTime } from '../function/functionReus'
-
 import { BsPlayCircleFill, BsPauseCircleFill } from 'react-icons/bs'
+import { Howl } from 'howler'
+import Swal from 'sweetalert2'
+
+import { ConvertMsToTime } from '../function/functionReus'
 
 interface IEpiCards {
     description: string,
@@ -12,12 +14,35 @@ interface IEpiCards {
     name: string,
     release?: string,
     time: number,
-    id: string
+    id: string,
+    songs: string
 }
+function EpisodeCards({ description, img, name, release, time, id,
+    songs }: IEpiCards) {
 
-function EpisodeCards({ description, img, name, release, time, id }: IEpiCards) {
+    const [play, setPlay] = useState(false)
 
-    const [play, setPlay] = useState(true)
+    const sound = new Howl({
+        src: [songs],
+        html5: true,
+        preload: true,
+        volume: 0.5
+    })
+
+    const PlayPause = () => {
+        if (songs === null) {
+            Swal.fire({
+                title: 'Sorry!',
+                text: 'The song is missing',
+                icon: 'info',
+                confirmButtonText: 'OK'
+            })
+        } else if (sound.playing()) {
+            return setPlay(false), sound.pause();
+        } else {
+            return setPlay(true), Howler.stop(), sound.play();
+        }
+    }
 
     return (
         <>
@@ -30,19 +55,26 @@ function EpisodeCards({ description, img, name, release, time, id }: IEpiCards) 
                         <span className='fs-5 fw-bold text-white'>{name}</span>
                         <td className='text-muted fs-6 py-2'
                             dangerouslySetInnerHTML={{ __html: `${description.slice(0, 145)}...` }} />
-                        <span className='text-muted fs-6 fw-bolder d-flex align-items-center'>
-                            <Button variant='link' className='p-0 m-0 lh-1 fs-1 
-                            me-3 pe-none'
-                                onClick={() => setPlay(!play)}
-                                style={{ color: 'white', alignItems: 'center' }}>
-                                {play ? <BsPlayCircleFill />
-                                    : <BsPauseCircleFill />}
-                            </Button>
-                            {release} · {ConvertMsToTime(time)}
-                        </span>
+                        <div className='d-flex align-items-center'>
+                            <Link to='' className='p-0 m-0 lh-1 fs-1 
+                            pe-3' type='button'
+                                onClick={() => PlayPause()}
+                                style={{
+                                    color: 'white', alignItems: 'center',
+                                    cursor: 'default'
+                                }}>
+                                {play ? <BsPauseCircleFill />
+                                    : <BsPlayCircleFill />
+                                }
+                            </Link>
+                            <span className='text-muted fs-6 fw-bolder'>
+                                {release} · {ConvertMsToTime(time)}
+                            </span>
+                        </div>
                     </div>
                 </Stack>
             </Link>
+            {console.log(sound.playing())}
         </>
     )
 }

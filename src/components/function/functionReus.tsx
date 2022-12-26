@@ -44,5 +44,3 @@ export function randomBrightBgColor() {
 
     return bgColor
 }
-
-

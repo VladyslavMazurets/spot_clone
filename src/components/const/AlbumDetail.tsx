@@ -52,13 +52,13 @@ function AlbumDetail() {
         <>
             <Container fluid style={{
                 backgroundColor: '#1a0229', minHeight: '100vh',
-                color: 'white'
+                color: 'white', padding: '0'
             }}>
                 <SectionHeader img={url} name={name} releaseDate={release_date}
                     owner={type} bgColor={bgColor} artists={artists}
                     allTime={allTime} allTracks={allTracks} />
                 <Container fluid className='mt-5 border-bottom border-secondary
-                 pb-5 mb-5'>
+                 pb-5 mb-5 px-2'>
 
                     <TrackHeader />
 

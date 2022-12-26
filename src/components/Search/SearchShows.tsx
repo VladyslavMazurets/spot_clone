@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react'
 import { Container } from 'react-bootstrap'
 import { Context } from '../../context'
 import { fetchFromAPI } from '../../utils/fetchFromAPI'
+import NotFoundPage from '../const/NotFoundPage'
 import PlaylistsCards from '../const/PlaylistsCards'
 import SearchCatgBt from '../const/SearchCatgBt'
 
@@ -19,6 +20,8 @@ function SearchShows() {
         if (token && search.length !== 0 || undefined)
             fetchSearchShows();
     }, [token, search])
+
+    if (searchShows.length == 0) return <NotFoundPage state={search} />
 
     return (
         <>

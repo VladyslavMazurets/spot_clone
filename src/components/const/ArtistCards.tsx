@@ -10,10 +10,10 @@ interface IArtist {
 function ArtistCards({ relatedArtists, slice }: IArtist) {
     return (
         <>
-            <Row className='my-4 px-3'>
+            <Row className='my-4'>
                 {relatedArtists.slice(0, slice)?.map((item: any, idx: number) => {
                     return (
-                        <Col xs="auto" key={idx} className='mb-3'>
+                        <Col xs="auto" key={idx} className='mb-3 me-2'>
                             <Link to={`/artist/${item.id}`}
                                 className="text-decoration-none text-white">
                                 <Card className='hover_carts' style={{

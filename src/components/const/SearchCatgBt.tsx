@@ -33,17 +33,13 @@ function SearchCatgBt() {
                     style={({ isActive }) => !isActive ? styleButton : styleActiveButton}>
                     Albums
                 </NavLink>
+                <NavLink to='/search/playlists' className={buttonClass}
+                    style={({ isActive }) => !isActive ? styleButton : styleActiveButton}>
+                    Playlists
+                </NavLink>
                 <NavLink to='/search/shows' className={buttonClass}
                     style={({ isActive }) => !isActive ? styleButton : styleActiveButton}>
                     Podcasts & Shows
-                </NavLink>
-                <NavLink to='/' className={buttonClass}
-                    style={({ isActive }) => !isActive ? styleButton : styleActiveButton}>
-                    Genres & Moods
-                </NavLink>
-                <NavLink to='/' className={buttonClass}
-                    style={({ isActive }) => !isActive ? styleButton : styleActiveButton}>
-                    Playlists
                 </NavLink>
             </Stack>
         </>

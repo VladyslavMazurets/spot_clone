@@ -41,42 +41,45 @@ function Show() {
     return (
         <>
             <Container fluid style={{
-                backgroundColor: '#1a0229', minHeight: '100vh'
+                backgroundColor: '#1a0229', minHeight: '100vh', padding: 0
             }}>
                 <SectionHeader img={shows.url} name={shows.name} owner={shows.type}
-                    bgColor={bgColor} />
-                <Row className='text-white pt-5'>
-                    <Col className='px-4 mb-5'>
-                        <span className='fs-4 fw-bold'>
-                            All Episodes
-                        </span>
-                        {episodes?.map((item: any, idx: number) => {
-                            return (
-                                <EpisodeCards description={item.description}
-                                    img={item.images[0].url} name={item.name}
-                                    release={item.release_date} 
-                                    time={item.duration_ms} id={item.id}/>
-                            )
-                        })}
-                    </Col>
-                    <Col xs={5} className=' px-5'>
-                        <span className='fs-4 fw-bold'>
-                            About
-                        </span>
-                        <span className='fs-5'>
-                            {showMore ?
-                                <td dangerouslySetInnerHTML={{ __html: shows.html_description?.slice(0, 200) }} />
-                                :
-                                <td dangerouslySetInnerHTML={{ __html: shows?.html_description }} />
-                            }
-                        </span>
-                        <Button variant='link' onClick={() => setShowMore(!showMore)}
-                            className='text-decoration-none text-white fs-5 fw-bold m-0 mb-5'>
-                            {showMore ? <span>... see more </span> :
-                                <span> show less </span>}
-                        </Button>
-                    </Col>
-                </Row>
+                    bgColor={bgColor} allTime={shows.duration_ms} />
+                <Container fluid>
+                    <Row className='text-white pt-5 px-4'>
+                        <Col className='mb-5'>
+                            <span className='fs-4 fw-bold'>
+                                All Episodes
+                            </span>
+                            {episodes?.map((item: any, idx: number) => {
+                                return (
+                                    <EpisodeCards key={idx} description={item.description}
+                                        img={item.images[0].url} name={item.name}
+                                        release={item.release_date}
+                                        time={item.duration_ms} id={item.id} songs={item.audio_preview_url} />
+                                )
+                            })}
+                        </Col>
+                        <Col xs={5} className='ps-4'>
+                            <span className='fs-4 fw-bold'>
+                                About
+                            </span>
+                            <div className='fs-5 mt-4'>
+                                {showMore ?
+                                    <span dangerouslySetInnerHTML={{ __html: shows.html_description?.slice(0, 200) }} />
+                                    :
+                                    <span dangerouslySetInnerHTML={{ __html: shows?.html_description }} />
+                                }
+                            </div>
+                            <Button variant='link' onClick={() => setShowMore(!showMore)}
+                                className='text-decoration-none text-white fs-5 fw-bold
+                             p-0 mt-2 mb-5'>
+                                {showMore ? <span> ... see more </span> :
+                                    <span> show less </span>}
+                            </Button>
+                        </Col>
+                    </Row>
+                </Container>
             </Container>
         </>
     )

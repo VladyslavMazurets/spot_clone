@@ -83,7 +83,7 @@ function Section() {
           <PlaylistsCards state={recommendations} title="The best rap songs" artistsName={true} image={false} linkURL={'track'} />
         }
         {'show' == id &&
-          <PlaylistsCards state={searchShows} title={'Podcasts'} artistsName={false} image={true} linkURL={'episode'} />
+          <PlaylistsCards state={searchShows} title={'Podcasts'} artistsName={false} image={true} linkURL={'show'} />
         }
         {parseInt(id!) === 0 && navURL == 'popular' &&
           <PlaylistsCards state={genrePlaylists} title={`Popular ${categoriesName} playlists`} artistsName={false} image={true} linkURL={'show'} />

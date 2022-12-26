@@ -88,7 +88,7 @@ function SectionHeader({ img, description, followers, name,
                                     Spotify
                                     {artists?.map((item: any, idx: number) => {
                                         return (
-                                            <Link key={idx} className='mx-1 
+                                            <Link key={idx} className='px-1 
                                         text-decoration-none text-white'
                                                 to={`/artist/${item.id}`}>
                                                 · <span className='hover_artists_name'>
@@ -105,7 +105,7 @@ function SectionHeader({ img, description, followers, name,
                                 }}>
                                     {artists?.map((item: any, idx: number) => {
                                         return (
-                                            <Link key={idx} className='mx-1 
+                                            <Link key={idx} className='px-1 
                                         text-decoration-none text-white'
                                                 to={`/artist/${item.id}`}>
                                                 <span className='hover_artists_name'>

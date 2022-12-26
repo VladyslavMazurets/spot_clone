@@ -5,7 +5,7 @@ import { Context } from './context';
 import Section from './components/Section';
 import Sidebar from './components/Sidebar';
 import Music from './components/Music';
-import Library from './components/Library';
+import LikedSongs from './components/LikedSongs';
 import PlaylistsDetail from './components/const/PlaylistsDetail';
 import { fetchFromAPI } from './utils/fetchFromAPI';
 import AlbumDetail from './components/const/AlbumDetail';
@@ -21,6 +21,7 @@ import SearchArtists from './components/Search/SearchArtists';
 import SearchAlbums from './components/Search/SearchAlbums';
 import SearchShows from './components/Search/SearchShows';
 import Show from './components/Show';
+import SearchPlaylists from './components/Search/SearchPlaylists';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -36,7 +37,6 @@ function App() {
 
   const [token, setToken] = useState<string>("");
   const [search, setSearch] = useState('')
-
 
   const [newReleases, setNewReleases] = useState<any[]>([]);
   const [featuredPlaylists, setFeaturedPlaylists] = useState<any[]>([]);
@@ -93,8 +93,9 @@ function App() {
               <Route path='artists' element={<SearchArtists />} />
               <Route path='albums' element={<SearchAlbums />} />
               <Route path='shows' element={<SearchShows />} />
+              <Route path='playlists' element={<SearchPlaylists />} />
             </Route>
-            <Route path='library' element={<Library />} />
+            <Route path='library' element={<LikedSongs />} />
             <Route path='section/:id' element={<Section />} />
             <Route path='section/:id/:categoriesName/:navURL' element={<Section />} />
             <Route path='playlists/:id' element={<PlaylistsDetail />} />

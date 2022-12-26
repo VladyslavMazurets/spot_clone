@@ -1,9 +1,9 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 
 import Form from 'react-bootstrap/Form'
 import { InputGroup, Button, Stack } from 'react-bootstrap'
 import { Context } from '../../context'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
 
 import { BsSearch } from 'react-icons/bs'
 import { TfiClose } from 'react-icons/tfi'
@@ -11,6 +11,12 @@ import { TfiClose } from 'react-icons/tfi'
 function SearchBar() {
 
     const { search, setSearch } = useContext(Context)
+    const navigate = useNavigate()
+
+
+    useEffect(() => {
+        { search.length == 0 && navigate('/search', { replace: true }) }
+      }, [search])
 
     return (
         <>

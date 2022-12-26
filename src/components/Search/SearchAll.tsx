@@ -6,7 +6,7 @@ import { fetchFromAPI } from '../../utils/fetchFromAPI'
 import SearchCatgBt from '../const/SearchCatgBt'
 import Loader from '../Loader'
 import '../style/hover.css'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import TrackList from '../const/TrackList'
 import ArtistCards from '../const/ArtistCards'
 import PlaylistsCards from '../const/PlaylistsCards'
@@ -75,7 +75,7 @@ function SearchAll() {
 
         <Row className='mt-5 ms-4'>
           <span className='text-white fw-bold fs-3'>Artists</span>
-          <ArtistCards relatedArtists={searchAll.artists?.items} slice={7}/>
+          <ArtistCards relatedArtists={searchAll.artists?.items} slice={7} />
         </Row>
 
         <Row className='mt-3 ms-4'>
