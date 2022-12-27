@@ -69,12 +69,12 @@ function TrackList({ idx, item, track, albumID }: IContent) {
                         <div className="d-flex flex-column mx-3">
                             {track ?
                                 <Link className='text-decoration-none fs-5 fw-bolder text-white'
-                                    to={`/track/${item.id}/artist/${item.artists[0]?.id}/album/${item.album ? `${item.album?.id}/${item.artists[0]?.name}/${item.name}`
-                                        : `${albumID}/${item.artists[0]?.name}/${item.name}`}`}>
+                                    to={`/track/${item!.id}/artist/${item.artists[0]!.id}/album/${item!.album ? `${item.album!.id}/${item.artists[0]!.name}/${item!.name}`
+                                        : `${albumID}/${item.artists[0]!.name}/${item!.name}`}`}>
                                     <span className={`${soundPlay && 'text-success'} hover_track_name`}>
                                         {(item.name)?.length > 40
-                                            ? `${item.name.substring(0, 76)}...`
-                                            : item.name}
+                                            ? `${item.name?.substring(0, 76)}...`
+                                            : item?.name}
                                     </span>
                                 </Link>
                                 : <span className='fs-5'>{(item.name)?.length > 40

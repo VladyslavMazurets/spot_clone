@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { Button, Col, Row, Stack } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { Howl, Howler } from 'howler'
@@ -9,6 +9,8 @@ import { millisToMinutesAndSeconds } from '../function/functionReus'
 import '../style/hover.css'
 import { IoPause, IoPlay } from 'react-icons/io5'
 import { BsHeartFill } from 'react-icons/bs'
+import { Context } from '../../context'
+import { deleteFromAPI, fetchFromAPI, putToAPI } from '../../utils/fetchFromAPI'
 
 interface IContent {
     idx?: number,
@@ -17,17 +19,37 @@ interface IContent {
 
 function PlaylistsContent({ idx, item }: IContent) {
 
+    const { token } = useContext(Context)
+
     const [soundPlay, setSoundPlay] = useState<boolean>(false)
+    const [userSavedTrack, setUserSavedTrack] = useState([])
+
+    const fetchUserSavedTracks = async () => {
+        fetchFromAPI(`me/tracks/contains?ids=${item.track.id}`, token)
+            .then((data) => setUserSavedTrack(data))
+    }
+
+    const delAndSaveUserTrack = () => {
+        if (userSavedTrack[0]) {
+            deleteFromAPI(`me/tracks?ids=${item.track?.id}`, token)
+        } else {
+            putToAPI(`me/tracks?ids=${item.track?.id}`, token, {item})
+        }
+    }
+
+    useEffect(() => {
+        fetchUserSavedTracks();
+    }, [token, userSavedTrack])
 
     const sound = new Howl({
-        src: [item?.track.preview_url],
+        src: item.track ? [item?.track.preview_url] : [item.preview_url],
         html5: true,
         preload: true,
         volume: 1.0
     })
 
     const PlayPause = () => {
-        if (item?.track.preview_url === null) {
+        if (item.preview_url === null || item.track?.preview_url === null) {
             Swal.fire({
                 title: 'Sorry!',
                 text: 'The song is missing',
@@ -64,18 +86,28 @@ function PlaylistsContent({ idx, item }: IContent) {
 
                     <Col xs={5} className='d-flex w-50 
                                     align-items-center'>
-                        <img src={item.track.album.images[0].url}
+                        <img src={item?.track ? item.track.album.images[0]?.url : item.album.images[0]?.url}
                             alt='Track Img' width='60px'
                             height='60px' className='my-2' />
                         <div className="d-flex flex-column mx-3">
                             <Link className='text-decoration-none fs-5 fw-bolder text-white'
-                                to={`/track/${item.track.id}/artist/${item.track.artists[0]?.id}/album/${item.track.album?.id}/${item.track.artists[0]?.name}/${item.track.name}`}>
+                                to={item.track ? `/track/${item.track.id}/artist/${item.track.artists[0]?.id}/album/${item.track.album?.id}/${item.track.artists[0]?.name}/${item.track.name}`
+                                    : `/track/${item.id}/artist/${item.artists[0]?.id}/album/${item.album?.id}/${item.artists[0]?.name}/${item.name}`}>
                                 <span className={`${soundPlay && 'text-success'} hover_track_name`}>
-                                    {item.track.name}
+                                    {item.track ? item.track.name : item.name}
                                 </span>
                             </Link>
                             <span className='text-muted'>
-                                {item.track.artists.map((item: any, idx: number) => {
+                                {item.track ? item.track.artists.map((item: any, idx: number) => {
+                                    return (
+                                        <Link key={idx} to={`/artist/${item.id}`}
+                                            className='text-decoration-none text-muted me-2'>
+                                            <span className='hover_artists_name'>
+                                                {item.name}
+                                            </span>
+                                        </Link>
+                                    )
+                                }) : item.artists.map((item: any, idx: number) => {
                                     return (
                                         <Link key={idx} to={`/artist/${item.id}`}
                                             className='text-decoration-none text-muted me-2'>
@@ -90,25 +122,36 @@ function PlaylistsContent({ idx, item }: IContent) {
                     </Col>
 
                     <Col className='text-muted fs-6 hover_track'>
-                        <Link to={`/albums/${item.track.album.id}`}
+                        <Link to={`/albums/${item.track ? item.track.album.id : item.album.id}`}
                             className='text-decoration-none text-muted'>
                             <span className='hover_album'>
-                                {item.track.album.name}
+                                {item.track ? item.track.album.name : item.album.name}
                             </span>
                         </Link>
                     </Col>
 
                     <Col xs={2} className='text-muted fs-6'>
-                        {item.added_at.slice(0, 10)}
+                        {item.added_at ? item.added_at.slice(0, 10) : item.album.release_date}
+                    </Col>
+
+                    <Col xs='auto' className='text-muted'>
+                        <Button variant='link' className='text-muted p-0'
+                            onClick={delAndSaveUserTrack} >
+                            <BsHeartFill id="like" className='fs-6 me-3
+                            hover_like'
+                                style={userSavedTrack[0] ? { color: '#1ed760', display: 'block' } :
+                                    !soundPlay ? { display: 'none' } : {}}
+                            />
+                        </Button>
                     </Col>
 
                     <Col xs='auto' className='text-muted fs-6 d-flex flex-row align-items-center'>
-                        <BsHeartFill id="like" className={`fs-6 me-3
-                            hover_like ${!soundPlay && 'd-none'}`} />
-                        {millisToMinutesAndSeconds(item.track.duration_ms)}
+                        {item.track ? millisToMinutesAndSeconds(item.track.duration_ms)
+                            : millisToMinutesAndSeconds(item.duration_ms)}
                     </Col>
                 </Row>
             </div>
+            {console.log()}
         </>
     )
 }

@@ -10,9 +10,9 @@ interface ITrackHeader {
 function TrackHeader({ album, date }: ITrackHeader) {
     return (
         <>
-            <Row className='d-flex text-uppercase fw-bold fs-5 
+            <Row className='d-flex text-uppercase fw-bold fs-6 
             align-items-center border-bottom text-muted border-secondary mx-3 
-            pb-2 mb-4'>
+            pb-2 mb-4' style={{letterSpacing: '0.2rem'}}>
                 <Col xs='auto'>#</Col>
                 <Col xs={5} className='w-50'>title</Col>
                 <Col >{album}</Col>

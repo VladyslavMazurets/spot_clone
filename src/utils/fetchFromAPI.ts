@@ -6,7 +6,36 @@ const BASE_URL_LYRICS = 'https://cors-anywhere.herokuapp.com/https://api.musixma
 export const fetchFromAPI = async (url: string, token: string | null) => {
 
     const { data } = await axios.get((`${BASE_URL}/${url}`), {
-        method: 'GET',
+        method: "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+    });
+
+    return data;
+}
+
+export const putToAPI = async (url: string, token: string | null, trackInfo: {}) => {
+
+    const { data } = await axios.put((`${BASE_URL}/${url}`), {
+        method: "PUT",
+        data: {trackInfo},
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+    });
+
+    return data;
+}
+
+export const deleteFromAPI = async (url: string, token: string | null) => {
+
+    const { data } = await axios.delete((`${BASE_URL}/${url}`), {
+        method: "DELETE",
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
