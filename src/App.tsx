@@ -38,46 +38,9 @@ function App() {
   const [token, setToken] = useState<string>("");
   const [search, setSearch] = useState('')
 
-  const [newReleases, setNewReleases] = useState<any[]>([]);
-  const [featuredPlaylists, setFeaturedPlaylists] = useState<any[]>([]);
-  const [categories, setCategories] = useState<any[]>([]);
-  const [recommendations, setRecommendations] = useState<any[]>([]);
-
-  const fetchNewReleases = async () => {
-    const { albums } = await fetchFromAPI('browse/new-releases?country=US&limit=34', token);
-    setNewReleases(albums.items);
-  }
-
-  const fetchFeaturedPlaylists = async () => {
-    const { playlists } = await fetchFromAPI('browse/featured-playlists?country=US&limit=34', token);
-    setFeaturedPlaylists(playlists.items);
-  }
-
-  const fetchCategories = async () => {
-    const { playlists } = await fetchFromAPI('browse/categories/0JQ5DAqbMKFQ00XGBls6ym/playlists?country=US&limit=34', token);
-    setCategories(playlists.items);
-  }
-
-  const fetchRecommendations = async () => {
-    const { tracks } = await fetchFromAPI('recommendations?country=US&limit=34&seed_genres=hip-hop&min_popularity=70&max_popularity=100', token);
-    setRecommendations(tracks);
-  }
-
-  useEffect(() => {
-    if (token) {
-      fetchNewReleases();
-      fetchFeaturedPlaylists();
-      fetchCategories();
-      fetchRecommendations();
-    }
-  }, [token])
-
   const providerValue = useMemo(() => ({
-    token, setToken, newReleases,
-    setNewReleases, featuredPlaylists, setFeaturedPlaylists, categories,
-    setCategories, recommendations, setRecommendations, search, setSearch
-  }), [token, newReleases, featuredPlaylists, categories, recommendations, search,
-    setSearch])
+    token, setToken, search, setSearch
+  }), [token, search, setSearch])
 
   return (
     <>

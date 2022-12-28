@@ -18,16 +18,20 @@ function SearchArtists() {
     }
 
     useEffect(() => {
-        if (token && search.length !== 0 || undefined)
-            fetchSearchArtists();
-    }, [token, search])
+        if (token && search.length !== 0 || undefined) {
+            const timer = setTimeout(() => {
+                fetchSearchArtists();
+            }, 1500)
+            return () => clearTimeout(timer)
+        }
+    }, [search])
 
-    if (searchArtists?.length === 0) return <NotFoundPage state={search}/>
+    if (searchArtists?.length === 0) return <NotFoundPage state={search} />
 
     return (
         <>
             <SearchCatgBt />
-            <Container fluid style={{padding: '1.5rem 2rem 0 3rem'}}
+            <Container fluid style={{ padding: '1.5rem 2rem 0 3rem' }}
                 className="border-bottom border-secondary pb-5 mb-5">
                 <ArtistCards relatedArtists={searchArtists} />
             </Container>

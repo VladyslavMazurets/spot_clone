@@ -18,9 +18,13 @@ function SearchAlbums() {
     }
 
     useEffect(() => {
-        if (token && search.length !== 0 || undefined)
-            fetchSearchAlbums();
-    }, [token, search])
+        if (token && search.length !== 0 || undefined) {
+            const timer = setTimeout(() => {
+                fetchSearchAlbums();
+            }, 1500)
+            return () => clearTimeout(timer)
+        }
+    }, [search])
 
     if (searchAlbums.length == 0) return <NotFoundPage state={search} />
 

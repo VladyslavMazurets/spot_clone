@@ -36,7 +36,7 @@ function Show() {
             fetchShows();
             fetchShowsEpisodes();
         }
-    }, [token, id])
+    }, [token])
 
     return (
         <>

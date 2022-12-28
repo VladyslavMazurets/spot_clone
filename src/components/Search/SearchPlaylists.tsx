@@ -18,7 +18,10 @@ function SearchPlaylists() {
     }
 
     useEffect(() => {
-        fetchSearchPlaylists();
+        const timer = setTimeout(() => {
+            fetchSearchPlaylists();
+        }, 1500)
+        return () => clearTimeout(timer)
     }, [search])
 
     if (searchPlaylists.length == 0) return <NotFoundPage state={search} />
@@ -31,7 +34,6 @@ function SearchPlaylists() {
                     title="" artistsName={false} image={true}
                     linkURL={'playlists'} />
             </Container>
-            {console.log(token)}
         </>
     )
 }

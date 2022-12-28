@@ -17,9 +17,13 @@ function SearchShows() {
     }
 
     useEffect(() => {
-        if (token && search.length !== 0 || undefined)
-            fetchSearchShows();
-    }, [token, search])
+        if (token && search.length !== 0 || undefined) {
+            const timer = setTimeout(() => {
+                fetchSearchShows();
+            }, 1500)
+            return () => clearTimeout(timer)
+        }
+    }, [search])
 
     if (searchShows.length == 0) return <NotFoundPage state={search} />
 

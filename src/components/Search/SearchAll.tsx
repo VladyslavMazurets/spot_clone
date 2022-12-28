@@ -26,9 +26,12 @@ function SearchAll() {
 
   useEffect(() => {
     if (token && search !== '') {
-      fetchAll();
+      const timer = setTimeout(() => {
+        fetchAll();
+      }, 1500)
+      return () => clearTimeout(timer)
     }
-  }, [token, search])
+  }, [search])
 
   if (Object.values(searchAll).length === 0 || undefined) return <Loader />
   if (searchAll.albums.items.length === 0) return <NotFoundPage state={search} />

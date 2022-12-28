@@ -17,7 +17,7 @@ export const fetchFromAPI = async (url: string, token: string | null) => {
     return data;
 }
 
-export const putToAPI = async (url: string, token: string | null, trackInfo: {}) => {
+export const putToAPI = async (url: string, token: string | null, trackInfo: any) => {
 
     const { data } = await axios.put((`${BASE_URL}/${url}`), {
         method: "PUT",

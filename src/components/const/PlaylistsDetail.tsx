@@ -30,20 +30,19 @@ function PlaylistsDetail() {
         if (token) {
             fetchPlaylistsDetail();
         }
-    }, [token, id])
+    }, [token])
 
-    if (!playlistsDetail.name) return <Loader bgColor={`#1a0229`}/>
-    
+    if (!playlistsDetail.name) return <Loader bgColor={`#1a0229`} />
+
     const { name, description, total, url, items, display_name }
-    = playlistsDetail;
-    
+        = playlistsDetail;
+
     let allTime = 0;
     let allTracks = Object.keys(items).length;
-    
+
     items.slice(0, 100).forEach((value: any) => {
         allTime += value.track.duration_ms;
     })
-    
 
     return (
         <>
@@ -59,7 +58,7 @@ function PlaylistsDetail() {
                 <Container fluid className='mt-5 border-bottom border-secondary
                  pb-5 mb-5'>
 
-                    <TrackHeader album={'album'} date={'date added'}/>
+                    <TrackHeader album={'album'} date={'date added'} />
 
                     {items.slice(0, 100).map((item: any, idx: number) => {
                         return (
@@ -70,7 +69,6 @@ function PlaylistsDetail() {
                     })}
                 </Container>
             </Container>
-            {console.log()}
         </>
     )
 }

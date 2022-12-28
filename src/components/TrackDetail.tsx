@@ -88,7 +88,7 @@ function TrackDetail() {
             fetchLyrics();
         }
         return () => { ignore = true }
-    }, [token, id, artistID, albumID, artistName, trackName])
+    }, [token])
 
     if (!trackDetail.name) return <Loader bgColor={`#1a0229`} />
 

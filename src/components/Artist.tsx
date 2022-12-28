@@ -28,7 +28,7 @@ function Artist() {
         genres: {}, image: '', name: '', followers: 0
     });
     const [artistTopTrack, setArtistTopTrack] = useState([]);
-    const [artistAlbums, setArtistAlbums] = useState({});
+    const [artistAlbums, setArtistAlbums] = useState([]);
     const [relatedArtists, setRelatedArtists] = useState([]);
 
     const fetchArtist = async () => {
@@ -62,7 +62,7 @@ function Artist() {
             fetchArtistAlbums();
             fetchRelatedArtists();
         }
-    }, [token, id])
+    }, [token])
 
     const { name, image, followers, genres: { genres } } = artistDetail;
 
@@ -115,12 +115,12 @@ function Artist() {
 
                     {showAll ? artistTopTrack?.map((item: any, idx: number) => {
                         return (
-                            <TrackList idx={idx} item={item} track={true} />
+                            <TrackList key={idx} idx={idx} item={item} track={true} />
                         )
                     }) :
                         artistTopTrack?.slice(0, 5).map((item: any, idx: number) => {
                             return (
-                                <TrackList idx={idx} item={item} track={true} />
+                                <TrackList key={idx} idx={idx} item={item} track={true} />
                             )
                         })
                     }
@@ -138,11 +138,10 @@ function Artist() {
 
                     <Container fluid className='pt-4 mx-3'>
                         <Row className='fs-2 fw-bold'> Fans also like </Row>
-                        <ArtistCards relatedArtists={relatedArtists} slice={7}/>
+                        <ArtistCards relatedArtists={relatedArtists} slice={7} />
                     </Container>
                 </Container>
             </Stack>
-            {console.log(artistTopTrack)}
         </>
     )
 }

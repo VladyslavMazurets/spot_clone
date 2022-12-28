@@ -8,13 +8,9 @@ import Loader from './Loader';
 
 function Section() {
 
-  const { newReleases, featuredPlaylists, categories,
-    recommendations } = useContext(Context);
-
-
   const { id, categoriesName, navURL } = useParams();
 
-  const { token, search } = useContext(Context)
+  const { token } = useContext(Context)
 
   const [genrePlaylists, setGenrePlaylists] = useState([])
   const [genreTracks, setGenreTracks] = useState([])
@@ -23,6 +19,31 @@ function Section() {
   const [searchShows, setSearchShows] = useState([])
 
   const CategoriesName = categoriesName!.toLowerCase()
+
+  const [newReleases, setNewReleases] = useState<any>([]);
+  const [featuredPlaylists, setFeaturedPlaylists] = useState<any>([]);
+  const [categories, setCategories] = useState<any>([]);
+  const [recommendations, setRecommendations] = useState<any>([]);
+
+  const fetchNewReleases = async () => {
+    const { albums: { items } } = await fetchFromAPI('browse/new-releases?country=US&limit=34', token);
+    setNewReleases(items);
+  }
+
+  const fetchFeaturedPlaylists = async () => {
+    const { playlists: { items } } = await fetchFromAPI('browse/featured-playlists?country=US&limit=34', token);
+    setFeaturedPlaylists(items);
+  }
+
+  const fetchCategories = async () => {
+    const { playlists: { items } } = await fetchFromAPI('browse/categories/0JQ5DAqbMKFQ00XGBls6ym/playlists?country=US&limit=34', token);
+    setCategories(items);
+  }
+
+  const fetchRecommendations = async () => {
+    const { tracks } = await fetchFromAPI('recommendations?country=US&limit=34&seed_genres=hip-hop&min_popularity=70&max_popularity=100', token);
+    setRecommendations(tracks);
+  }
 
   const fetchGenrePlaylists = async () => {
     const { playlists: { items } } = await fetchFromAPI(`browse/categories/${id}/playlists`, token)
@@ -52,8 +73,12 @@ function Section() {
   useEffect(() => {
     if (token) {
       fetchSearchShows();
+      fetchNewReleases();
+      fetchFeaturedPlaylists();
+      fetchCategories();
+      fetchRecommendations();
     }
-  }, [categoriesName])
+  }, [token])
 
   useEffect(() => {
     if (token && parseInt(id!) === 0) {
@@ -64,7 +89,8 @@ function Section() {
     }
   }, [token])
 
-  if (!genrePlaylists || !genreTracks || !oldSchoolTracks || !searchCategories)
+  if (!genrePlaylists || !genreTracks || !oldSchoolTracks || !searchCategories
+    || !newReleases || !featuredPlaylists || !categories || !recommendations)
     return <Loader />
 
   return (
@@ -98,7 +124,6 @@ function Section() {
           <PlaylistsCards state={oldSchoolTracks} title={`Old School ${categoriesName} tracks`} artistsName={true} image={false} linkURL={'track'} />
         }
       </Container>
-      {console.log(searchShows)}
     </>
   )
 }

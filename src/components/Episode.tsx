@@ -33,7 +33,7 @@ function Episode() {
 
     useEffect(() => {
         fetchEpisode();
-    }, [id])
+    }, [])
 
     const bgColor = randomBgColor();
 

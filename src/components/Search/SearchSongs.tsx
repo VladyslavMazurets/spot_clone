@@ -20,11 +20,15 @@ function SearchSongs() {
     }
 
     useEffect(() => {
-        if (token && search.length !== 0 || undefined)
-            fetchSearchSongs();
-    }, [token, search])
+        if (token && search.length !== 0 || undefined) {
+            const timer = setTimeout(() => {
+                fetchSearchSongs();
+            }, 1500)
+            return () => clearTimeout(timer)
+        }
+    }, [search])
 
-     if (searchSongs?.length == 0) return <NotFoundPage state={search} />
+    if (searchSongs?.length == 0) return <NotFoundPage state={search} />
 
     return (
         <>
@@ -39,7 +43,6 @@ function SearchSongs() {
                 })
                 }
             </Container>
-            {console.log((search.length > 0 && searchSongs?.length == 0))}
         </>
     )
 }

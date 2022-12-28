@@ -47,7 +47,6 @@ function Genre() {
         }
     }, [token])
 
-
     return (
         <>
             <Stack>

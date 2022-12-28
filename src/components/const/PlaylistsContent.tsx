@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react'
-import { Button, Col, Row, Stack } from 'react-bootstrap'
+import { Button, Col, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { Howl, Howler } from 'howler'
 import Swal from 'sweetalert2'
@@ -11,6 +11,7 @@ import { IoPause, IoPlay } from 'react-icons/io5'
 import { BsHeartFill } from 'react-icons/bs'
 import { Context } from '../../context'
 import { deleteFromAPI, fetchFromAPI, putToAPI } from '../../utils/fetchFromAPI'
+import '../style/swal.css'
 
 interface IContent {
     idx?: number,
@@ -22,7 +23,7 @@ function PlaylistsContent({ idx, item }: IContent) {
     const { token } = useContext(Context)
 
     const [soundPlay, setSoundPlay] = useState<boolean>(false)
-    const [userSavedTrack, setUserSavedTrack] = useState([])
+    const [userSavedTrack, setUserSavedTrack] = useState<any>([])
 
     const fetchUserSavedTracks = async () => {
         fetchFromAPI(`me/tracks/contains?ids=${item.track.id}`, token)
@@ -30,16 +31,36 @@ function PlaylistsContent({ idx, item }: IContent) {
     }
 
     const delAndSaveUserTrack = () => {
-        if (userSavedTrack[0]) {
+        if (userSavedTrack![0]) {
+            Swal.fire({
+                customClass: 'button__alert',
+                position: 'bottom',
+                title: 'Removed from your Liked Songs',
+                showConfirmButton: false, backdrop: false,
+                timer: 1500,
+            })
             deleteFromAPI(`me/tracks?ids=${item.track?.id}`, token)
+            setUserSavedTrack(!userSavedTrack)
         } else {
-            putToAPI(`me/tracks?ids=${item.track?.id}`, token, {item})
+            Swal.fire({
+                customClass: 'button__alert',
+                position: 'bottom',
+                title: 'Added to your Liked Songs',
+                showConfirmButton: false, backdrop: false,
+                timer: 1500,
+            })
+            putToAPI(`me/tracks?ids=${item.track?.id}`, token, item)
+            setUserSavedTrack(!userSavedTrack)
         }
     }
 
     useEffect(() => {
-        fetchUserSavedTracks();
-    }, [token, userSavedTrack])
+        const timer = setTimeout(() => {
+            fetchUserSavedTracks();
+        }, 3000)
+
+        return () => clearTimeout(timer);
+    }, [setUserSavedTrack])
 
     const sound = new Howl({
         src: item.track ? [item?.track.preview_url] : [item.preview_url],
@@ -139,7 +160,7 @@ function PlaylistsContent({ idx, item }: IContent) {
                             onClick={delAndSaveUserTrack} >
                             <BsHeartFill id="like" className='fs-6 me-3
                             hover_like'
-                                style={userSavedTrack[0] ? { color: '#1ed760', display: 'block' } :
+                                style={userSavedTrack![0] ? { color: '#1ed760', display: 'block' } :
                                     !soundPlay ? { display: 'none' } : {}}
                             />
                         </Button>
@@ -151,7 +172,6 @@ function PlaylistsContent({ idx, item }: IContent) {
                     </Col>
                 </Row>
             </div>
-            {console.log()}
         </>
     )
 }

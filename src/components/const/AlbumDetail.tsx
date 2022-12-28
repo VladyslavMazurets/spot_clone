@@ -34,7 +34,7 @@ function AlbumDetail() {
         if (token) {
             fetchalbumDetail();
         }
-    }, [token, id])
+    }, [token])
 
     if (!albumDetail.name) return <Loader bgColor={`#1a0229`} />
 
