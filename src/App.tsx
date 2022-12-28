@@ -7,7 +7,6 @@ import Sidebar from './components/Sidebar';
 import Music from './components/Music';
 import LikedSongs from './components/LikedSongs';
 import PlaylistsDetail from './components/const/PlaylistsDetail';
-import { fetchFromAPI } from './utils/fetchFromAPI';
 import AlbumDetail from './components/const/AlbumDetail';
 import TrackDetail from './components/TrackDetail';
 import Artist from './components/Artist';

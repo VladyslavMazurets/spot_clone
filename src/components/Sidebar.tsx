@@ -16,7 +16,7 @@ const {
 
 const Active = ({ isActive }: any) => ({ color: isActive ? 'white' : '#656566' })
 const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
-const REDIRECT_URI = "https://spot-clone-xi.vercel.app";
+const REDIRECT_URI = "https://spot-clone-xi.vercel.app/";
 const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
 
 const loginURL = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=token&scope=user-library-read,user-library-modify`;
