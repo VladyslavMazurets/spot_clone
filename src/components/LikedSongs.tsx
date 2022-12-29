@@ -47,7 +47,7 @@ function LikedSongs() {
             }}>
               Liked Songs
             </span>
-            <span> {`${userName} • 32 songs`}</span>
+            <span> {`${userName} • ${Object.keys(userTopTracks).length} songs`}</span>
           </div>
         </div>
 

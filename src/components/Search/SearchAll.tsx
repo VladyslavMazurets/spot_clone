@@ -41,7 +41,7 @@ function SearchAll() {
       <SearchCatgBt />
       <Container fluid className="border-bottom border-secondary pb-5 mb-5">
         <Row className='mt-4 ms-4'>
-          <Col sm={3} fixed>
+          <Col sm={3}>
             <span className='text-white fw-bold fs-3'>Top result</span>
             <Link to={`/artist/${searchAll.artists.items[0]?.id}`}
               className='text-decoration-none'>
@@ -68,7 +68,7 @@ function SearchAll() {
             <Col className='mt-3'>
               {searchAll.tracks.items?.slice(0, 4).map((item: any, idx: number) => {
                 return (
-                  <TrackList idx={idx} item={item} track={true} />
+                  <TrackList key={idx} idx={idx} item={item} track={true} />
                 )
               })
               }

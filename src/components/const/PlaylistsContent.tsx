@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom'
 import { Howl, Howler } from 'howler'
 import Swal from 'sweetalert2'
 
-
 import { millisToMinutesAndSeconds } from '../function/functionReus'
 import '../style/hover.css'
 import { IoPause, IoPlay } from 'react-icons/io5'
@@ -24,6 +23,7 @@ function PlaylistsContent({ idx, item }: IContent) {
 
     const [soundPlay, setSoundPlay] = useState<boolean>(false)
     const [userSavedTrack, setUserSavedTrack] = useState<any>([])
+    const [reload, setReload] = useState(true)
 
     const fetchUserSavedTracks = async () => {
         fetchFromAPI(`me/tracks/contains?ids=${item.track.id}`, token)
@@ -31,36 +31,36 @@ function PlaylistsContent({ idx, item }: IContent) {
     }
 
     const delAndSaveUserTrack = () => {
-        if (userSavedTrack![0]) {
+        if (userSavedTrack[0]) {
             Swal.fire({
                 customClass: 'button__alert',
                 position: 'bottom',
                 title: 'Removed from your Liked Songs',
                 showConfirmButton: false, backdrop: false,
-                timer: 1500,
+                timer: 1800,
             })
             deleteFromAPI(`me/tracks?ids=${item.track?.id}`, token)
-            setUserSavedTrack(!userSavedTrack)
+            setReload(!reload)
         } else {
             Swal.fire({
                 customClass: 'button__alert',
                 position: 'bottom',
                 title: 'Added to your Liked Songs',
                 showConfirmButton: false, backdrop: false,
-                timer: 1500,
+                timer: 1800,
             })
             putToAPI(`me/tracks?ids=${item.track?.id}`, token, item)
-            setUserSavedTrack(!userSavedTrack)
+            setReload(!reload)
         }
     }
 
     useEffect(() => {
         const timer = setTimeout(() => {
             fetchUserSavedTracks();
-        }, 3000)
+        }, 1500)
 
         return () => clearTimeout(timer);
-    }, [setUserSavedTrack])
+    }, [reload])
 
     const sound = new Howl({
         src: item.track ? [item?.track.preview_url] : [item.preview_url],
@@ -160,7 +160,7 @@ function PlaylistsContent({ idx, item }: IContent) {
                             onClick={delAndSaveUserTrack} >
                             <BsHeartFill id="like" className='fs-6 me-3
                             hover_like'
-                                style={userSavedTrack![0] ? { color: '#1ed760', display: 'block' } :
+                                style={userSavedTrack[0] ? { color: '#1ed760', display: 'block' } :
                                     !soundPlay ? { display: 'none' } : {}}
                             />
                         </Button>

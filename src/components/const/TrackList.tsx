@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { Button, Col, Row, Stack } from 'react-bootstrap'
 import { MdExplicit } from 'react-icons/md'
 import { BsHeartFill } from 'react-icons/bs'
@@ -10,6 +10,8 @@ import Swal from 'sweetalert2'
 
 import { millisToMinutesAndSeconds } from '../function/functionReus'
 import '../style/hover.css'
+import { Context } from '../../context'
+import { deleteFromAPI, fetchFromAPI, putToAPI } from '../../utils/fetchFromAPI'
 
 interface IContent {
     idx?: number,
@@ -20,7 +22,48 @@ interface IContent {
 
 function TrackList({ idx, item, track, albumID }: IContent) {
 
+    const { token } = useContext(Context)
+
     const [soundPlay, setSoundPlay] = useState<boolean>(false)
+    const [userSavedTrack, setUserSavedTrack] = useState<any>([])
+    const [reload, setReload] = useState(true)
+
+    const fetchUserSavedTracks = async () => {
+        fetchFromAPI(`me/tracks/contains?ids=${item.id}`, token)
+            .then((data) => setUserSavedTrack(data))
+    }
+
+    const delAndSaveUserTrack = () => {
+        if (userSavedTrack[0]) {
+            Swal.fire({
+                customClass: 'button__alert',
+                position: 'bottom',
+                title: 'Removed from your Liked Songs',
+                showConfirmButton: false, backdrop: false,
+                timer: 1800,
+            })
+            deleteFromAPI(`me/tracks?ids=${item?.id}`, token)
+            setReload(!reload)
+        } else {
+            Swal.fire({
+                customClass: 'button__alert',
+                position: 'bottom',
+                title: 'Added to your Liked Songs',
+                showConfirmButton: false, backdrop: false,
+                timer: 1800,
+            })
+            putToAPI(`me/tracks?ids=${item?.id}`, token, item)
+            setReload(!reload)
+        }
+    }
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            fetchUserSavedTracks();
+        }, 1500)
+
+        return () => clearTimeout(timer);
+    }, [reload])
 
     const sound = new Howl({
         src: [item?.preview_url],
@@ -99,11 +142,16 @@ function TrackList({ idx, item, track, albumID }: IContent) {
                     </Col>
 
                     <Col className='text-muted fs-6 d-flex justify-content-end'>
-                        <Stack direction="horizontal" gap={4}>
-                            <BsHeartFill id="like" className={`fs-6 d-flex align-items-center 
-                            hover_like ${!soundPlay && 'd-none'}`} />
+                        <Button variant='link' className='text-muted p-0 d-flex 
+                        align-items-center me-5'
+                            onClick={delAndSaveUserTrack} >
+                             <BsHeartFill id="like" className='fs-6 me-3
+                            hover_like'
+                                style={userSavedTrack[0] ? { color: '#1ed760', display: 'block' } :
+                                    !soundPlay ? { display: 'none' } : {}}
+                            />
+                        </Button>
                             {millisToMinutesAndSeconds(item.duration_ms)}
-                        </Stack>
                     </Col>
                 </Row>
             </div>
