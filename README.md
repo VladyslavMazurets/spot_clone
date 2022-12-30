@@ -2,9 +2,7 @@
 
 ## Alive site: https://spot-clone-xi.vercel.app/
 
-### This project is not yet finished and I continue to work on it.
-
-This is React-Spotify app, a React front end client that communicates with the Spotify API.
+This is React-Spotify app, a React front-end client that communicates with the Spotify API.
 
 The public API provided by Spotify for Developers was used to create this project. 
 To start working with the API and the site, you need to go through the authorization process.
@@ -15,11 +13,16 @@ The goal of this project was to create a clone of the famous music platform Spot
 
 The lyrics were taken from the public API of Musixmatch Developer. This API has a limit of 2k calls per day, so there is a possibility that the lyrics of the song will not be displayed if the limit is exceeded.
 
+The library is used to play tracks Howler.js. howler.js is an audio library for the modern web. It defaults to Web Audio API and falls back to HTML5 Audio. This makes working with audio in JavaScript easy and reliable across all platforms. Spotify API only provides 30 seconds of track preview, some tracks don't even have 30 seconds available at all.
+
+## ------- In this program, it is possible to add tracks to "Liked songs" or remove them from there. This function affects your data in Spotify (when you add or remove tracks, they will also be added or removed in your Spotify account) -------
+
 ### In this project, i used:
 
 - ReactJS and TypeScript
 - Using React Bootstrap, React Router, React Icons, React Spinners, Cdbreact
 - Fetching data from unlimited sources using RapidAPI.
 - The authorization process through the Spotify system
+- Howler.js audio library. 
 
 Setup: run npm i && npm start - to start the development server
