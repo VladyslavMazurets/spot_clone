@@ -15,7 +15,7 @@ The lyrics were taken from the public API of Musixmatch Developer. This API has 
 
 The library is used to play tracks Howler.js. howler.js is an audio library for the modern web. It defaults to Web Audio API and falls back to HTML5 Audio. This makes working with audio in JavaScript easy and reliable across all platforms. Spotify API only provides 30 seconds of track preview, some tracks don't even have 30 seconds available at all.
 
-### ------- In this program, it is possible to add tracks to "Liked songs" or remove them from there. This function affects your data in Spotify (when you add or remove tracks, they will also be added or removed in your Spotify account) -------
+## ------- In this program, it is possible to add tracks to "Liked songs" or remove them from there. This function affects your data in Spotify (when you add or remove tracks, they will also be added or removed in your Spotify account) -------
 
 ### In this project, i used:
 
