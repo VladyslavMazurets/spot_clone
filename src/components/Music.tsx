@@ -4,6 +4,7 @@ import { Container } from 'react-bootstrap';
 import { Context } from '../context';
 import { fetchFromAPI } from '../utils/fetchFromAPI';
 import PlaylistsCards from './const/PlaylistsCards';
+import Loader from './Loader';
 
 function Music() {
 
@@ -43,13 +44,16 @@ function Music() {
     }
   }, [token])
 
+  if(!newReleases.length) return <Loader bgColor='#1a0229'/>
+
   return (
     <>
-      <Container fluid style={{ padding: "2.5rem 2rem 0 2rem", backgroundColor: '#1a0229', minHeight: '100vh' }}>
-        <PlaylistsCards state={newReleases} title='New Releases' artistsName={true} image={true} linkURL={'albums'} slice={7} sectionID={'newReleases'} />
-        <PlaylistsCards state={featuredPlaylists} title="Featured Playlists" artistsName={false} image={true} linkURL={'playlists'} slice={7} sectionID={'featuredPlaylists'} />
-        <PlaylistsCards state={categories} title="Popular hip-hop playlists" artistsName={false} image={true} linkURL={'playlists'} slice={7} sectionID={'categories'} />
-        <PlaylistsCards state={recommendations} title="The best rap songs" artistsName={true} image={false} linkURL={'track'} slice={7} sectionID={'recommendations'} />
+      <Container fluid style={{ padding: "2.5rem 2rem 0 2rem", 
+      backgroundColor: '#1a0229', minHeight: '100vh'}}>
+        <PlaylistsCards state={newReleases} title='New Releases' artistsName={true} image={true} linkURL={'albums'} slice={10} sectionID={'newReleases'} section={true}/>
+        <PlaylistsCards state={featuredPlaylists} title="Featured Playlists" artistsName={false} image={true} linkURL={'playlists'} slice={10} sectionID={'featuredPlaylists'} section={true}/>
+        <PlaylistsCards state={categories} title="Popular hip-hop playlists" artistsName={false} image={true} linkURL={'playlists'} slice={10} sectionID={'categories'} section={true}/>
+        <PlaylistsCards state={recommendations} title="The best rap songs" artistsName={true} image={false} linkURL={'track'} slice={10} sectionID={'recommendations'} section={true}/>
       </Container>
     </>
   )

@@ -69,7 +69,8 @@ function TrackList({ idx, item, track, albumID }: IContent) {
         src: [item?.preview_url],
         html5: true,
         preload: true,
-        volume: 1.0
+        volume: 0.5,
+        onend: function () { setSoundPlay(false) }
     })
 
     const PlayPause = () => {
@@ -80,14 +81,12 @@ function TrackList({ idx, item, track, albumID }: IContent) {
                 icon: 'info',
                 confirmButtonText: 'OK'
             })
+        } else if (sound.playing()) {
+            setSoundPlay(false)
+            return sound.pause();
         } else {
-            if (sound.playing()) {
-                setSoundPlay(false)
-                return sound.pause();
-            } else {
-                setSoundPlay(true)
-                return Howler.stop(), sound.play();
-            }
+            setSoundPlay(true)
+            return Howler.stop(), sound.play();
         }
     }
 
@@ -145,13 +144,13 @@ function TrackList({ idx, item, track, albumID }: IContent) {
                         <Button variant='link' className='text-muted p-0 d-flex 
                         align-items-center me-5'
                             onClick={delAndSaveUserTrack} >
-                             <BsHeartFill id="like" className='fs-6 me-3
+                            <BsHeartFill id="like" className='fs-6 me-3
                             hover_like'
                                 style={userSavedTrack[0] ? { color: '#1ed760', display: 'block' } :
                                     !soundPlay ? { display: 'none' } : {}}
                             />
                         </Button>
-                            {millisToMinutesAndSeconds(item.duration_ms)}
+                        {millisToMinutesAndSeconds(item.duration_ms)}
                     </Col>
                 </Row>
             </div>

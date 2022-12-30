@@ -46,12 +46,12 @@ function Artist() {
     }
 
     const fetchArtistAlbums = async () => {
-        const { items } = await fetchFromAPI(`artists/${id}/albums?limit=7`, token);
+        const { items } = await fetchFromAPI(`artists/${id}/albums?limit=10`, token);
         setArtistAlbums(items)
     }
 
     const fetchRelatedArtists = async () => {
-        const { artists } = await fetchFromAPI(`artists/${id}/related-artists`, token)
+        const { artists } = await fetchFromAPI(`artists/${id}/related-artists?limit=10`, token)
         setRelatedArtists(artists)
     }
 
@@ -62,7 +62,7 @@ function Artist() {
             fetchArtistAlbums();
             fetchRelatedArtists();
         }
-    }, [token])
+    }, [token, id])
 
     const { name, image, followers, genres: { genres } } = artistDetail;
 
@@ -132,13 +132,13 @@ function Artist() {
                             : <p className='hover_button'>see more</p>}
                     </Button>
 
-                    <Row className='mx-3 pt-4'>
-                        <PlaylistsCards state={artistAlbums} title='Discography' artistsName={true} image={true} linkURL={'albums'} artist={true} />
+                    <Row className='px-4 pt-4'>
+                        <PlaylistsCards state={artistAlbums} title='Discography' artistsName={true} image={true} linkURL={'albums'} artist={true} section={true}/>
                     </Row>
 
-                    <Container fluid className='pt-4 mx-3'>
+                    <Container fluid className='pt-4 px-4'>
                         <Row className='fs-2 fw-bold'> Fans also like </Row>
-                        <ArtistCards relatedArtists={relatedArtists} slice={7} />
+                        <ArtistCards relatedArtists={relatedArtists} section={true}/>
                     </Container>
                 </Container>
             </Stack>

@@ -16,23 +16,24 @@ function SearchBar() {
 
     useEffect(() => {
         { search.length == 0 && navigate('/search', { replace: true }) }
-      }, [search])
+    }, [search])
 
     return (
         <>
             <Stack style={{ backgroundColor: '#1a0229', minHeight: '100vh' }}>
                 <InputGroup className='w-50 mx-5 my-3 py-2'>
-                    <Button variant='link' className='bg-white text-black border-0 fs-6'>
+                    <Button variant='link' className='bg-white text-black 
+                    border-0 fs-6'>
                         <BsSearch className='mb-1' />
                     </Button >
-                    <Form.Control type='search' value={search}
+                    <Form.Control value={search}
                         placeholder='What do you want to listen to?'
                         className='border-0 shadow-none fs-6 outline-light'
                         onChange={(e) => setSearch(e.target.value)} />
-                    <Button variant='link' className='bg-white text-black border-0 fs-6'
-                        onClick={e => setSearch('')}>
-                        <TfiClose className={`${search === '' && 'd-none'} mb-1`} />
-                    </Button >
+                    <Button variant='link' onClick={() => setSearch('')}
+                        className='bg-white text-black'>
+                        {search.length !== 0 && <TfiClose />}
+                    </Button>
                 </InputGroup>
                 <Outlet />
             </Stack>

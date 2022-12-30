@@ -12,7 +12,7 @@ function SearchShows() {
     const [searchShows, setSearchShows] = useState<any>([])
 
     const fetchSearchShows = async () => {
-        const { shows: { items } } = await fetchFromAPI(`search?q=${search}&type=show&limit=7`, token)
+        const { shows: { items } } = await fetchFromAPI(`search?q=${search}&type=show&limit=10`, token)
         setSearchShows(items)
     }
 
@@ -34,7 +34,7 @@ function SearchShows() {
                 className="border-bottom border-secondary pb-5 mb-5">
                 <PlaylistsCards state={searchShows} title={'Podcasts & Shows'}
                     image={true} artistsName={false} linkURL={'show'}
-                    sectionID={'show'}
+                    sectionID={'show'} section={true}
                     categoriesName={searchShows[0]?.name.slice(0, 10)} />
             </Container>
         </>

@@ -4,16 +4,20 @@ import { Link } from 'react-router-dom'
 
 interface IArtist {
     relatedArtists: any,
-    slice?: number
+    slice?: number,
+    section?: boolean
 }
 
-function ArtistCards({ relatedArtists, slice }: IArtist) {
+function ArtistCards({ relatedArtists, slice, section }: IArtist) {
     return (
         <>
-            <Row className='my-4'>
+            <Row className='py-4' style={section ? {
+                display: 'flax',
+                flexWrap: 'wrap', overflow: 'hidden', height: '340px'
+            } : {}}>
                 {relatedArtists.slice(0, slice)?.map((item: any, idx: number) => {
                     return (
-                        <Col xs="auto" key={idx} className='mb-3 me-2'>
+                        <Col xs="auto" key={idx} className='mb-5 me-2'>
                             <Link to={`/artist/${item.id}`}
                                 className="text-decoration-none text-white">
                                 <Card className='hover_carts' style={{

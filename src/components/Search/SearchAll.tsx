@@ -78,22 +78,22 @@ function SearchAll() {
 
         <Row className='mt-5 ms-4'>
           <span className='text-white fw-bold fs-3'>Artists</span>
-          <ArtistCards relatedArtists={searchAll.artists?.items} slice={7} />
+          <ArtistCards relatedArtists={searchAll.artists?.items} section={true} />
         </Row>
 
         <Row className='mt-3 ms-4'>
           <PlaylistsCards state={searchAll.albums?.items} title={'Albums'}
-            artistsName={true} image={true} linkURL={'albums'} slice={7} />
+            artistsName={true} image={true} linkURL={'albums'} section={true} />
         </Row>
 
         <Row className='mt-3 ms-4'>
           <PlaylistsCards state={searchAll.playlists?.items} title={'Playlists'}
-            artistsName={false} image={true} linkURL={'playlists'} slice={7} />
+            artistsName={false} image={true} linkURL={'playlists'} section={true} />
         </Row>
 
         <Row className='mt-3 ms-4'>
           <PlaylistsCards state={searchAll.episodes?.items} title={'Episodes'}
-            artistsName={false} image={true} linkURL={'episode'} slice={7} />
+            artistsName={false} image={true} linkURL={'episode'} section={true}/>
         </Row>
       </Container>
     </>

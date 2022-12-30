@@ -66,7 +66,8 @@ function PlaylistsContent({ idx, item }: IContent) {
         src: item.track ? [item?.track.preview_url] : [item.preview_url],
         html5: true,
         preload: true,
-        volume: 1.0
+        volume: 0.5,
+        onend: function () { setSoundPlay(false) }
     })
 
     const PlayPause = () => {

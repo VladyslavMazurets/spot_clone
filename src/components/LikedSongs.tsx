@@ -5,12 +5,13 @@ import { Context } from '../context'
 import { fetchFromAPI } from '../utils/fetchFromAPI'
 import PlaylistsContent from './const/PlaylistsContent'
 import TrackHeader from './const/TrackHeader'
+import Loader from './Loader'
 
 function LikedSongs() {
 
   const { token } = useContext(Context)
   const [userName, setUserName] = useState({})
-  const [userTopTracks, setUserTopTracks] = useState<any>([])
+  const [userLikedTracks, setUserLikedTracks] = useState<any>([])
 
   const fetchUserName = async () => {
     const { display_name } = await fetchFromAPI('me', token)
@@ -19,7 +20,7 @@ function LikedSongs() {
 
   const fetchUserTopTracks = async () => {
     const { items } = await fetchFromAPI('me/tracks?limit=50', token)
-    setUserTopTracks(items)
+    setUserLikedTracks(items)
   }
 
   useEffect(() => {
@@ -28,6 +29,8 @@ function LikedSongs() {
       fetchUserName();
     }
   }, [token])
+
+  if(!userLikedTracks.length) return <Loader bgColor='#1a0229'/>
 
   return (
     <>
@@ -47,13 +50,13 @@ function LikedSongs() {
             }}>
               Liked Songs
             </span>
-            <span> {`${userName} • ${Object.keys(userTopTracks).length} songs`}</span>
+            <span> {`${userName} • ${Object.keys(userLikedTracks).length} songs`}</span>
           </div>
         </div>
 
         <div className='pt-5 pb-5 mb-5 px-4 border-bottom border-secondary'>
           <TrackHeader album={'album'} date={'date added'} />
-          {userTopTracks?.map((item: any, idx: number) => {
+          {userLikedTracks?.map((item: any, idx: number) => {
             return (
               <PlaylistsContent key={idx} item={item} idx={idx} />
             )

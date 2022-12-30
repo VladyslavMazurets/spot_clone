@@ -17,17 +17,18 @@ interface ICards {
     linkURL?: string,
     navURL?: string,
     artist?: boolean,
-    categoriesName?: string
+    categoriesName?: string,
+    section?: boolean
 }
 
 function PlaylistsCards({ state, title, artistsName, image, slice, sectionID,
-    linkURL, artist, categoriesName, navURL }: ICards) {
+    linkURL, artist, categoriesName, navURL, section }: ICards) {
 
     const { token } = useContext(Context);
 
     return (
         <>
-            <Stack direction='horizontal' gap={1}>
+            <Stack direction='horizontal'>
                 <div className='text-white fs-2 fw-bold text-capitalize'>
                     {title}
                 </div>
@@ -38,17 +39,20 @@ function PlaylistsCards({ state, title, artistsName, image, slice, sectionID,
                             textTransform: 'uppercase', color: '#c8c7c9',
                             fontSize: '1.05rem'
                         }}>
-                            See all
+                            Show all
                         </Link>
                         : ''
                     }
                 </div>
             </Stack>
-            <Row className='px-1 mt-4'>
+            <Row className='px-1 mt-4' style={section ? {
+                display: 'flax',
+                flexWrap: 'wrap', overflow: 'hidden', height: '340px'
+            } : {}}>
                 {state.length !== 0 ?
                     state?.slice(0, slice).map((data: any, idx: number) => {
                         return (
-                            <Col xs="auto" key={idx} className='mb-4'>
+                            <Col xs="auto" key={idx} className='mb-5'>
                                 <Link to={`/${linkURL}/${data?.id}${data?.album ? `/artist/${data.artists[0]?.id}/album/${data.album?.id}/${data.artists[0]?.name}/${data?.name}` : ''}`}
                                     className="text-decoration-none">
                                     <Card className='hover_carts' style={{

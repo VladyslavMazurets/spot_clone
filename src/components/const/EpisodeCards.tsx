@@ -74,7 +74,6 @@ function EpisodeCards({ description, img, name, release, time, id,
                     </div>
                 </Stack>
             </Link>
-            {console.log(sound.playing())}
         </>
     )
 }

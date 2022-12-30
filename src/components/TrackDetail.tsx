@@ -42,9 +42,13 @@ function TrackDetail() {
 
     const fetchTrackDetail = async () => {
         const { name, duration_ms, album: { release_date, images: [{ url }] },
-            artists, album, preview_url } = await fetchFromAPI(`tracks/${id}`, token);
+            artists, album, preview_url }
+            = await fetchFromAPI(`tracks/${id}`, token);
 
-        setTrackDetail({ name, duration_ms, release_date, url, artists, album, preview_url })
+        setTrackDetail({
+            name, duration_ms, release_date, url, artists, album,
+            preview_url, id
+        })
     };
 
     const fetchArtist = async () => {
@@ -78,8 +82,7 @@ function TrackDetail() {
     const { items, label, text } = albumTrack;
 
     useEffect(() => {
-        let ignore = false;
-        if (token && !ignore) {
+        if (token) {
             fetchTrackDetail();
             fetchArtistTopTrack();
             fetchAlbum();
@@ -87,7 +90,6 @@ function TrackDetail() {
             fetchArtist();
             fetchLyrics();
         }
-        return () => { ignore = true }
     }, [token])
 
     if (!trackDetail.name) return <Loader bgColor={`#1a0229`} />
@@ -129,7 +131,8 @@ function TrackDetail() {
                                     <img src={`${artistAvatar}`} alt="Artist Avatar"
                                         className='rounded-circle me-4' width="120px"
                                         height="120px" />
-                                    <span className='fw-bolder'>ARTIST
+                                    <span className='fw-bolder'>
+                                        ARTIST
                                         <p className='fw-bold fs-5 hover_artists_name'>
                                             {trackDetail.artists[0].name}
                                         </p>
