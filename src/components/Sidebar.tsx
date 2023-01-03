@@ -1,5 +1,7 @@
 import React, { useEffect, useContext } from 'react'
-import { Stack } from 'react-bootstrap';
+import { Button, Stack } from 'react-bootstrap';
+import {BsLinkedin, BsGithub, BsTelegram} from 'react-icons/bs'
+import {SiGmail} from 'react-icons/si'
 
 import { ImSpotify } from 'react-icons/im';
 import { Link, NavLink, Outlet } from 'react-router-dom';
@@ -49,7 +51,7 @@ function Sidebar() {
         <div>
           <CDBSidebar backgroundColor="#170124" maxWidth='300px'>
             <CDBSidebarHeader prefix={<i className="fa fa-bars" style={{
-              paddingTop: '0.8rem', fontSize: '1.3rem'
+              paddingTop: '0.8rem', fontSize: '1.3rem',
             }} />} >
               <Link to='/' style={{
                 textDecoration: 'none', color: 'white',
@@ -72,7 +74,7 @@ function Sidebar() {
                   </CDBSidebarMenuItem>
                 </NavLink>
                 <NavLink to='/library' style={Active}>
-                  <CDBSidebarMenuItem icon='music library' className='hover_sidebar_button'>
+                  <CDBSidebarMenuItem icon='music' className='hover_sidebar_button'>
                     Liked Songs
                   </CDBSidebarMenuItem>
                 </NavLink>
@@ -104,6 +106,29 @@ function Sidebar() {
                   }
                 </CDBSidebarMenuItem>
               </CDBSidebarMenu>
+
+             <div className='d-flex flex-column justify-content-center mt-5'>
+              <Button variant='link' className='fs-5 text-muted hover_sidebar_button'
+              onClick={() =>
+                window.open('https://www.linkedin.com/in/vladyslav-mazurets-00b9b8257/')}>
+                <BsLinkedin /> 
+              </Button>
+              <Button className='fs-5 text-muted hover_sidebar_button'
+               variant='link' href='mailto:vladmazurec@gmail.com' 
+              target='_blank'>
+                <SiGmail /> 
+              </Button>
+              <Button className='fs-5 text-muted hover_sidebar_button'
+               variant='link' onClick={() => window.open('https://github.com/VladyslavMazurets')}>
+                <BsGithub /> 
+              </Button>
+              <Button variant='link' 
+              className='fs-5 text-muted hover_sidebar_button' 
+              onClick={() => window.open('https://t.me/Shaman_K1ng')}>
+              <BsTelegram /> 
+              </Button>
+             </div>
+
             </CDBSidebarContent>
           </CDBSidebar>
         </div>

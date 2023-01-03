@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { Link } from "react-router-dom";
 
-import { Card, Col, Row, Stack } from 'react-bootstrap';
+import { Card, Col, Container, Row, Stack } from 'react-bootstrap';
 
 import Loader from '../Loader';
 import { Context } from '../../context';
@@ -28,6 +28,7 @@ function PlaylistsCards({ state, title, artistsName, image, slice, sectionID,
 
     return (
         <>
+        <div className='mb-4'>
             <Stack direction='horizontal'>
                 <div className='text-white fs-2 fw-bold text-capitalize'>
                     {title}
@@ -47,7 +48,7 @@ function PlaylistsCards({ state, title, artistsName, image, slice, sectionID,
             </Stack>
             <Row className='px-1 mt-4' style={section ? {
                 display: 'flax',
-                flexWrap: 'wrap', overflow: 'hidden', height: '340px'
+                flexWrap: 'wrap', overflow: 'hidden', height: '315px'
             } : {}}>
                 {state.length !== 0 ?
                     state?.slice(0, slice).map((data: any, idx: number) => {
@@ -96,7 +97,8 @@ function PlaylistsCards({ state, title, artistsName, image, slice, sectionID,
                         )
                     }) : <Loader height='450px' />}
             </Row>
-        </>
+            </div>
+            </>
     )
 }
 

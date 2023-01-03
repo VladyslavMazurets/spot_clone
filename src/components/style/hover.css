@@ -26,8 +26,8 @@
 }
 
 .hover_sidebar_button:hover {
-    color: white;
-    transition: 0.3s;
+    color: white !important;
+    transition: 0.3s !important;
 }
 
 .hover_like:hover {
