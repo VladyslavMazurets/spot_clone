@@ -21,7 +21,7 @@ The library is used to play tracks Howler.js. howler.js is an audio library for 
 
 - ReactJS and TypeScript
 - Using React Bootstrap, React Router, React Icons, React Spinners, Cdbreact
-- Fetching data from unlimited sources using RapidAPI.
+- Fetching data from unlimited sources using Rest API.
 - The authorization process through the Spotify system
 - Howler.js audio library. 
 
