@@ -23,6 +23,8 @@ The library is used to play tracks Howler.js. howler.js is an audio library for 
 
 ## ------- In this program, it is possible to add tracks to "Liked songs" or remove them from there. This function affects your data in Spotify (when you add or remove tracks, they will also be added or removed in your Spotify account) -------
 
+![Uploading image.png…]()
+
 ### In this project, i used:
 
 - ReactJS and TypeScript
