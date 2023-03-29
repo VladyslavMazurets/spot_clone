@@ -1,5 +1,8 @@
 # Spotify CLone
 
+![image](https://user-images.githubusercontent.com/47516691/228567914-5fb93fdd-c2be-4912-94f6-b697794ef66c.png)
+
+
 ## Alive site: https://spot-clone-xi.vercel.app/
 
 This is React-Spotify app, a React front-end client that communicates with the Spotify API.
