@@ -17,7 +17,7 @@ function Music() {
   const [recommendations, setRecommendations] = useState<any[]>([]);
 
   const fetchNewReleases = async () => {
-    const { data: {albums} } = await fetchFromAPI('browse/new-releases?country=US&limit=34', token);
+    const { albums } = await fetchFromAPI('browse/new-releases?country=US&limit=34', token);
     setNewReleases(albums?.items);
   }
 
@@ -37,18 +37,10 @@ function Music() {
   }
   useEffect(() => {
     if (token) {
-      axios({
-        method: 'get',
-        url: 'https://api.spotify.com/v1/me',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-      }}).then(res => console.log(res))
-      // fetchNewReleases();
-      // fetchFeaturedPlaylists();
-      // fetchCategories();
-      // fetchRecommendations();
+      fetchFeaturedPlaylists();
+      fetchNewReleases();
+      fetchCategories();
+      fetchRecommendations();
     }
   }, [token])
 

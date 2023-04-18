@@ -51,7 +51,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Sidebar />}>
              <Route index element={<Music />} />
-             {/* <Route path='search' element={<SearchBar />}>
+             <Route path='search' element={<SearchBar />}>
               <Route index element={<SearchIntro />} />
               <Route path='all' element={<SearchAll />} />
               <Route path='songs' element={<SearchSongs />} />
@@ -70,7 +70,7 @@ function App() {
             <Route path='artist/:id' element={<Artist />} />
             <Route path='genre/:categoriesName/:id' element={<Genre />} />
             <Route path='episode/:id' element={<Episode />} />
-            <Route path='show/:id' element={<Show />} />  */}
+            <Route path='show/:id' element={<Show />} /> 
           </Route>
         </Routes>
       </Context.Provider>

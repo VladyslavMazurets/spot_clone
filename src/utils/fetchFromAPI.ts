@@ -6,7 +6,7 @@ const BASE_URL_LYRICS = 'https://cors-anywhere.herokuapp.com/https://api.musixma
 
 export const fetchFromAPI = async (url: string, token: string | null) => {
 
-    const  data   = await axios({
+    const {data}  = await axios({
         method: "get",
         url: `${BASE_URL}/${url}`,
         headers: {
@@ -23,7 +23,7 @@ export const fetchFromAPI = async (url: string, token: string | null) => {
                 confirmButtonText: 'OK'
             })
         }
-        console.log('Error', error.message)
+        console.log('Error:', error.message)
     });
     return data;
 }

@@ -22,7 +22,7 @@ const {
 const Active = ({ isActive }: any) => ({ color: isActive ? 'white' : '#656566' })
 const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
 const CLIENT_SECRET = process.env.REACT_APP_CLIENT_SECRET;
-const REDIRECT_URI = "http://localhost:3000";
+const REDIRECT_URI = "https://spot-clone-xi.vercel.app "; //http://localhost:3000
 const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
 
 const loginURL = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}
@@ -60,11 +60,12 @@ function Sidebar() {
   useEffect(() => {
     const href: string = window.location.href;
     let codeGet: string = window.localStorage.getItem("code")!;
+    window.history.replaceState({}, document.title, document.location.origin);
 
     if (!codeGet && href) {
       codeGet = href.split("?").find((elem: any) => elem.startsWith("code"))?.split("=")[1]!
 
-      window.location.href = ""
+      window.history.replaceState({}, document.title, document.location.origin);
       codeGet && window.localStorage.setItem("code", codeGet)
     }
     setCode(codeGet)
