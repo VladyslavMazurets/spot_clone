@@ -6,6 +6,9 @@ import {SiGmail} from 'react-icons/si'
 import { ImSpotify } from 'react-icons/im';
 import { Link, NavLink, Outlet } from 'react-router-dom';
 import { Context } from '../context';
+import axios from 'axios';
+import {decode as base64_decode, encode as base64_encode} from 'base-64';
+
 
 const {
   CDBSidebar,
@@ -18,32 +21,60 @@ const {
 
 const Active = ({ isActive }: any) => ({ color: isActive ? 'white' : '#656566' })
 const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
-const REDIRECT_URI = "https://spot-clone-xi.vercel.app/";
+const CLIENT_SECRET = process.env.REACT_APP_CLIENT_SECRET;
+const REDIRECT_URI = "http://localhost:3000";
 const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
 
-const loginURL = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&scope=user-library-read,user-library-modify&response_type=token`;
+const loginURL = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}
+&redirect_uri=${REDIRECT_URI}&response_type=code
+&scope=user-library-read,user-library-modify,user-read-private
+&response_type=token`;
 
 function Sidebar() {
 
-  const { token, setToken } = useContext(Context);
+  const {code, setCode, setToken, token } = useContext(Context);
 
   const logout = () => {
     setToken("")
+    setCode("")
     window.localStorage.removeItem("token")
+    window.localStorage.removeItem("code")
+  }
+
+  const getToken = async (code: string) => { 
+    const res = await axios.post(
+      'https://accounts.spotify.com/api/token',
+      `grant_type=authorization_code&code=${code}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}`,
+      {
+        headers: {
+          Authorization: `Basic ${base64_encode(`${CLIENT_ID}:${CLIENT_SECRET}`)}`,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      }
+    );
+    res && localStorage.setItem("token", res.data.access_token)
+    setToken(res.data.access_token);
+    console.log("TOKEN RES", res)//.data.access_token
   }
 
   useEffect(() => {
-    const hash: string = window.location.hash!;
-    let token: string = window.localStorage.getItem("token")!;
+    const href: string = window.location.href;
+    let codeGet: string = window.localStorage.getItem("code")!;
 
-    if (!token && hash) {
-      token = hash.substring(1).split("&").find((elem: any) => elem.startsWith("access_token"))?.split("=")[1]!
+    if (!codeGet && href) {
+      codeGet = href.split("?").find((elem: any) => elem.startsWith("code"))?.split("=")[1]!
 
-      window.location.hash = ""
-      window.localStorage.setItem("token", token)
+      window.location.href = ""
+      codeGet && window.localStorage.setItem("code", codeGet)
     }
-    setToken(token)
+    setCode(codeGet)
   }, [])
+
+  useEffect(() => {
+    setToken(localStorage.getItem("token")!)
+    if(code && !token)
+     getToken(code);
+  }, [code])
 
   return (
     <>

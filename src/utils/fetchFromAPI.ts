@@ -6,7 +6,7 @@ const BASE_URL_LYRICS = 'https://cors-anywhere.herokuapp.com/https://api.musixma
 
 export const fetchFromAPI = async (url: string, token: string | null) => {
 
-    const { data } = await axios({
+    const  data   = await axios({
         method: "get",
         url: `${BASE_URL}/${url}`,
         headers: {
@@ -15,7 +15,7 @@ export const fetchFromAPI = async (url: string, token: string | null) => {
             'Authorization': `Bearer ${token}`
         },
     }).catch(function (error: any) {
-        if (error.response.status == 401) {
+        if (error.response.status === 401) {
             Swal.fire({
                 title: 'Bad or expired token!',
                 text: 'Please authenticate the user again.',
@@ -25,7 +25,6 @@ export const fetchFromAPI = async (url: string, token: string | null) => {
         }
         console.log('Error', error.message)
     });
-
     return data;
 }
 

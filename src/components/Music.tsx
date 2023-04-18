@@ -5,6 +5,7 @@ import { Context } from '../context';
 import { fetchFromAPI } from '../utils/fetchFromAPI';
 import PlaylistsCards from './const/PlaylistsCards';
 import Loader from './Loader';
+import axios from 'axios';
 
 function Music() {
 
@@ -16,31 +17,38 @@ function Music() {
   const [recommendations, setRecommendations] = useState<any[]>([]);
 
   const fetchNewReleases = async () => {
-    const { albums } = await fetchFromAPI('browse/new-releases?country=US&limit=34', token);
-    setNewReleases(albums.items);
+    const { data: {albums} } = await fetchFromAPI('browse/new-releases?country=US&limit=34', token);
+    setNewReleases(albums?.items);
   }
 
   const fetchFeaturedPlaylists = async () => {
     const { playlists } = await fetchFromAPI('browse/featured-playlists?country=US&limit=34', token);
-    setFeaturedPlaylists(playlists.items);
+    setFeaturedPlaylists(playlists?.items);
   }
 
   const fetchCategories = async () => {
     const { playlists } = await fetchFromAPI('browse/categories/0JQ5DAqbMKFQ00XGBls6ym/playlists?country=US&limit=34', token);
-    setCategories(playlists.items);
+    setCategories(playlists?.items);
   }
 
   const fetchRecommendations = async () => {
     const { tracks } = await fetchFromAPI('recommendations?country=US&limit=34&seed_genres=hip-hop&min_popularity=70&max_popularity=100', token);
     setRecommendations(tracks);
   }
-
   useEffect(() => {
     if (token) {
-      fetchNewReleases();
-      fetchFeaturedPlaylists();
-      fetchCategories();
-      fetchRecommendations();
+      axios({
+        method: 'get',
+        url: 'https://api.spotify.com/v1/me',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+      }}).then(res => console.log(res))
+      // fetchNewReleases();
+      // fetchFeaturedPlaylists();
+      // fetchCategories();
+      // fetchRecommendations();
     }
   }, [token])
 

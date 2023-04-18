@@ -6,9 +6,12 @@ interface IContext {
     
     search: string,
     setSearch: (val: string) => void,
+
+    code: string,
+    setCode:(val: string) => void,
 }
 
 export const Context = React.createContext<IContext>({
-    token: '',
-    setToken() { },  search: '', setSearch() { }
+    token: '', setToken() { },  search: '', setSearch() { }, code: '',
+     setCode() {}
 })

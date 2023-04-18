@@ -21,6 +21,7 @@ import SearchAlbums from './components/Search/SearchAlbums';
 import SearchShows from './components/Search/SearchShows';
 import Show from './components/Show';
 import SearchPlaylists from './components/Search/SearchPlaylists';
+import axios from 'axios';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -35,11 +36,13 @@ function ScrollToTop() {
 function App() {
 
   const [token, setToken] = useState<string>("");
+  const [code, setCode] = useState<string>("");
   const [search, setSearch] = useState('')
 
   const providerValue = useMemo(() => ({
-    token, setToken, search, setSearch
-  }), [token, search, setSearch])
+    token, setToken, search, setSearch, code, setCode
+  }), [token, code, search, setSearch])
+  
 
   return (
     <>
@@ -47,8 +50,8 @@ function App() {
         <ScrollToTop />
         <Routes>
           <Route path='/' element={<Sidebar />}>
-            <Route index element={<Music />} />
-            <Route path='search' element={<SearchBar />}>
+             <Route index element={<Music />} />
+             {/* <Route path='search' element={<SearchBar />}>
               <Route index element={<SearchIntro />} />
               <Route path='all' element={<SearchAll />} />
               <Route path='songs' element={<SearchSongs />} />
@@ -67,7 +70,7 @@ function App() {
             <Route path='artist/:id' element={<Artist />} />
             <Route path='genre/:categoriesName/:id' element={<Genre />} />
             <Route path='episode/:id' element={<Episode />} />
-            <Route path='show/:id' element={<Show />} />
+            <Route path='show/:id' element={<Show />} />  */}
           </Route>
         </Routes>
       </Context.Provider>
