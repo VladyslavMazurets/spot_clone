@@ -30,8 +30,6 @@ function LikedSongs() {
     }
   }, [token])
 
-  if(!userLikedTracks.length) return <Loader bgColor='#1a0229'/>
-
   return (
     <>
       <Stack style={{ backgroundColor: '#1a0229', minHeight: '100vh' }}>
@@ -54,6 +52,7 @@ function LikedSongs() {
           </div>
         </div>
 
+{ userLikedTracks.length ?
         <div className='pt-5 pb-5 mb-5 px-4 border-bottom border-secondary'>
           <TrackHeader album={'album'} date={'date added'} />
           {userLikedTracks?.map((item: any, idx: number) => {
@@ -63,6 +62,10 @@ function LikedSongs() {
           })
           }
         </div>
+      : <Loader 
+          bgColor='#1a0229' 
+           title={`you don't have any favorite tracks at the moment, add your first favorite track to see it here`}/>
+}
       </Stack>
     </>
   )
